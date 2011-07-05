@@ -1,0 +1,5 @@
+/*
+ * Ava
+ */
+function Ava() {}
+
