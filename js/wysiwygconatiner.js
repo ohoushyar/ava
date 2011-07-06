@@ -3,7 +3,7 @@
  *
  * TODO: Accept time as '4/4' or '6/8' ...
  */
-Ava.WysiwygContainer = function (clef, measures, containerDiv) {
+Ava.WysiwygContainer = function (clef, measures, numBeat, beatValue, containerDiv) {
     // Add vex-canvas
     $(containerDiv).html('<div id="vex-canvas"></div><div id="error-msg"></div>');
 
@@ -11,10 +11,12 @@ Ava.WysiwygContainer = function (clef, measures, containerDiv) {
     this.y = 0;
 
     this.measures = measures;
+    this.numBeat = numBeat || 4;
+    this.beatValue = beatValue || 4;
     this.clef = clef;
     this.time = {
-        num_beats: this.measures * 4,
-        beat_value: 4,
+        num_beats: this.measures * this.numBeat,
+        beat_value: this.beatValue,
         resolution: Vex.Flow.RESOLUTION,
     };
 
@@ -64,11 +66,22 @@ Ava.WysiwygContainer.prototype.draw = function () {
     this.stave.draw();
 
     this.voice = new Vex.Flow.Voice(this.time).setStrict(true);
-    this.voice.addTickables(this.tickables);
+    try {
+        this.voice.addTickables(this.tickables);
 
     var formatter = new Vex.Flow.Formatter().joinVoices([this.voice]).formatToStave([this.voice], this.stave);
 
-    this.voice.draw(this.ctx, this.stave);
+    }
+    catch (e) {
+        $("#error-msg").html('<span class="error">' + e + '</span>');
+    }
+
+    try {
+        this.voice.draw(this.ctx, this.stave);
+    }
+    catch (e) {
+        $("#error-msg").html('<span class="error">' + e.message + '</span>');
+    }
 };
 
 
