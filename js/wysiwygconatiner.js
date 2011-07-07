@@ -3,25 +3,25 @@
  *
  * TODO: Accept time as '4/4' or '6/8' ...
  */
-Ava.WysiwygContainer = function (clef, measures, numBeat, beatValue, containerDiv) {
-    // Add vex-canvas
-    $(containerDiv).html('<div id="vex-canvas"></div><div id="error-msg"></div>');
+Ava.WysiwygContainer = function (clef, initNumOfMeasures, numBeat, beatValue, containerDivId) {
+    // Add vex-canvas and Error handler div
+    $("#"+containerDivId).html('<div id="vex-canvas"></div><div class="error" id="error-msg"></div>');
 
     this.x = 10;
     this.y = 0;
 
-    this.measures = measures;
+    this.numOfMeasures = initNumOfMeasures;
     this.numBeat = numBeat || 4;
     this.beatValue = beatValue || 4;
     this.clef = clef;
     this.time = {
-        num_beats: this.measures * this.numBeat,
+        num_beats: this.numOfMeasures * this.numBeat,
         beat_value: this.beatValue,
         resolution: Vex.Flow.RESOLUTION,
     };
 
     this.measureWidth = 250;
-    this.width = this.measureWidth * this.measures;
+    this.width = this.measureWidth * this.numOfMeasures;
 
     this.canvas = $('#vex-canvas')[0]; 
 
@@ -63,24 +63,18 @@ Ava.WysiwygContainer.prototype.setTickables = function (tickables) {
  * draw
  */
 Ava.WysiwygContainer.prototype.draw = function () {
-    this.stave.draw();
-
-    this.voice = new Vex.Flow.Voice(this.time).setStrict(true);
     try {
+        this.stave.draw();
+
+        this.voice = new Vex.Flow.Voice(this.time).setStrict(true);
         this.voice.addTickables(this.tickables);
 
-    var formatter = new Vex.Flow.Formatter().joinVoices([this.voice]).formatToStave([this.voice], this.stave);
+        var formatter = new Vex.Flow.Formatter().joinVoices([this.voice]).formatToStave([this.voice], this.stave);
 
-    }
-    catch (e) {
-        $("#error-msg").html('<span class="error">' + e + '</span>');
-    }
-
-    try {
         this.voice.draw(this.ctx, this.stave);
     }
     catch (e) {
-        $("#error-msg").html('<span class="error">' + e.message + '</span>');
+        $("#error-msg").html(e.code + ': ' + e.message);
     }
 };
 
