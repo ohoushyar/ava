@@ -1,19 +1,14 @@
-var container;
-
 /*
  * run
  */
 function run() {
     var clef = "treble";
     var containerDivId = "music_wysiwyg";
-    var measures = 2;
+    var measures = 1;
     var numBeat = 4;
     var beatValue = 4;
 
     var tickables = [
-            { type: 'note', value: { keys: ["d/5"], duration: "wr" } },
-            { type: 'bar-note' },
-
             { type: 'note', value: { keys: ["d/4"], duration: "q" } },
             { type: 'note', value: { keys: ["b/4"], duration: "qr" } },
             { type: 'note', value: { keys: ["c/4"], duration: "q" } },
@@ -22,7 +17,13 @@ function run() {
 
         ];
 
-    container = new Ava.WysiwygContainer(clef, measures, numBeat, beatValue, containerDivId);
+    var container = Ava.WysiwygContainer({
+                clef: clef,
+                initNumOfMeasures: measures,
+                numBeat: numBeat,
+                beatValue: beatValue,
+                containerDivId: containerDivId,
+            });
     container.setTickables(tickables);
     container.draw();
 }
