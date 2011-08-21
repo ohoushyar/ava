@@ -13,7 +13,6 @@ function run() {
             { type: 'note', value: { keys: ["b/4"], duration: "qr" } },
             { type: 'note', value: { keys: ["c/4"], duration: "q" } },
             { type: 'note', value: { keys: ["d/4"], duration: "q" } },
-            { type: 'bar-note' },
 
         ];
 
@@ -24,7 +23,6 @@ function run() {
                 beatValue: beatValue,
                 containerDivId: containerDivId,
             });
-    container.setTickables(tickables);
     container.draw();
 }
 
