@@ -22,7 +22,51 @@ Ava.WysiwygContainer = function (spec) {
         renderer,
         ctx,
         cursor;
+    var cursorPosition = {x: 0, y:0};
 
+
+
+    // Add vex-canvas and Error handler div and other divs
+    var html_content = '<div id="tool-bar"></div>';
+    html_content += '<div id="vex-canvas"></div>';
+    html_content += '<div class="error" id="error-msg"></div>';
+    html_content += '<div id="tools"></div>';
+    html_content += '<div id="verbose-info"></div>';
+    $("#"+containerDivId).html(html_content);
+
+    $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
+
+    canvas = $('#vex-canvas')[0]; 
+
+    // Init
+    renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
+    ctx = renderer.getContext();
+    cursor = Ava.Cursor({
+                    ctx: ctx,
+                    x: cursorPosition.x,
+                    y: cursorPosition.y,
+                });
+
+    /*
+     * toggleEditable
+     */
+    var toggleEditable = function() {
+        if (!editable) {
+            editable = true;
+            $('#add-measure').css( 'display', 'inline');
+            $('#vex-canvas').click( function (e) { 
+                        cursorPosition.x = e.pageX-containerOffset.left; 
+                        cursor.move(cursorPosition.x, cursorPosition.y);
+                    });
+            cursor.show();
+        }
+        else {
+            editable = false;
+            $("#add-measure").css( 'display', 'none');
+            $('#vex-canvas').unbind('click');
+            cursor.hide();
+        }
+    };
 
     /*
      * addMeasure
@@ -45,29 +89,15 @@ Ava.WysiwygContainer = function (spec) {
         redraw();  
     };
 
-    // Add vex-canvas and Error handler div
-    var html_content = '<div id="tool-bar"></div>';
-    html_content += '<div id="vex-canvas"></div>';
-    html_content += '<div class="error" id="error-msg"></div>';
-    html_content += '<div id="tools"></div>';
-    html_content += '<div id="verbose-info"></div>';
-    $("#"+containerDivId).html(html_content);
-
-    $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
-    $("#edit-toggle").click(toggleEditable);
-    $("#add-measure").click(addMeasure);
-    if (!editable)
-        $("#add-measure").css( 'display', 'none');
-
+    // Add events
     $('#vex-canvas').mousemove(function (e) {
             $('#verbose-info').html( e.pageX-containerOffset.left +', '+ (e.pageY-containerOffset.top) );
             });
-    canvas = $('#vex-canvas')[0]; 
+    $("#edit-toggle").click(toggleEditable);
+    $("#add-measure").click(addMeasure);
 
-    // Init
-    renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
-    ctx = renderer.getContext();
 
+    // Add initial measures
     var initMeasure = Ava.Measure({
                     clef: 'treble',
                     tickables: [
@@ -83,25 +113,18 @@ Ava.WysiwygContainer = function (spec) {
 
     $(canvas).css( 'width', containerWidth );
     $(canvas).css( 'height', '9em' );
-    $(canvas).css( {
-        backgroundColor: '#ffe', 
-        padding: '10px',
-        border: '5px solid #ccc',
-        //overflow: 'auto'
-        } );
+    $(canvas).css({
+            backgroundColor: '#ffe', 
+            padding: '10px',
+            border: '5px solid #ccc',
+            //overflow: 'auto'
+        });
 
-    cursor = Ava.Cursor({
-                ctx: ctx,
-                x: 0,
-                y: 0,
-            });
 
     /*
      * draw
      */
     var draw = function () {
-        cursor.hide();
-        
         for (var i=0; i < measures.length; i+=1){
             measures[i].draw();
         }
@@ -111,7 +134,18 @@ Ava.WysiwygContainer = function (spec) {
         containerOffset.top = $('#vex-canvas').offset().top;
         containerOffset.top = Math.floor(containerOffset.top);
 
-        cursor.show();
+        if (editable) {
+            // For some reason after ctx clear it's not possible to show the cursor
+            // again. So I need to recreate the object again. Might be able to 
+            // improve it later.
+            // Show the cursor again
+            cursor = Ava.Cursor({
+                        ctx: ctx,
+                        x: cursorPosition.x,
+                        y: cursorPosition.y,
+                    });
+            cursor.show();
+        }
     };
 
     /*
@@ -123,28 +157,12 @@ Ava.WysiwygContainer = function (spec) {
         draw();
     };
 
-    /*
-     * toggleEditable
-     */
-    var toggleEditable = function() {
-        if (!editable) {
-            editable = true;
-            $('#add-measure').css( 'display', 'inline');
-            $('#vex-canvas').click( function (e) { alert(e.pageX-containerOffset.left); });
-        }
-        else {
-            editable = false;
-            $("#add-measure").css( 'display', 'none');
-        }
-    };
-
     // Public Methods
     that.toggleEditable = toggleEditable;
     that.addMeasure     = addMeasure;
     that.draw           = draw;
     that.measures       = measures;
     that.ctx            = ctx;
-    that._cursor         = cursor;
 
     return that;
 };
