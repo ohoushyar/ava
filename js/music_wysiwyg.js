@@ -1,3 +1,5 @@
+var c ;
+
 /*
  * run
  */
@@ -24,10 +26,15 @@ function run() {
                 containerDivId: containerDivId,
             });
     container.draw();
+    container.toggleEditable();
+
+//    $("path").click(function (e) { alert( e.pageX ); } );
+
+    return container;
 }
 
 $(document).ready(function() {
-        run();
+        c = run();
     });
 
 
