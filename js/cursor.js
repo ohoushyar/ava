@@ -10,25 +10,24 @@ Ava.Cursor = function (spec) {
     var x = spec.x;
     var y = spec.y;
     var width = spec.width || 16.5;
-    var height = spec.height || 150;
+    var height = spec.height || 140;
 
     var rect = ctx.paper.rect(x, y, width, height);
-    rect.attr({fill:"rgba(200,0,0,0.4)", opacity: 0.5});
+    rect.attr({fill:"#000", opacity: 0.2});
     rect.hide();
 
-    var show = function () {
+    var move = function (x, y) {
+        rect.hide();
+        rect.attr({x: x, y: y});
         rect.show();
     };
-    var hide = function () {
-        rect.hide();
-    };
 
-    var move = function (x, y) {
-        return 1;
-    };
+    that._x = x;
+    that._y = y;
 
-    that.show = show;
-    that.hide = hide;
+    that.show = function () { rect.show() };
+    that.hide = function () { rect.hide() };
+    that.toFront = function () { rect.toFront() };
     that.move = move;
 
     return that;
