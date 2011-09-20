@@ -10,14 +10,6 @@ function run() {
     var numBeat = 4;
     var beatValue = 4;
 
-    var tickables = [
-            { type: 'note', value: { keys: ["d/4"], duration: "q" } },
-            { type: 'note', value: { keys: ["b/4"], duration: "qr" } },
-            { type: 'note', value: { keys: ["c/4"], duration: "q" } },
-            { type: 'note', value: { keys: ["d/4"], duration: "q" } },
-
-        ];
-
     var container = Ava.WysiwygContainer({
                 clef: clef,
                 initNumOfMeasures: measures,
@@ -27,8 +19,6 @@ function run() {
             });
     container.draw();
     container.toggleEditable();
-
-//    $("path").click(function (e) { alert( e.pageX ); } );
 
     return container;
 }

@@ -25,7 +25,6 @@ Ava.WysiwygContainer = function (spec) {
     var cursorPosition = {x: 0, y:0};
 
 
-
     // Add vex-canvas and Error handler div and other divs
     var html_content = '<div id="tool-bar"></div>';
     html_content += '<div id="vex-canvas"></div>';
@@ -100,6 +99,9 @@ Ava.WysiwygContainer = function (spec) {
     // Add initial measures
     var initMeasure = Ava.Measure({
                     clef: 'treble',
+                    showClef: true,
+                    keySignature: 'G',
+                    showTimeSignature: true,
                     tickables: [
                         new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }),
                         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }),

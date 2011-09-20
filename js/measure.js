@@ -8,17 +8,34 @@ Ava.Measure = function (spec) {
     var x = spec.x || 10;
     var y = spec.y || 0;
 
-    var width     = spec.width || 250;
-    var clef      = spec.clef;
-    var numBeat   = spec.numBeat || 4;
-    var beatValue = spec.beatValue || 4;
-    var tickables = spec.tickables;
     var ctx       = spec.ctx;
+    var width     = spec.width || 250;
+    var tickables = spec.tickables;
+
+    var clef = spec.clef;
+    var showClef = spec.showClef || false;
+
+    var keySignature = spec.keySignature;
+
+    var numBeat = spec.numBeat || 4;
+    var beatValue = spec.beatValue || 4;
+    var showTimeSignature = spec.showTimeSignature || false;
+
+    var timeSignature = numBeat + "/" + beatValue;
 
     var nextMeasure,
         prevMeasure,
         time,
         stave;
+
+    stave = new Vex.Flow.Stave(x, y, width);
+    stave.setContext(ctx);
+
+    var setWidth = function (newWidth) {
+        width = newWidth;
+        stave.setWidth(width);
+    };
+
 
     var errorContainer = "#error-msg";
 
@@ -28,10 +45,21 @@ Ava.Measure = function (spec) {
         resolution: Vex.Flow.RESOLUTION,
     };
 
-    stave = new Vex.Flow.Stave(x, y, width);
-    stave.setContext(ctx);
-    if (spec.clef !== undefined)
+    if (clef !== undefined && showClef) {
         stave.addClef(clef);
+        setWidth(width+15);
+    }
+
+    if (keySignature !== undefined) {
+        stave.addKeySignature(keySignature);
+        if (keySignature != "C")
+            setWidth(width+15);
+    }
+
+    if (showTimeSignature) {
+        stave.addTimeSignature(timeSignature);
+        setWidth(width+15);
+    }
 
     /*
      * addTickable
