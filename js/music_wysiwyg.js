@@ -3,14 +3,14 @@ var c ;
 /*
  * run
  */
-function run() {
+var run = function() {
     var clef = "treble";
     var containerDivId = "music_wysiwyg";
     var measures = 1;
     var numBeat = 4;
     var beatValue = 4;
 
-    var container = Ava.WysiwygContainer({
+    var container = Ava.Container({
                 clef: clef,
                 initNumOfMeasures: measures,
                 numBeat: numBeat,

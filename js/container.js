@@ -1,10 +1,10 @@
 /*
- * WysiwygContainer
+ * Container
  *
  * TODO: Accept time as '4/4' or '6/8' ...
  */
-Ava.WysiwygContainer = function (spec) {
-    var that = {};
+Ava.Container = function (spec) {
+    var that = Ava;
 
     // Private attributes
     var clef           = spec.clef;
