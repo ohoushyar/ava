@@ -1,5 +1,10 @@
 /*
  * Measure
+ *
+ * Bar (or measure) is a segment of time defined by a given number of
+ * beats, each of which are assigned a particular note value
+ * (https://en.wikipedia.org/wiki/Bar_%28music%29)
+ *
  */
 Ava.Measure = function (spec) {
     var that = {};
@@ -26,7 +31,9 @@ Ava.Measure = function (spec) {
     var nextMeasure,
         prevMeasure,
         time,
-        stave;
+        voice,
+        stave,
+        formatter;
 
     stave = new Vex.Flow.Stave(x, y, width);
     stave.setContext(ctx);
@@ -45,6 +52,23 @@ Ava.Measure = function (spec) {
         resolution: Vex.Flow.RESOLUTION,
     };
 
+    try {
+        voice = new Vex.Flow.Voice(time).setStrict(true);
+        voice.addTickables(tickables);
+    }
+    catch (e) {
+        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
+        throw e;
+    }
+
+
+    // Fill up the rest of measure with rest and flag it as removable
+    //
+    //
+    //
+    //
+    //
+
     if (clef !== undefined && showClef) {
         stave.addClef(clef);
         setWidth(width+15);
@@ -61,11 +85,19 @@ Ava.Measure = function (spec) {
         setWidth(width+15);
     }
 
+    var formatter = new Vex.Flow.Formatter();
+
     /*
      * addTickable
      */
     var addTickable = function(tickable) {
-        tickables.push(tickable);
+        if (!voice.isComplete()) {
+            // Push it to tickables if successfully added to voice
+            tickables.push(tickable);
+            voice.addTickables(tickable);
+        } else {
+            console.warn('Too many ticks');
+        }
     };
 
     /*
