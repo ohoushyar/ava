@@ -22,7 +22,7 @@ Ava.Container = function (spec) {
         renderer,
         ctx,
         cursor;
-    var cursorPosition = {x: 0, y:0};
+    var cursorPosition = {x: 0, y: 0};
 
 
     // Add vex-canvas and Error handler div and other divs
@@ -35,7 +35,7 @@ Ava.Container = function (spec) {
 
     $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
 
-    canvas = $('#vex-canvas')[0]; 
+    canvas = $('#vex-canvas')[0];
 
     // Init
     renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
@@ -96,7 +96,7 @@ Ava.Container = function (spec) {
             x += measures[i].width;
 
         var  measure = Ava.Measure({
-                        x: x, 
+                        x: x,
                         tickables: [ new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }), ],
                         ctx: ctx,
                     });
@@ -105,7 +105,7 @@ Ava.Container = function (spec) {
         // resize context based on new width
         ctx.resize(containerWidth);
         measures.push(measure);
-        redraw();  
+        redraw();
     };
 
     // Add events
@@ -136,7 +136,7 @@ Ava.Container = function (spec) {
     $(canvas).css( 'width', containerWidth );
     $(canvas).css( 'height', '9em' );
     $(canvas).css({
-            backgroundColor: '#ffe', 
+            backgroundColor: '#ffe',
             padding: '10px',
             border: '5px solid #ccc',
             //overflow: 'auto'
@@ -147,7 +147,7 @@ Ava.Container = function (spec) {
      * draw
      */
     var draw = function () {
-        for (var i=0; i < measures.length; i+=1){
+        for (var i=0; i < measures.length; i+=1) {
             measures[i].draw();
         }
 
@@ -157,9 +157,9 @@ Ava.Container = function (spec) {
         containerOffset.top = Math.floor(containerOffset.top);
 
         if (editable) {
-            // For some reason after ctx clear it's not possible to show the cursor
-            // again. So I need to recreate the object again. Might be able to 
-            // improve it later.
+            // For some reason after ctx clear it's not possible to show
+            // the cursor again. So I need to recreate the object again.
+            // Might be able to improve it later.
             // Show the cursor again
             cursor = Ava.Cursor({
                         ctx: ctx,

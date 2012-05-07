@@ -11,10 +11,9 @@
  * Key Signature
  * Time Signature
  * Measure : Ava.Measure
- * Stave 
+ * Stave
  *
  */
 Ava.Music = function () {
-    
 
 }
