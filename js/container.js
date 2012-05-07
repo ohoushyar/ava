@@ -46,6 +46,26 @@ Ava.Container = function (spec) {
                     y: cursorPosition.y,
                 });
 
+    var getMeasure = function(x) {
+        if (typeof x !== 'number') {
+            throw {
+                name: 'positionError',
+                message: 'Only number is accepted',
+            };
+        }
+
+        var measure;
+
+        for (var i=0; i < measures.length; i+=1) {
+            if (measures[i].x <= x)
+                measure = measures[i];
+            else
+                break;
+        }
+
+        return measure;
+    };
+
     /*
      * toggleEditable
      */
