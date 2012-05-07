@@ -123,10 +123,10 @@ Ava.Container = function (spec) {
                     keySignature: 'G',
                     showTimeSignature: true,
                     tickables: [
-                        new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }),
-                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }),
-                        new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }),
-                        new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }),
+                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
+                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }) }).note,
+                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }) }).note,
+                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
                     ],
                     ctx: ctx,
                 });
