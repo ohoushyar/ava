@@ -6,76 +6,46 @@
 Ava.Container = function (spec) {
     var that = Ava;
 
-    // Private attributes
-    var clef           = spec.clef;
-    var numBeat        = spec.numBeat || 4;
-    var beatValue      = spec.beatValue || 4;
-    var containerDivId = spec.containerDivId;
-
-    var containerWidth = 0;
-    // Container offset which would use to get mouse click position
-    var containerOffset = {top: 0, left: 0};
-    var editable = false;
-    var measures = [];
-
-    var canvas,
+    var clef,
+        numBeat,
+        beatValue,
+        containerDivId,
+        containerWidth,
+        containerOffset,
+        editable,
+        canvas,
         renderer,
-        ctx,
-        cursor;
-    var cursorPosition = {x: 0, y: 0};
+        cursor,
+        cursorPositio,
+        htmlContent;
 
-
-    // Add vex-canvas and Error handler div and other divs
-    var html_content = '<div id="tool-bar"></div>';
-    html_content += '<div id="vex-canvas"></div>';
-    html_content += '<div class="error" id="error-msg"></div>';
-    html_content += '<div id="tools"></div>';
-    html_content += '<div id="verbose-info"></div>';
-    $("#"+containerDivId).html(html_content);
-
-    $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
-
-    canvas = $('#vex-canvas')[0];
-
-    // Init
-    renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
-    ctx = renderer.getContext();
-    cursor = Ava.Cursor({
-                    ctx: ctx,
-                    x: cursorPosition.x,
-                    y: cursorPosition.y,
-                });
-
-    var getMeasure = function(x) {
-        if (typeof x !== 'number') {
-            throw {
-                name: 'positionError',
-                message: 'Only number is accepted',
-            };
-        }
-
-        var measure;
-
-        for (var i=0; i < measures.length; i+=1) {
-            if (measures[i].x <= x)
-                measure = measures[i];
-            else
-                break;
-        }
-
-        return measure;
-    };
+    // Public
+    that.measures;
+    that.ctx;
+    // Public Methods
+    that.toggleEditable;
+    that.addMeasure;
 
     /*
      * toggleEditable
      */
-    var toggleEditable = function() {
+    that.toggleEditable = function() {
         if (!editable) {
             editable = true;
             $('#add-measure').css( 'display', 'inline');
-            $('#vex-canvas').click( function (e) { 
-                        cursorPosition.x = e.pageX-containerOffset.left; 
+            $('#vex-canvas').click( function (e) {
+                        // Get the position
+                        cursorPosition.x = e.pageX-containerOffset.left;
+
+                        // Move the cursor
                         cursor.move(cursorPosition.x, cursorPosition.y);
+
+                        // Add the note
+                        var measure = _getMeasure(cursorPosition.x);
+                        measure.addTickable(Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note);
+
+                        // Redraw
+                        redraw();
                     });
             cursor.show();
         }
@@ -90,65 +60,129 @@ Ava.Container = function (spec) {
     /*
      * addMeasure
      */
-    var addMeasure = function() {
+    that.addMeasure = function() {
         var x = 10;
-        for(var i=0; i<measures.length; i+=1)
-            x += measures[i].width;
+        for(var i=0; i<that.measures.length; i+=1)
+            x += that.measures[i].width;
 
         var  measure = Ava.Measure({
                         x: x,
                         tickables: [ new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }), ],
-                        ctx: ctx,
+                        ctx: that.ctx,
                     });
 
         containerWidth = measure.width + x + 10;
         // resize context based on new width
-        ctx.resize(containerWidth);
-        measures.push(measure);
+        that.ctx.resize(containerWidth);
+        that.measures.push(measure);
         redraw();
     };
 
-    // Add events
-    $('#vex-canvas').mousemove(function (e) {
-            $('#verbose-info').html( e.pageX-containerOffset.left +', '+ (e.pageY-containerOffset.top) );
-            });
-    $("#edit-toggle").click(toggleEditable);
-    $("#add-measure").click(addMeasure);
+
+    // Constructor
+    ( function(s) {
+        clef           = s.clef;
+        numBeat        = s.numBeat || 4;
+        beatValue      = s.beatValue || 4;
+        containerDivId = s.containerDivId;
+
+        containerWidth = 0;
+        // Container offset which would use to get mouse click position
+        containerOffset = {top: 0, left: 0};
+        editable = false;
+        that.measures = [];
+
+        cursorPosition = {x: 0, y: 0};
 
 
-    // Add initial measures
-    var initMeasure = Ava.Measure({
-                    clef: 'treble',
-                    showClef: true,
-                    keySignature: 'G',
-                    showTimeSignature: true,
-                    tickables: [
-                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
-                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }) }).note,
-                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }) }).note,
-                        Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
-                    ],
-                    ctx: ctx,
+        // Add vex-canvas and Error handler div and other divs
+        htmlContent = '<div id="tool-bar"></div>';
+        htmlContent += '<div id="vex-canvas"></div>';
+        htmlContent += '<div class="error" id="error-msg"></div>';
+        htmlContent += '<div id="tools"></div>';
+        htmlContent += '<div id="verbose-info"></div>';
+        $("#"+containerDivId).html(htmlContent);
+
+        $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
+
+        canvas = $('#vex-canvas')[0];
+
+        // Init
+        renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
+        that.ctx = renderer.getContext();
+        cursor = Ava.Cursor({
+                        ctx: that.ctx,
+                        x: cursorPosition.x,
+                        y: cursorPosition.y,
+                    });
+
+
+
+        // Add events
+        $('#vex-canvas').mousemove(function (e) {
+                $('#verbose-info').html( e.pageX-containerOffset.left +', '+ (e.pageY-containerOffset.top) );
                 });
-    measures.push(initMeasure);
-    containerWidth += initMeasure.width + 30;
+        $("#edit-toggle").click(that.toggleEditable);
+        $("#add-measure").click(that.addMeasure);
 
-    $(canvas).css( 'width', containerWidth );
-    $(canvas).css( 'height', '9em' );
-    $(canvas).css({
-            backgroundColor: '#ffe',
-            padding: '10px',
-            border: '5px solid #ccc',
-            //overflow: 'auto'
-        });
+
+        // Add initial measures
+        var initMeasure = Ava.Measure({
+                        clef: 'treble',
+                        showClef: true,
+                        keySignature: 'G',
+                        showTimeSignature: true,
+                        tickables: [
+                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
+                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }) }).note,
+                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }) }).note,
+                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
+                        ],
+                        ctx: that.ctx,
+                    });
+        that.measures.push(initMeasure);
+        containerWidth += initMeasure.width + 30;
+
+        $(canvas).css( 'width', containerWidth );
+        $(canvas).css( 'height', '9em' );
+        $(canvas).css({
+                backgroundColor: '#ffe',
+                padding: '10px',
+                border: '5px solid #ccc',
+                //overflow: 'auto'
+            });
+
+    }(spec) );
+
+
+
+    var _getMeasure = function(x) {
+        if (typeof x !== 'number') {
+            throw {
+                name: 'positionError',
+                message: 'Only number is accepted',
+            };
+        }
+
+        var measure;
+
+        for (var i=0; i < that.measures.length; i+=1) {
+            if (that.measures[i].x <= x)
+                measure = that.measures[i];
+            else
+                break;
+        }
+
+        return measure;
+    };
 
 
     /*
      * draw
      */
-    var draw = function () {
-        for (var i=0; i < measures.length; i+=1) {
-            measures[i].draw();
+    that.draw = function () {
+        for (var i=0; i < that.measures.length; i+=1) {
+            that.measures[i].draw();
         }
 
         // Set the correct offset as SVG is not before draw
@@ -162,7 +196,7 @@ Ava.Container = function (spec) {
             // Might be able to improve it later.
             // Show the cursor again
             cursor = Ava.Cursor({
-                        ctx: ctx,
+                        ctx: that.ctx,
                         x: cursorPosition.x,
                         y: cursorPosition.y,
                     });
@@ -175,16 +209,9 @@ Ava.Container = function (spec) {
      */
     var redraw = function() {
         $(canvas).css( 'width', containerWidth+70 );
-        ctx.clear();
-        draw();
+        that.ctx.clear();
+        that.draw();
     };
-
-    // Public Methods
-    that.toggleEditable = toggleEditable;
-    that.addMeasure     = addMeasure;
-    that.draw           = draw;
-    that.measures       = measures;
-    that.ctx            = ctx;
 
     return that;
 };
