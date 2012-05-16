@@ -5,7 +5,7 @@ var renderer,
     ctx;
 
 avaTestHelper = function() {
-    var canvas = $('#vex-canvas')[0];
+    var canvas = $('#vex-canvas-test-helper')[0];
 
     // Init
     renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.RAPHAEL);
@@ -13,4 +13,5 @@ avaTestHelper = function() {
 
     avaTest();
     measureTest();
+    containerTest();
 };
