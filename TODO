@@ -1,0 +1,4 @@
+- Add note onclick
+- Unit test helper
+    - get a div to init the vexflow ready to test
+
