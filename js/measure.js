@@ -9,24 +9,27 @@
 Ava.Measure = function (spec) {
     var that = {};
 
+    // Public
+    that.x;
+    that.width;
+
+    that.addTickable;
+    that.draw;
+
     // Private attribute
-    var x = spec.x || 10;
-    var y = spec.y || 0;
+    var y,
+        ctx,
+        first,
+        current,
+        last;
 
-    var ctx       = spec.ctx;
-    var width     = spec.width || 250;
-    var tickables = spec.tickables;
-
-    var clef = spec.clef;
-    var showClef = spec.showClef || false;
-
-    var keySignature = spec.keySignature;
-
-    var numBeat = spec.numBeat || 4;
-    var beatValue = spec.beatValue || 4;
-    var showTimeSignature = spec.showTimeSignature || false;
-
-    var timeSignature = numBeat + "/" + beatValue;
+    var clef,
+        showClef,
+        keySignature,
+        numBeat,
+        beatValue,
+        showTimeSignature,
+        timeSignature;
 
     var nextMeasure,
         prevMeasure,
@@ -35,66 +38,166 @@ Ava.Measure = function (spec) {
         stave,
         formatter;
 
-    stave = new Vex.Flow.Stave(x, y, width);
-    stave.setContext(ctx);
+    var errorContainer,
+        formatter;
 
+    /*
+     * push_to_link
+     *
+     * A function to simplify pushing the new note to the list.
+     *
+     * param: Ava.Tickable
+     * return: undef
+     *
+     */
+    var push_to_link = function(tickable) {
+        if (typeof tickable !== 'object') {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter',
+            };
+        }
+
+        // Set first to the new note if it's the first one in measure
+        if (typeof first !== 'object') {
+            first = tickable;
+            current = first;
+        } else {
+            // Otherwise
+            current = last;
+
+            current.next = tickable;
+            current.next.prev = current;
+
+            current = current.next;
+        }
+
+        last = current;
+    };
+
+    /*
+     * setWidth
+     */
     var setWidth = function (newWidth) {
-        width = newWidth;
-        stave.setWidth(width);
+        that.width = newWidth;
+        stave.setWidth(that.width);
     };
 
 
-    var errorContainer = "#error-msg";
+    /*
+     * Constructor
+     */
+    ( function(spec) {
+        var new_note;
 
-    time = {
-        num_beats: numBeat,
-        beat_value: beatValue,
-        resolution: Vex.Flow.RESOLUTION,
-    };
+        that.x = spec.x || 10;
+        y = spec.y || 0;
 
-    try {
-        voice = new Vex.Flow.Voice(time).setStrict(true);
-        voice.addTickables(tickables);
-    }
-    catch (e) {
-        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
-        throw e;
-    }
+        ctx        = spec.ctx;
+        that.width = spec.width || 250;
+
+        // Init list of notes
+        for (var i=0; i < spec.tickables.length; i+=1) {
+            if (typeof spec.tickables[i] !== 'object') {
+                throw {
+                    name: 'invalidParam',
+                    message: 'Passed invalid parameter',
+                };
+            }
+
+            new_note = Ava.Tickable({
+                        note: new Vex.Flow.StaveNote({ keys: spec.tickables[i].keys, duration: spec.tickables[i].duration }),
+                    });
+
+            push_to_link(new_note);
+        }
+
+        clef = spec.clef;
+        showClef = spec.showClef || false;
+
+        keySignature = spec.keySignature;
+
+        numBeat = spec.numBeat || 4;
+        beatValue = spec.beatValue || 4;
+        showTimeSignature = spec.showTimeSignature || false;
+
+        timeSignature = numBeat + "/" + beatValue;
+
+        stave = new Vex.Flow.Stave(that.x, y, that.width);
+        stave.setContext(ctx);
 
 
-    // Fill up the rest of measure with rest and flag it as removable
-    //
-    //
-    //
-    //
-    //
+        errorContainer = "#error-msg";
 
-    if (clef !== undefined && showClef) {
-        stave.addClef(clef);
-        setWidth(width+15);
-    }
+        time = {
+            num_beats: numBeat,
+            beat_value: beatValue,
+            resolution: Vex.Flow.RESOLUTION,
+        };
 
-    if (keySignature !== undefined) {
-        stave.addKeySignature(keySignature);
-        if (keySignature != "C")
-            setWidth(width+15);
-    }
+        try {
+            current = first;
 
-    if (showTimeSignature) {
-        stave.addTimeSignature(timeSignature);
-        setWidth(width+15);
-    }
+            //voice = new Vex.Flow.Voice(time).setStrict(true);
+            voice = new Vex.Flow.Voice(time).setStrict(false);
+            while (current) {
+                voice.addTickable(current.note);
+                current = current.next;
+            }
+        }
+        catch (e) {
+            $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
+            throw e;
+        }
 
-    var formatter = new Vex.Flow.Formatter();
+
+        // Fill up the rest of measure with rest and flag it as removable
+        //
+        //
+        //
+        //
+        //
+
+        if (clef !== undefined && showClef) {
+            stave.addClef(clef);
+            setWidth(that.width+15);
+        }
+
+        if (keySignature !== undefined) {
+            stave.addKeySignature(keySignature);
+            if (keySignature != "C")
+                setWidth(that.width+15);
+        }
+
+        if (showTimeSignature) {
+            stave.addTimeSignature(timeSignature);
+            setWidth(that.width+15);
+        }
+
+        formatter = new Vex.Flow.Formatter();
+
+    } (spec) );
+
 
     /*
      * addTickable
+     *
+     * public
+     *
      */
-    var addTickable = function(tickable) {
-        if (!voice.isComplete()) {
+    that.addTickable = function(tickable, cursorPosition) {
+        if (! (typeof tickable !== 'object' || typeof cursorPosition !== 'object')) {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter',
+            };
+        }
+
+        if (! !voice.isComplete()) {
+
             // Push it to tickables if successfully added to voice
-            tickables.push(tickable);
-            voice.addTickables(tickable);
+            push_to_link(tickable);
+            voice.addTickable(tickable.note);
         } else {
             console.warn('Too many ticks');
         }
@@ -102,29 +205,25 @@ Ava.Measure = function (spec) {
 
     /*
      * draw
+     *
+     * public
+     *
      */
-    var draw = function () {
+    that.draw = function () {
         try {
             stave.draw();
-
-            var voice = new Vex.Flow.Voice(time).setStrict(true);
-            voice.addTickables(tickables);
-
-            var formatter = new Vex.Flow.Formatter().joinVoices([voice]).formatToStave([voice], stave);
-
+            formatter.joinVoices([voice]).formatToStave([voice], stave);
             voice.draw(ctx, stave);
         }
         catch (e) {
-            $(errorContainer).html(e.code + ': ' + e.message);
+            $(errorContainer).html('[Measure::draw] ' + e.code + ': ' + e.message);
         }
     };
 
-    // Public
-    that.x     = x;
-    that.width = width;
-    that.tickables = tickables;
-    that.draw = draw;
-    that.addTickable = addTickable;
+    // Tmp Public
+    that._formatter = formatter;
+    that._stave = stave;
 
     return that;
 };
+

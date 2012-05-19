@@ -28,6 +28,8 @@ Ava.Container = function (spec) {
 
     /*
      * toggleEditable
+     *
+     * Public
      */
     that.toggleEditable = function() {
         if (!editable) {
@@ -59,6 +61,9 @@ Ava.Container = function (spec) {
 
     /*
      * addMeasure
+     *
+     * Public
+     *
      */
     that.addMeasure = function() {
         var x = 10;
@@ -133,10 +138,10 @@ Ava.Container = function (spec) {
                         keySignature: 'G',
                         showTimeSignature: true,
                         tickables: [
-                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
-                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }) }).note,
-                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }) }).note,
-                            Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note,
+                            { keys: ["d/4"], duration: "q" },
+                            { keys: ["b/4"], duration: "qr" },
+                            { keys: ["c/4"], duration: "q" },
+                            { keys: ["d/4"], duration: "q" },
                         ],
                         ctx: that.ctx,
                     });

@@ -1,5 +1,8 @@
 /*
  * tickable
+ * TODO:
+ * - note should initialize here with parameter has been passed rather
+ *   than passing vexflow stavenote
  */
 
 Ava.Tickable = function (spec) {
