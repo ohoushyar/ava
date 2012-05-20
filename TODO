@@ -11,8 +11,9 @@
 
 - Measure
     - [DONE] [H] Restructure the constructor based on new closure method (refer to container for more information)
-    - [H] Set isRemovable flag of the predefined tickables of measure
+    - [DONE] [H] Set isRemovable flag of the predefined tickables of measure
     - [H] Exchange the removable tickables with added tickable
+    - [M] Good to show removable notes in another color
 
 - Tickable
     - [M] Init Vex tickable based on passed arguments rather than passing vex.flow.tickable
