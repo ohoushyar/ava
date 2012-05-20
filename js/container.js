@@ -72,7 +72,10 @@ Ava.Container = function (spec) {
 
         var  measure = Ava.Measure({
                         x: x,
-                        tickables: [ new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }), ],
+                        //tickables: [ new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }), ],
+                        tickables: [
+                                { keys: ["b/4"], duration: "h" },
+                            ],
                         ctx: that.ctx,
                     });
 

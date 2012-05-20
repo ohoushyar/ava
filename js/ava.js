@@ -26,6 +26,8 @@ Ava = ( function () {
             };
         }() );
 
+    that.valid_duration = ['w', 'h', 'q', 'b'];
+
     return that;
 }() );
 

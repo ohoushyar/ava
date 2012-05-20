@@ -10,39 +10,38 @@ Ava.Measure = function (spec) {
     var that = {};
 
     // Public
-    that.x;
-    that.width;
-
-    that.addTickable;
-    that.draw;
+    // that.x;
+    // that.width;
+    // Public Methods
+    // that.addTickable;
+    // that.draw;
 
     // Private attribute
     var y,
         ctx,
         first,
         current,
-        last;
-
-    var clef,
+        last,
+        clef,
         showClef,
         keySignature,
         numBeat,
         beatValue,
         showTimeSignature,
-        timeSignature;
-
-    var nextMeasure,
+        timeSignature,
+        nextMeasure,
         prevMeasure,
         time,
         voice,
         stave,
-        formatter;
-
-    var errorContainer,
+        formatter,
+        errorContainer,
         formatter;
 
     /*
      * push_to_link
+     *
+     * private
      *
      * A function to simplify pushing the new note to the list.
      *
@@ -77,6 +76,9 @@ Ava.Measure = function (spec) {
 
     /*
      * setWidth
+     *
+     * private
+     *
      */
     var setWidth = function (newWidth) {
         that.width = newWidth;
@@ -87,7 +89,7 @@ Ava.Measure = function (spec) {
     /*
      * Constructor
      */
-    ( function(spec) {
+    (function(spec) {
         var new_note;
 
         that.x = spec.x || 10;
@@ -138,8 +140,7 @@ Ava.Measure = function (spec) {
         try {
             current = first;
 
-            //voice = new Vex.Flow.Voice(time).setStrict(true);
-            voice = new Vex.Flow.Voice(time).setStrict(false);
+            voice = new Vex.Flow.Voice(time).setStrict(true);
             while (current) {
                 voice.addTickable(current.note);
                 current = current.next;
@@ -152,11 +153,39 @@ Ava.Measure = function (spec) {
 
 
         // Fill up the rest of measure with rest and flag it as removable
-        //
-        //
-        //
-        //
-        //
+        if (!voice.isComplete()) {
+            var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
+
+            for (i=0; i<Ava.valid_duration.length; i+=1) {
+                var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
+
+                if (rest_ticks < ticks)
+                    continue;
+
+                for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
+                    var rest_note = Ava.Tickable({
+                        note: new Vex.Flow.StaveNote({ keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position], duration: Ava.valid_duration[i] + 'r' }),
+                        isRemovable: true,
+                    });
+
+                    try {
+                        voice.addTickable(rest_note.note)
+                        push_to_link(rest_note);
+                    }
+                    catch (e) {
+                        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
+                        throw e;
+                    }
+                }
+
+                if (rest_ticks % ticks)
+                    rest_ticks %= ticks;
+                else
+                    break;
+            }
+        }
+
+
 
         if (clef !== undefined && showClef) {
             stave.addClef(clef);
@@ -176,7 +205,7 @@ Ava.Measure = function (spec) {
 
         formatter = new Vex.Flow.Formatter();
 
-    } (spec) );
+    }(spec));
 
 
     /*
