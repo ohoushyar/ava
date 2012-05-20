@@ -154,11 +154,13 @@ Ava.Measure = function (spec) {
 
         // Fill up the rest of measure with rest and flag it as removable
         if (!voice.isComplete()) {
+            // Get the number of ticks to fill with removable rest
             var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
 
             for (i=0; i<Ava.valid_duration.length; i+=1) {
                 var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
 
+                // More than enough, try the next one
                 if (rest_ticks < ticks)
                     continue;
 
@@ -168,6 +170,7 @@ Ava.Measure = function (spec) {
                         isRemovable: true,
                     });
 
+                    // Now add it to voice and linked list
                     try {
                         voice.addTickable(rest_note.note)
                         push_to_link(rest_note);
