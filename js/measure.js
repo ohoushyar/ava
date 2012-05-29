@@ -85,6 +85,50 @@ Ava.Measure = function (spec) {
         stave.setWidth(that.width);
     };
 
+    /*
+     * fill_with_removable_rest
+     *
+     * private
+     *
+     */
+    var fill_with_removable_rest = function() {
+        // Fill up the rest of measure with rest and flag it as removable
+        if (!voice.isComplete()) {
+            // Get the number of ticks to fill with removable rest
+            var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
+
+            for (i=0; i<Ava.valid_duration.length; i+=1) {
+                var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
+
+                // More than enough, try the next one
+                if (rest_ticks < ticks)
+                    continue;
+
+                for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
+                    var rest_note = Ava.Tickable({
+                        note: new Vex.Flow.StaveNote({ keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position], duration: Ava.valid_duration[i] + 'r' }),
+                        isRemovable: true,
+                    });
+
+                    // Now add it to voice and linked list
+                    try {
+                        voice.addTickable(rest_note.note)
+                        push_to_link(rest_note);
+                    }
+                    catch (e) {
+                        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
+                        throw e;
+                    }
+                }
+
+                if (rest_ticks % ticks)
+                    rest_ticks %= ticks;
+                else
+                    break;
+            }
+        }
+    };
+
 
     /*
      * Constructor
@@ -152,42 +196,8 @@ Ava.Measure = function (spec) {
         }
 
 
-        // Fill up the rest of measure with rest and flag it as removable
-        if (!voice.isComplete()) {
-            // Get the number of ticks to fill with removable rest
-            var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
 
-            for (i=0; i<Ava.valid_duration.length; i+=1) {
-                var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
-
-                // More than enough, try the next one
-                if (rest_ticks < ticks)
-                    continue;
-
-                for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
-                    var rest_note = Ava.Tickable({
-                        note: new Vex.Flow.StaveNote({ keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position], duration: Ava.valid_duration[i] + 'r' }),
-                        isRemovable: true,
-                    });
-
-                    // Now add it to voice and linked list
-                    try {
-                        voice.addTickable(rest_note.note)
-                        push_to_link(rest_note);
-                    }
-                    catch (e) {
-                        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
-                        throw e;
-                    }
-                }
-
-                if (rest_ticks % ticks)
-                    rest_ticks %= ticks;
-                else
-                    break;
-            }
-        }
-
+        fill_with_removable_rest();
 
 
         if (clef !== undefined && showClef) {
@@ -225,11 +235,31 @@ Ava.Measure = function (spec) {
             };
         }
 
-        if (! !voice.isComplete()) {
+        // Reset the voice
+        voice = new Vex.Flow.Voice(time).setStrict(true);
 
-            // Push it to tickables if successfully added to voice
+        current = first;
+        while (current) {
+            if (current.isRemovable){
+                // It's the first one
+                if (typeof current.prev === 'object') {
+                    current = current.prev;
+                    last = current;
+                }
+                else
+                    first = undefined;
+
+                break;
+            }
+
+            voice.addTickable(current.note);
+            current = current.next;
+        }
+
+        if (!voice.isComplete()) {
             push_to_link(tickable);
             voice.addTickable(tickable.note);
+            fill_with_removable_rest();
         } else {
             console.warn('Too many ticks');
         }
@@ -250,6 +280,25 @@ Ava.Measure = function (spec) {
         catch (e) {
             $(errorContainer).html('[Measure::draw] ' + e.code + ': ' + e.message);
         }
+    };
+
+    /*
+     * has_empty_spot
+     *
+     * public
+     *
+     */
+    that.has_empty_spot = function() {
+            current = first;
+
+            while (current) {
+                if (current.isRemovable)
+                    return true;
+
+                current = current.next;
+            }
+
+            return false;
     };
 
     // Tmp Public

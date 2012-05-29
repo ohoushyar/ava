@@ -184,6 +184,25 @@ Ava.Container = function (spec) {
         return measure;
     };
 
+    /*
+     * addNoteInPosition
+     */
+    var addNoteInPosition = function(cursorPosition) {
+        if (typeof cursorPosition !== 'object') {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter',
+            };
+        }
+
+        var measure = _getMeasure(cursorPosition.x);
+        if (measure.has_empty_spot())
+            measure.addTickable(Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }));
+
+        // redraw would happen after this function get called for sake of
+        // performance rather than calling here
+    };
+
 
     /*
      * draw
