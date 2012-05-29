@@ -1,4 +1,5 @@
-- [H] Add note onclick
+- [H] UPLOAD to github ASAP (BY 3rd June)
+- [DONE] [H] Add note onclick
 
 - Unit test helper
     - [M] get a div to init the vexflow ready to test
@@ -17,3 +18,4 @@
 
 - Tickable
     - [M] Init Vex tickable based on passed arguments rather than passing vex.flow.tickable
+
