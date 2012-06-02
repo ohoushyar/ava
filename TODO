@@ -14,7 +14,9 @@
 - Measure
     - [DONE] [H] Restructure the constructor based on new closure method (refer to container for more information)
     - [DONE] [H] Set isRemovable flag of the predefined tickables of measure
-    - [H] Exchange the removable tickables with added tickable
+    - [DONE] [H] Exchange the removable tickables with added tickable
+    - [H] Get the duration of adding note from context
+    - [H] Get the note key from onclick position
     - [M] Good to show removable notes in another color
 
 - Tickable
