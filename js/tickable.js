@@ -8,19 +8,22 @@
 Ava.Tickable = function (spec) {
     var that = {};
 
-    var note = spec.note;
-    var isRemovable = spec.isRemovable || false;
-    var x,
-        y,
-        next,
-        prev;
+    (function(spec) {
+        if (!(typeof spec.keys === 'object' && typeof spec.duration === 'string')) {
+            throw {
+                name: 'initError',
+                message: 'Invalid params',
+            };
+        }
 
-    that.note = note;
-    that.isRemovable = isRemovable;
-    that.x = x;
-    that.y = y;
-    that.next = next;
-    that.prev = prev;
+        that.duration = spec.duration;
+        that.note = new Vex.Flow.StaveNote({ keys: spec.keys, duration: spec.duration }),
+        that.isRemovable = spec.isRemovable || false;
+     }(spec));
+
+    var x,
+        y;
+
 
     return that;
 };

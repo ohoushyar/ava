@@ -69,8 +69,6 @@ measureTest = function () {
                     equal(e.message, 'Too many ticks.', 'Successfully throw exception');
                 }
 
-
-
             });
 
     // test( 'Methods', function() {

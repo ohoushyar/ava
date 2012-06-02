@@ -106,7 +106,8 @@ Ava.Measure = function (spec) {
 
                 for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
                     var rest_note = Ava.Tickable({
-                        note: new Vex.Flow.StaveNote({ keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position], duration: Ava.valid_duration[i] + 'r' }),
+                        keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position],
+                        duration: Ava.valid_duration[i] + 'r',
                         isRemovable: true,
                     });
 
@@ -152,7 +153,8 @@ Ava.Measure = function (spec) {
             }
 
             new_note = Ava.Tickable({
-                        note: new Vex.Flow.StaveNote({ keys: spec.tickables[i].keys, duration: spec.tickables[i].duration }),
+                        keys: spec.tickables[i].keys,
+                        duration: spec.tickables[i].duration,
                     });
 
             push_to_link(new_note);

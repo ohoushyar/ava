@@ -18,5 +18,5 @@
     - [M] Good to show removable notes in another color
 
 - Tickable
-    - [M] Init Vex tickable based on passed arguments rather than passing vex.flow.tickable
+    - [DONE] [M] Init Vex tickable based on passed arguments rather than passing vex.flow.tickable
 

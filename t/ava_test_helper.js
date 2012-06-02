@@ -14,4 +14,5 @@ avaTestHelper = function() {
     avaTest();
     measureTest();
     containerTest();
+    tickableTest();
 };
