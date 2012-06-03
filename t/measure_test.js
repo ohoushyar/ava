@@ -87,9 +87,29 @@ measureTest = function () {
 
             });
 
-    // test( 'Methods', function() {
-    //             measure = Ava.Measure()
-    //          });
+    test( 'Methods', function() {
+                var measure;
+
+                measure = Ava.Measure({
+                        clef: 'treble',
+                        showClef: true,
+                        keySignature: 'G',
+                        numBeat: 3,
+                        beatValue: 4,
+                        showTimeSignature: true,
+                        tickables: [
+                            { keys: ["d/4"], duration: "h" },
+                        ],
+                        ctx: env.ctx,
+                    });
+
+                ok( (function() {measure.draw(); return true}()), 'Successfully ran method draw');
+
+                equal(measure.has_empty_spot(), true, 'Return expected value of has_empty_spot');
+
+                ok( (function() { measure.addTickable( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to measure');
+
+             });
 
 };
 
