@@ -2,14 +2,16 @@
  * Measure Test
  */
 measureTest = function () {
+    var env = avaTestHelper.init_env();
+
     module('Measure');
 
-    var measure;
-
     test( 'Constructor', function() {
+                var measure;
+
                 measure = Ava.Measure({
                         x: 10,
-                        ctx: ctx,
+                        ctx: env.ctx,
                         tickables: [
                             { keys: ["d/5"], duration: "wr" },
                         ],
@@ -27,7 +29,7 @@ measureTest = function () {
                             { keys: ["c/4"], duration: "q" },
                             { keys: ["d/4"], duration: "q" },
                         ],
-                        ctx: ctx,
+                        ctx: env.ctx,
                     });
                 ok( measure, 'Measure has been initiated successfully');
 
@@ -39,7 +41,7 @@ measureTest = function () {
                         tickables: [
                             { keys: ["d/4"], duration: "q" },
                         ],
-                        ctx: ctx,
+                        ctx: env.ctx,
                     });
                 ok( measure, 'Measure has been initiated successfully and filled with removable rest');
 
@@ -51,14 +53,28 @@ measureTest = function () {
                         tickables: [
                             { keys: ["d/4"], duration: "hr" },
                         ],
-                        ctx: ctx,
+                        ctx: env.ctx,
                     });
                 ok( measure, 'Measure has been initiated successfully and filled with removable rest');
+
+                measure = Ava.Measure({
+                        clef: 'treble',
+                        showClef: true,
+                        keySignature: 'G',
+                        numBeat: 3,
+                        beatValue: 4,
+                        showTimeSignature: true,
+                        tickables: [
+                            { keys: ["d/4"], duration: "hr" },
+                        ],
+                        ctx: env.ctx,
+                    });
+                ok( measure, 'Measure of 3/4 has been initiated successfully and filled with removable rest');
 
                 try {
                     measure = Ava.Measure({
                             x: 10,
-                            ctx: ctx,
+                            ctx: env.ctx,
                             tickables: [
                                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
                                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),

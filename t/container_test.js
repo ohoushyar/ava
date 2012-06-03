@@ -2,6 +2,8 @@
  * Container Test
  */
 containerTest = function () {
+    var env = avaTestHelper.init_env();
+
     module('Container');
 
     var container;
@@ -12,7 +14,7 @@ containerTest = function () {
                             initNumOfMeasures: 1,
                             numBeat: 4,
                             beatValue: 4,
-                            containerDivId: "vex-canvas-container-test",
+                            containerDivId: env.canvas_id,
                         });
                 ok( container, 'Container has been initiated successfully');
 
