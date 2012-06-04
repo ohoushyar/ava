@@ -2,13 +2,17 @@
 - [DONE] [H] Add note onclick
 
 - Unit test helper
-    - [H] Complete measure unit test
     - [M] get a div to init the vexflow ready to test
-    - [M] Find a way to test provate methods
+    - [M] Find a way to test private methods
 
 - Container
+    - [H] Keep track of list of measures (Basically add a link list)
+    - [H] Make container to know the default value of beats and their values of measures
+    - [M] Need a better toolbar
+    - [M] Conatiner can have multiple staves
+    - [M] Able to add tablature
     - Improve container init process
-        - Let the container to get the init tickables.
+        - [M] Let the container to get the init tickables.
         - [L] Make the container to parse kind of serialize data and initial the list of notes based on that.
 
 - Measure
@@ -18,6 +22,9 @@
     - [H] Get the duration of adding note from context
     - [H] Get the note key from onclick position
     - [M] Good to show removable notes in another color
+    - [M] Appear a rounded toolbar when mouse stop over a note (something like google+ circle)
+    - Unittest
+        - [DONE] [H] Complete measure unit test
 
 - Tickable
     - [DONE] [M] Init Vex tickable based on passed arguments rather than passing vex.flow.tickable
