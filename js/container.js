@@ -20,11 +20,11 @@ Ava.Container = function (spec) {
         htmlContent;
 
     // Public
-    that.measures;
-    that.ctx;
-    // Public Methods
-    that.toggleEditable;
-    that.addMeasure;
+    // that.measures;
+    // that.ctx;
+    // // Public Methods
+    // that.toggleEditable;
+    // that.addMeasure;
 
     /*
      * toggleEditable
@@ -43,8 +43,7 @@ Ava.Container = function (spec) {
                         cursor.move(cursorPosition.x, cursorPosition.y);
 
                         // Add the note
-                        var measure = _getMeasure(cursorPosition.x);
-                        measure.addTickable(Ava.Tickable({ note: new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }) }).note);
+                        addNoteInPosition(cursorPosition);
 
                         // Redraw
                         redraw();
@@ -72,10 +71,7 @@ Ava.Container = function (spec) {
 
         var  measure = Ava.Measure({
                         x: x,
-                        //tickables: [ new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }), ],
-                        tickables: [
-                                { keys: ["b/4"], duration: "h" },
-                            ],
+                        tickables: [],
                         ctx: that.ctx,
                     });
 
