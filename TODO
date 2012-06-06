@@ -21,6 +21,8 @@
     - [DONE] [H] Exchange the removable tickables with added tickable
     - [H] Get the duration of adding note from context
     - [H] Get the note key from onclick position
+    - [H] Put the note according to positionn of onclick (Between other notes or something like that)
+    - [H] Event Handling Idea - Probably it's good to put a recatngle on top of the note and handle events on that. Needs a research and test though. This can be done on draw function.
     - [M] Good to show removable notes in another color
     - [M] Appear a rounded toolbar when mouse stop over a note (something like google+ circle)
     - Unittest
