@@ -15,6 +15,10 @@ avaTest = function () {
             // Sanity check
             raises( function() {
                     Ava.Context.currentDuration(2);
-                }, "Throw exception on invalid duration");
+                }, "Throw exception on invalid duration [2]");
+
+            raises( function() {
+                    Ava.Context.currentDuration('a');
+                }, "Throw exception on invalid duration [a]");
         });
 };

@@ -193,7 +193,7 @@ Ava.Container = function (spec) {
 
         var measure = _getMeasure(cursorPosition.x);
         if (measure.has_empty_spot())
-            measure.addTickable(Ava.Tickable({ keys: ["d/4"], duration: "q" }));
+            measure.addTickable(Ava.Tickable({ keys: ["d/4"], duration: Ava.Context.currentDuration() }));
 
         // redraw would happen after this function get called for sake of
         // performance rather than calling here

@@ -25,6 +25,9 @@ var run = function() {
 
 $(document).ready(function() {
         c = run();
+        $("#ava-context-currDuration").change( function(){
+                Ava.Context.currentDuration($(this).val());
+            });
     });
 
 
