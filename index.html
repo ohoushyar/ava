@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>Tmp</title>
+    <title>Ava Sandbox</title>
+
+    <link rel="stylesheet" href="src/css/bootstrap/css/bootstrap.css">
 
     <style type="text/css">
         div.testcanvas {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
             padding: 10px;
             color: #554;
         }
@@ -83,13 +83,17 @@
 </head>
 
 <body>
-    <div id="sandbox_form">
-        <table>
-            <tr><td>Ava.Context.currDuration</td><td><input id="ava-context-currDuration" type="text" /> ['w', 'h', 'q', 'b']</td></tr>
-        </table>
+    <div class="container">
+        <div id="sandbox_form">
+            <h1>Ava Sandbox</h1>
+            <form class="well">
+                <label class="control-label" for="ava-context-currDuration">Ava.Context.currentDuration</label>
+                <input id="ava-context-currDuration" type="text" class="input-small" /> ['w', 'h', 'q', 8, 16, 32, 64] | value:[<strong><span id="ava-context-currDuration-value"></span></strong>]
+            </form>
+        </div>
+        <hr/>
+        <div id="music_wysiwyg"></div>
     </div>
-    <hr/>
-    <div id="music_wysiwyg" ></div>
 </body>
 
 </html>

@@ -135,6 +135,8 @@ Ava.Container = function (spec) {
                         clef: 'treble',
                         showClef: true,
                         keySignature: 'G',
+                        // numBeat: 3,
+                        // beatValue: 4,
                         showTimeSignature: true,
                         tickables: [
                             { keys: ["d/4"], duration: "q" },
