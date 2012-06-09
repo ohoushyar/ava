@@ -19,12 +19,16 @@
     - [DONE] [H] Restructure the constructor based on new closure method (refer to container for more information)
     - [DONE] [H] Set isRemovable flag of the predefined tickables of measure
     - [DONE] [H] Exchange the removable tickables with added tickable
-    - [H] Get the duration of adding note from context
+    - [BUG] [H] Measure is not smart enough to increase its width so that it couldn't contain many small notes
+    - [H] Draw only Measure which modified (It also need to consider width modification of measures and those following modified one)
+    - [DONE] [H] Get the duration of adding note from context
     - [H] Get the note key from onclick position
     - [H] Put the note according to positionn of onclick (Between other notes or something like that)
-    - [H] Event Handling Idea - Probably it's good to put a recatngle on top of the note and handle events on that. Needs a research and test though. This can be done on draw function.
+    - [H] Event Handling Idea
+        - Probably it's good to put a recatngle on top of the note and handle events on that. Needs a research and test though. This can be done on draw function.
+        - [H] Set onclicked note selected and return the object
     - [M] Good to show removable notes in another color
-    - [M] Appear a rounded toolbar when mouse stop over a note (something like google+ circle)
+    - [M] Appear a rounded toolbar when mouse clicked a note (something like google+ circle)
     - Unittest
         - [DONE] [H] Complete measure unit test
 
