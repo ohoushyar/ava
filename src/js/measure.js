@@ -72,6 +72,9 @@ Ava.Measure = function (spec) {
         }
 
         last = current;
+
+        // Increase the num_tickables as it successfully added
+        that.num_tickables += 1;
     };
 
     /*
@@ -92,6 +95,9 @@ Ava.Measure = function (spec) {
      *
      */
     var fill_with_removable_rest = function() {
+
+        var rests = [];
+
         // Fill up the rest of measure with rest and flag it as removable
         if (!voice.isComplete()) {
             // Get the number of ticks to fill with removable rest
@@ -111,15 +117,8 @@ Ava.Measure = function (spec) {
                         isRemovable: true,
                     });
 
-                    // Now add it to voice and linked list
-                    try {
-                        voice.addTickable(rest_note.note)
-                        push_to_link(rest_note);
-                    }
-                    catch (e) {
-                        $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
-                        throw e;
-                    }
+                    // Sort by size start with small
+                    rests.unshift(rest_note);
                 }
 
                 if (rest_ticks % ticks)
@@ -127,6 +126,22 @@ Ava.Measure = function (spec) {
                 else
                     break;
             }
+
+
+            // Now add them to voice and push to the linked list
+            for (i=0; i<rests.length; i++) {
+                try {
+                    voice.addTickable(rests[i].note)
+                    push_to_link(rests[i]);
+                }
+                catch (e) {
+                    $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
+                    throw e;
+                }
+            }
+
+            // Set the possible changed width
+            setWidth(calc_width());
         }
     };
 
@@ -139,9 +154,9 @@ Ava.Measure = function (spec) {
 
         that.x = spec.x || 10;
         y = spec.y || 0;
+        that.num_tickables = 0;
 
         ctx        = spec.ctx;
-        that.width = spec.width || 250;
 
         // Init list of notes
         for (var i=0; i < spec.tickables.length; i+=1) {
@@ -160,6 +175,8 @@ Ava.Measure = function (spec) {
             push_to_link(new_note);
         }
 
+        that.width = spec.width || calc_width();
+
         clef = spec.clef;
         showClef = spec.showClef || false;
 
@@ -173,7 +190,6 @@ Ava.Measure = function (spec) {
 
         stave = new Vex.Flow.Stave(that.x, y, that.width);
         stave.setContext(ctx);
-
 
         errorContainer = "#error-msg";
 
@@ -196,7 +212,6 @@ Ava.Measure = function (spec) {
             $(errorContainer).html('[Measure] ' + e.code + ': ' + e.message);
             throw e;
         }
-
 
 
         fill_with_removable_rest();
