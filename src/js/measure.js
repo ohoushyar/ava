@@ -36,7 +36,22 @@ Ava.Measure = function (spec) {
         stave,
         formatter,
         errorContainer,
-        formatter;
+        formatter,
+        default_width = 250,
+        pixel_per_note = 50;
+
+    /*
+     * calc_width
+     *
+     * private
+     *
+     */
+    var calc_width = function() {
+        return default_width;
+
+        var width = (pixel_per_note * that.num_tickables);
+        return  width < default_width ? default_width : width;
+    };
 
     /*
      * push_to_link
@@ -289,6 +304,10 @@ Ava.Measure = function (spec) {
      *
      */
     that.draw = function () {
+        // Do some hack to get the right justification width to pass to stave before
+        // running formatToStave
+        adjust_width();
+
         try {
             stave.draw();
             formatter.joinVoices([voice]).formatToStave([voice], stave);
@@ -297,6 +316,44 @@ Ava.Measure = function (spec) {
         catch (e) {
             $(errorContainer).html('[Measure::draw] ' + e.code + ': ' + e.message);
         }
+    };
+
+    var adjust_width = function() {
+        var current_width = get_current_width();
+
+        if (current_width >= that.width - stave.getNoteStartX())
+            setWidth(current_width + stave.getNoteStartX() + 200);
+
+    };
+
+    // Well so far couldn't found a proper way of getting this value, so here is
+    // a work around, pretty messy to get it.
+    var get_current_width = function() {
+        // A magic to enable ticks to give their width ...
+        formatter.createTickContexts([voice]);
+
+        var contexts = formatter.tContexts;
+        var contextList = contexts.list;
+        var contextMap = contexts.map;
+
+        var minTotalWidth = 0;
+
+        // Go through each tick context and calculate total width and smallest
+        // ticks.
+        for (var i = 0; i < contextList.length; ++i) {
+            var context = contextMap[contextList[i]];
+
+            // preFormat() gets them to descend down to their tickables and modifier
+            // contexts, and calculate their widths.
+            context.preFormat();
+            minTotalWidth += context.getWidth();
+
+            var minTicks = context.getMinTicks();
+            if (i == 0) this.minTicks = minTicks;
+            if (minTicks < this.minTicks) this.minTicks = minTicks;
+        }
+
+        return minTotalWidth;
     };
 
     /*
