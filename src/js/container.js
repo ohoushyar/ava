@@ -132,19 +132,14 @@ Ava.Container = function (spec) {
 
         // Add initial measures
         var initMeasure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        // numBeat: 3,
-                        // beatValue: 4,
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "q" },
-                            { keys: ["b/4"], duration: "qr" },
-                            { keys: ["c/4"], duration: "q" },
-                            { keys: ["d/4"], duration: "q" },
-                        ],
+                        clef: s.initMeasure.clef,
+                        showClef: s.initMeasure.showClef,
+                        keySignature: s.initMeasure.keySignature,
+                        showTimeSignature: s.initMeasure.showTimeSignature,
+                        tickables: s.initMeasure.tickables,
                         ctx: that.ctx,
+                        numBeat: numBeat,
+                        beatValue: beatValue,
                     });
         that.measures.push(initMeasure);
         containerWidth += initMeasure.width + 30;

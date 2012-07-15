@@ -7,7 +7,7 @@ var run = function() {
     var clef = "treble";
     var containerDivId = "music_wysiwyg";
     var measures = 1;
-    var numBeat = 4;
+    var numBeat = 3;
     var beatValue = 4;
 
     var container = Ava.Container({
@@ -16,6 +16,18 @@ var run = function() {
                 numBeat: numBeat,
                 beatValue: beatValue,
                 containerDivId: containerDivId,
+                initMeasure: {
+                        clef: 'treble',
+                        showClef: true,
+                        keySignature: 'G',
+                        showTimeSignature: true,
+                        tickables: [
+                            { keys: ["d/4"], duration: "64" },
+                            // { keys: ["b/4"], duration: "qr" },
+                            // { keys: ["c/4"], duration: "q" },
+                            // { keys: ["d/4"], duration: "q" },
+                        ],
+                    },
             });
     container.draw();
     container.toggleEditable();
