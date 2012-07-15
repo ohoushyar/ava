@@ -1,0 +1,8 @@
+.ut-canvas {
+    height: 125px;
+    width: auto;
+    background-color: #FFFFEE;
+    border: 5px solid #CCCCCC;
+    padding: 10px;
+    margin: 5px;
+}
