@@ -1,8 +1,8 @@
 - [DONE] [H] Add note onclick
 
 - Unit test helper
-    - [M] get a div to init the vexflow ready to test
-    - [M] Find a way to test private methods
+    - [DONE] [M] get a div to init the vexflow ready to test
+    - [L] Find a way to test private methods
 
 - Container
     - [H] Keep track of list of measures (Basically add a link list)
