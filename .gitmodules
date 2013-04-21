@@ -1,0 +1,3 @@
+[submodule "src/third_party/vexflow"]
+	path = src/third_party/vexflow
+	url = https://github.com/0xfe/vexflow
