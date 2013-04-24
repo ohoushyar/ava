@@ -8,41 +8,41 @@ var avaTestHelper = (function() {
     var unittest_div_prefex = 'unittest-';
 
     var elements = function(div_id) {
-        var html = '<div id="' + div_id + "-title" + '"></div>';
-        html += '<div id="' + div_id + "-canvas" + '"></div>';
+	  if ( div_id === undefined )
+		alert('WTF: no div_id');
 
-        return html;
+	  return $( '<div id="' + div_id + '"></div>' );
     };
 
     that.init_env = function() {
         last_container_num += 1;
         var unittest_div_id = unittest_div_prefex + last_container_num;
 
-        var unittest_div_html = '<div id="' + unittest_div_id + '">'
-        unittest_div_html += elements(unittest_div_id);
-        unittest_div_html += '</div>';
+        var $unittest_div_element = $( '<div id="' + unittest_div_id + '"></div>' );
+	$unittest_div_element.append( elements(unittest_div_id + '-title') );
+	$unittest_div_element.append( elements(unittest_div_id + '-canvas') );
 
-        $("#test-env").html($("#test-env").html() + unittest_div_html);
+        $("#test-env").append($unittest_div_element);
 
-        var unittest_div = $('#'+unittest_div_id);
+        var $unittest_div = $('#'+unittest_div_id);
 
-        var canvas = $("#"+unittest_div_id+"-canvas");
-        canvas.addClass("ut-canvas");
+        var $canvas = $("#"+unittest_div_id+"-canvas");
+        $canvas.addClass("ut-canvas");
 
-        var title = $("#"+unittest_div_id+"-title");
-        title.addClass('ut-title');
+        var $title = $("#"+unittest_div_id+"-title");
+        $title.addClass('ut-title');
 
-        var renderer = new Vex.Flow.Renderer(canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL);
+        var renderer = new Vex.Flow.Renderer($canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL);
 
         return {
             div_id: unittest_div_id,
-            title: title,
-            canvas: canvas,
+            title: $title,
+            canvas: $canvas,
             canvas_id: unittest_div_id+'-canvas',
             renderer: renderer,
             ctx: renderer.getContext(),
             hide: function() {
-                unittest_div.hide();
+                $unittest_div.hide();
             }
         };
     };
