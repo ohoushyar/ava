@@ -8,10 +8,10 @@ var avaTestHelper = (function() {
     var unittest_div_prefex = 'unittest-';
 
     var elements = function(div_id) {
-	  if ( div_id === undefined )
-		alert('WTF: no div_id');
+        if ( div_id === undefined )
+            alert('ERROR: no div_id');
 
-	  return $( '<div id="' + div_id + '"></div>' );
+        return $( '<div id="' + div_id + '"></div>' );
     };
 
     that.init_env = function() {
@@ -19,8 +19,8 @@ var avaTestHelper = (function() {
         var unittest_div_id = unittest_div_prefex + last_container_num;
 
         var $unittest_div_element = $( '<div id="' + unittest_div_id + '"></div>' );
-	$unittest_div_element.append( elements(unittest_div_id + '-title') );
-	$unittest_div_element.append( elements(unittest_div_id + '-canvas') );
+        $unittest_div_element.append( elements(unittest_div_id + '-title') );
+        $unittest_div_element.append( elements(unittest_div_id + '-canvas') );
 
         $("#test-env").append($unittest_div_element);
 
