@@ -35,15 +35,13 @@ var avaTestHelper = (function() {
         var renderer = new Vex.Flow.Renderer($canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL);
 
         return {
+            $div: $unittest_div_element,
             div_id: unittest_div_id,
-            title: $title,
-            canvas: $canvas,
+            $title: $title,
+            $canvas: $canvas,
             canvas_id: unittest_div_id+'-canvas',
             renderer: renderer,
             ctx: renderer.getContext(),
-            hide: function() {
-                $unittest_div.hide();
-            }
         };
     };
 
@@ -51,9 +49,10 @@ var avaTestHelper = (function() {
 
     that.run_all = function() {
         avaTest();
-        measureTest();
-        containerTest();
-        tickableTest();
+        view_test();
+        // measureTest();
+        // containerTest();
+        // tickableTest();
     };
 
     return that;
