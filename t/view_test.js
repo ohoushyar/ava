@@ -6,7 +6,7 @@ var view_test = function () {
     module('Ava.View');
 
     var model = {
-        renderer_backend: 'canvas',
+        renderer_backend: Ava.Constant.RAPHAEL,
 
         stave: {x: 10, y: 0, width: 500},
         clef: 'treble',
@@ -31,7 +31,7 @@ var view_test = function () {
         var ava_view;
 
         ok( (function(){
-                ava_view = new AvaView({el: env.$canvas, model: model});
+                ava_view = new AvaView({canvas_id: env.canvas_id, el: env.$div, model: model});
                 return ava_view;
             })(), 'Ava.View init sucessfully');
         ok( (function(){
@@ -39,6 +39,7 @@ var view_test = function () {
                 return ava_view.$el;
             })(), 'Render ran successfully');
     });
+
 
 };
 

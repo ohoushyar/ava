@@ -3,6 +3,10 @@
  */
 Ava = ( function () {
     var that = {};
+    that.Constant = {
+        CANVAS:  'canvas',
+        RAPHAEL: 'raphael',
+    };
 
     that.valid_duration = ['w', 'h', 'q', 8, 16, 32, 64];
 
