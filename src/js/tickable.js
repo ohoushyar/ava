@@ -5,25 +5,32 @@
  *   than passing vexflow stavenote
  */
 
-Ava.Tickable = function (spec) {
-    var that = {};
+Ava.TickableModel = Backbone.Model.extend({
+    defaults: function() {
+        return {
+            is_removable: false,
+        };
+    },
 
-    (function(spec) {
-        if (!(typeof spec.keys === 'object' && typeof spec.duration === 'string')) {
+    initialize: function() {
+        if (!(typeof this.get('keys') === 'object' && typeof this.get('duration') === 'string')) {
             throw {
                 name: 'initError',
                 message: 'Invalid params',
             };
         }
+    },
+});
 
-        that.duration = spec.duration;
-        that.note = new Vex.Flow.StaveNote({ keys: spec.keys, duration: spec.duration }),
-        that.isRemovable = spec.isRemovable || false;
-     }(spec));
+Ava.TickableList = Backbone.Collection.extend({
+    model: Ava.TickableModel,
+});
+
+Ava.Tickable = function (spec) {
+    var that = new Ava.TickableModel(spec);
 
     var x,
         y;
-
 
     return that;
 };

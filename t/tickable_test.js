@@ -2,7 +2,7 @@
  * Tickable Test
  */
 tickableTest = function () {
-    module('Tickable');
+    module('Tickable Model');
 
     test( 'Constructor', function() {
                 var tickable = Ava.Tickable({
@@ -14,7 +14,7 @@ tickableTest = function () {
                 tickable = Ava.Tickable({
                         keys: ["d/4"],
                         duration: "q",
-                        isRemovable: true,
+                        is_removable: true,
                     });
                 ok( tickable, 'tickable has been initiated successfully');
 
@@ -63,11 +63,9 @@ tickableTest = function () {
                         duration: "q",
                     });
 
-                equal(typeof tickable.note, 'object', 'tickable.note returns object');
+                equal(tickable.get('duration'), "q", 'Return expected value of duration');
 
-                equal(tickable.duration, "q", 'Return expected value of duration');
-
-                equal(tickable.isRemovable, false, 'Return expected value of isRemovable');
+                equal(tickable.get('is_removable'), false, 'Return expected value of is_removable');
             });
 
 };
