@@ -47,21 +47,3 @@ $(document).ready(function() {
             });
     });
 
-
-
-
-//    var notes2 = [
-//        new Vex.Flow.StaveNote({ keys: ["a/4"], duration: "q" }),
-//        new Vex.Flow.StaveNote({ keys: ["a/4"], duration: "q" }),
-//        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }),
-//        new Vex.Flow.StaveNote({ keys: ["c/4", "e/4", "a/4"], duration: "q" }),
-//    ];
-//
-
-//    var voice2 = new Vex.Flow.Voice(Vex.Flow.TIME4_4).setStrict(true);
-//    voice2.addTickables(notes2);
-//
-//    var formatter = new Vex.Flow.Formatter().joinVoices([voice, voice2]).
-//            formatToStave([voice, voice2], container.stave);
-//
-//
