@@ -27,7 +27,7 @@ var view_test = function () {
     };
 
     test( 'Ava.View Init', function() {
-        var env = avaTestHelper.init_env();
+        var env = ava_test_helper.init_env();
         var ava_view;
 
         ok( (function(){

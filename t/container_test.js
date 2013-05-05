@@ -7,7 +7,7 @@ containerTest = function () {
 
 
     test( 'Constructor', function() {
-        var env = avaTestHelper.init_env();
+        var env = ava_test_helper.init_env();
         env.hide();
         ok( Ava.Container({
                     clef: "treble",
@@ -40,7 +40,7 @@ containerTest = function () {
                         },
                     numBeat: 4,
                     beatValue: 4,
-                    containerDivId: avaTestHelper.init_env().div_id,
+                    containerDivId: ava_test_helper.init_env().div_id,
                 });
         ok( (function(){container.draw(); return true;}()), 'Called draw method successfully' );
 
@@ -59,7 +59,7 @@ containerTest = function () {
                         },
                     numBeat: 3,
                     beatValue: 4,
-                    containerDivId: avaTestHelper.init_env().div_id,
+                    containerDivId: ava_test_helper.init_env().div_id,
                 }).draw();
                 return true;
             }()), 'Called draw method successfully for a container of 3/4' );

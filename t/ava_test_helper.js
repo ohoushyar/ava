@@ -1,7 +1,7 @@
 /*
  * Ava test helper
  */
-var avaTestHelper = (function() {
+var ava_test_helper = (function() {
     var that = {};
 
     var last_container_num = Math.round(new Date().getTime()/1000.0);
@@ -50,9 +50,9 @@ var avaTestHelper = (function() {
     that.run_all = function() {
         avaTest();
         view_test();
-        // measureTest();
+        bar_test();
         // containerTest();
-        // tickableTest();
+        tickableTest();
     };
 
     return that;

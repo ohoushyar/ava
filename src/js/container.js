@@ -1,6 +1,13 @@
 /*
  * Container
  *
+ * Public attribute:
+ *  that.bars;
+ *  that.ctx;
+ * Public Methods:
+ *  that.toggleEditable;
+ *  that.add_bar;
+ *
  * TODO: Accept time as '4/4' or '6/8' ...
  */
 Ava.Container = function (spec) {
@@ -19,12 +26,7 @@ Ava.Container = function (spec) {
         cursorPositio,
         htmlContent;
 
-    // Public
-    // that.measures;
-    // that.ctx;
-    // // Public Methods
-    // that.toggleEditable;
-    // that.addMeasure;
+
 
     /*
      * toggleEditable
