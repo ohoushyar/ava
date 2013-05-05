@@ -1,7 +1,7 @@
 /*
  * Tickable Test
  */
-tickableTest = function () {
+tickable_test = function () {
     module('Tickable Model');
 
     test( 'Constructor', function() {
