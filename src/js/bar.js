@@ -5,14 +5,43 @@
  * beats, each of which are assigned a particular note value
  * (https://en.wikipedia.org/wiki/Bar_%28music%29)
  *
+ * Public Attributes:
+ *
+ * Public Methods:
+ * that.add_tickable
+ *
  */
-Ava.Bar = function (spec) {
-    var that = {};
 
-    // Public
-    //
-    // Public Methods
-    // that.addTickable;
+Ava.BarModel = Backbone.Model.extend({
+    defaults: function() {
+        return {
+            show_clef: false,
+            num_beat: 4,
+            beat_value: 4,
+            show_time_signature: false,
+        };
+    },
+
+    initialize: function() {
+        // Init list of notes
+        if (typeof this.get('tickables') !== 'object') {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter',
+            };
+        }
+
+        this.set( 'tickables', new Ava.TickableList(this.get('tickables')) );
+        this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
+    },
+
+    // validate: function(attrs, options) {
+    // },
+});
+
+Ava.Bar = function (spec) {
+
+    var that = new Ava.BarModel(spec);
 
     // Private attribute
     var first,
@@ -34,54 +63,24 @@ Ava.Bar = function (spec) {
         // pixel_per_note = 50;
 
     /*
-     * push_to_link
+     * add_tickable
      *
-     * private
-     *
-     * A function to simplify pushing the new note to the list.
-     *
-     * param: Ava.Tickable
-     * return: undef
+     * public
      *
      */
-    var push_to_link = function(tickable) {
-        if (typeof tickable !== 'object') {
+    that.add_tickable = function(tickable) {
+        if ( typeof tickable !== 'object' ) {
             throw {
                 name: 'invalidParam',
                 message: 'Passed invalid parameter',
             };
         }
 
-        // Set first to the new note if it's the first one in Bar
-        if (typeof first !== 'object') {
-            first = tickable;
-            current = first;
-        } else {
-            // Otherwise
-            current = last;
-
-            current.next = tickable;
-            current.next.prev = current;
-
-            current = current.next;
-        }
-
-        last = current;
-
-        // Increase the num_tickables as it successfully added
-        that.num_tickables += 1;
+        that.get('tickables').add(tickable);
     };
 
-    /*
-     * setWidth
-     *
-     * private
-     *
-     */
-    var setWidth = function (newWidth) {
-        that.width = newWidth;
-        stave.setWidth(that.width);
-    };
+    return that;
+};
 
     /*
      * fill_with_removable_rest
@@ -89,158 +88,54 @@ Ava.Bar = function (spec) {
      * private
      *
      */
-    var fill_with_removable_rest = function() {
+    // var fill_with_removable_rest = function() {
 
-        var rests = [];
+    //     var rests = [];
 
-        // Fill up the rest of Bar with rest and flag it as removable
-        if (!voice.isComplete()) {
-            // Get the number of ticks to fill with removable rest
-            var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
+    //     // Fill up the rest of Bar with rest and flag it as removable
+    //     if (!voice.isComplete()) {
+    //         // Get the number of ticks to fill with removable rest
+    //         var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
 
-            for (i=0; i<Ava.valid_duration.length; i+=1) {
-                var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
+    //         for (i=0; i<Ava.valid_duration.length; i+=1) {
+    //             var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
 
-                // More than enough, try the next one
-                if (rest_ticks < ticks)
-                    continue;
+    //             // More than enough, try the next one
+    //             if (rest_ticks < ticks)
+    //                 continue;
 
-                for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
-                    var rest_note = Ava.Tickable({
-                        keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position],
-                        duration: Ava.valid_duration[i] + 'r',
-                        isRemovable: true,
-                    });
+    //             for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
+    //                 var rest_note = Ava.Tickable({
+    //                     keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position],
+    //                     duration: Ava.valid_duration[i] + 'r',
+    //                     isRemovable: true,
+    //                 });
 
-                    // Sort by size start with small
-                    rests.unshift(rest_note);
-                }
+    //                 // Sort by size start with small
+    //                 rests.unshift(rest_note);
+    //             }
 
-                if (rest_ticks % ticks)
-                    rest_ticks %= ticks;
-                else
-                    break;
-            }
-
-
-            // Now add them to voice and push to the linked list
-            for (i=0; i<rests.length; i++) {
-                try {
-                    voice.addTickable(rests[i].note)
-                    push_to_link(rests[i]);
-                }
-                catch (e) {
-                    $(errorContainer).html('[Bar] ' + e.code + ': ' + e.message);
-                    throw e;
-                }
-            }
-
-        }
-    };
+    //             if (rest_ticks % ticks)
+    //                 rest_ticks %= ticks;
+    //             else
+    //                 break;
+    //         }
 
 
-    /*
-     * Constructor
-     */
-    (function(spec) {
-        var new_note;
+    //         // Now add them to voice and push to the linked list
+    //         for (i=0; i<rests.length; i++) {
+    //             try {
+    //                 voice.addTickable(rests[i].note)
+    //                 push_to_link(rests[i]);
+    //             }
+    //             catch (e) {
+    //                 $(errorContainer).html('[Bar] ' + e.code + ': ' + e.message);
+    //                 throw e;
+    //             }
+    //         }
 
-        that.num_tickables = 0;
-
-        // Init list of notes
-        for (var i=0; i < spec.tickables.length; i+=1) {
-            if (typeof spec.tickables[i] !== 'object') {
-                throw {
-                    name: 'invalidParam',
-                    message: 'Passed invalid parameter',
-                };
-            }
-
-            new_note = Ava.Tickable({
-                        keys: spec.tickables[i].keys,
-                        duration: spec.tickables[i].duration,
-                    });
-
-            push_to_link(new_note);
-        }
-
-        clef = spec.clef;
-        show_clef = spec.show_clef || false;
-
-        key_signature = spec.key_signature;
-
-        num_beat = spec.num_beat || 4;
-        beat_value = spec.beat_value || 4;
-        show_time_signature = spec.show_time_signature || false;
-
-        time_signature = num_beat + "/" + beat_value;
-
-        time = {
-            num_beats: num_beat,
-            beat_value: beat_value,
-            resolution: Vex.Flow.RESOLUTION,
-        };
-
-        current = first;
-
-        fill_with_removable_rest();
-
-        // if (key_signature !== undefined) {
-        //     if (key_signature != "C")
-        //         setWidth(that.width+15);
-        // }
-
-        // if (show_time_signature) {
-        //     stave.addTimeSignature(time_signature);
-        //     setWidth(that.width+15);
-        // }
-
-    }(spec));
-
-
-    /*
-     * addTickable
-     *
-     * public
-     *
-     */
-    that.addTickable = function(tickable, cursorPosition) {
-        if (! (typeof tickable !== 'object' || typeof cursorPosition !== 'object')) {
-            throw {
-                name: 'invalidParam',
-                message: 'Passed invalid parameter',
-            };
-        }
-
-        // Reset the voice
-        // voice = new Vex.Flow.Voice(time).setStrict(true);
-
-        current = first;
-        while (current) {
-            if (current.isRemovable){
-                // It's the first one
-                if (typeof current.prev === 'object') {
-                    current = current.prev;
-                    last = current;
-                }
-                else
-                    first = undefined;
-
-                break;
-            }
-
-            // voice.addTickable(current.note);
-            current = current.next;
-        }
-
-        // if (!voice.isComplete()) {
-        //     push_to_link(tickable);
-        //     voice.addTickable(tickable.note);
-        //     fill_with_removable_rest();
-        // } else {
-        //     console.warn('Too many ticks');
-        // }
-    };
+    //     }
+    // };
 
     // /*
     //  * draw
@@ -307,19 +202,17 @@ Ava.Bar = function (spec) {
      * public
      *
      */
-    that.has_empty_spot = function() {
-            current = first;
+    // that.has_empty_spot = function() {
+    //         current = first;
 
-            while (current) {
-                if (current.isRemovable)
-                    return true;
+    //         while (current) {
+    //             if (current.isRemovable)
+    //                 return true;
 
-                current = current.next;
-            }
+    //             current = current.next;
+    //         }
 
-            return false;
-    };
+    //         return false;
+    // };
 
-    return that;
-};
 

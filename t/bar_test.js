@@ -1,263 +1,262 @@
 /*
- * Measure Test
+ * Bar Test
  */
-measureTest = function () {
+bar_test = function () {
 
-    module('Measure');
+    module('Bar');
 
     test( 'Constructor', function() {
-                var measure;
-                var env = avaTestHelper.init_env();
-                env.hide();
+                var bar;
+                var env = ava_test_helper.init_env();
+                env.$div.hide();
 
-                measure = Ava.Measure({
-                        x: 10,
-                        ctx: env.ctx,
+                bar = Ava.Bar({
                         tickables: [
                             { keys: ["d/5"], duration: "wr" },
                         ],
                     });
-                ok( measure, 'Measure has been initiated successfully');
+                ok( bar, 'Bar has been initiated successfully');
 
-                measure = Ava.Measure({
+                // Test defaults
+                equal(bar.get('show_clef'), false, 'Got expected default value of show_clef');
+                equal(bar.get('num_beat'), 4, 'Got expected default value of num_beat');
+                equal(bar.get('beat_value'), 4, 'Got expected default value of beat_value');
+                equal(bar.get('show_time_signature'), false, 'Got expected default value of show_time_signature');
+
+                bar = Ava.Bar({
                         clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
+                        show_clef: true,
+                        key_signature: 'G',
+                        show_time_signature: true,
                         tickables: [
                             { keys: ["d/4"], duration: "q" },
                             { keys: ["b/4"], duration: "qr" },
                             { keys: ["c/4"], duration: "q" },
                             { keys: ["d/4"], duration: "q" },
                         ],
-                        ctx: env.ctx,
                     });
-                ok( measure, 'Measure has been initiated successfully');
+                ok( bar, 'Bar has been initiated successfully with more notes');
 
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "q" },
-                        ],
-                        ctx: env.ctx,
-                    });
-                ok( measure, 'Measure has been initiated successfully and filled with removable rest');
+                // bar = Ava.Bar({
+                //         clef: 'treble',
+                //         show_clef: true,
+                //         key_signature: 'G',
+                //         show_time_signature: true,
+                //         tickables: [
+                //             { keys: ["d/4"], duration: "q" },
+                //         ],
+                //     });
+                // ok( bar, 'Bar has been initiated successfully and filled with removable rest');
 
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "hr" },
-                        ],
-                        ctx: env.ctx,
-                    });
-                ok( measure, 'Measure has been initiated successfully and filled with removable rest');
+                // bar = Ava.Bar({
+                //         clef: 'treble',
+                //         show_clef: true,
+                //         key_signature: 'G',
+                //         show_time_signature: true,
+                //         tickables: [
+                //             { keys: ["d/4"], duration: "hr" },
+                //         ],
+                //     });
+                // ok( bar, 'Bar has been initiated successfully and filled with removable rest');
 
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        numBeat: 3,
-                        beatValue: 4,
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "hr" },
-                        ],
-                        ctx: env.ctx,
-                    });
-                ok( measure, 'Measure of 3/4 has been initiated successfully and filled with removable rest');
+                // bar = Ava.Bar({
+                //         clef: 'treble',
+                //         show_clef: true,
+                //         key_signature: 'G',
+                //         num_beat: 3,
+                //         beat_value: 4,
+                //         show_time_signature: true,
+                //         tickables: [
+                //             { keys: ["d/4"], duration: "hr" },
+                //         ],
+                //     });
+                // ok( bar, 'Bar of 3/4 has been initiated successfully and filled with removable rest');
 
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+                // bar = Ava.Bar({
+                //         clef: 'treble',
+                //         show_clef: true,
+                //         key_signature: 'G',
+                //         show_time_signature: true,
+                //         tickables: [
+                //             { keys: ["d/4"], duration: "64" },
+                //             { keys: ["b/4"], duration: "64r" },
+                //             { keys: ["c/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
+                //             { keys: ["b/4"], duration: "64r" },
+                //             { keys: ["c/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
+                //             { keys: ["b/4"], duration: "64r" },
+                //             { keys: ["c/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-                        ],
-                        ctx: env.ctx,
-                    });
-                ok( measure, 'Measure has been initiated successfully with 16 64th note');
+                //             { keys: ["d/4"], duration: "64" },
+                //             { keys: ["b/4"], duration: "64r" },
+                //             { keys: ["c/4"], duration: "64" },
+                //             { keys: ["d/4"], duration: "64" },
+                //         ],
+                //         ctx: env.ctx,
+                //     });
+                // ok( bar, 'Bar has been initiated successfully with 16 64th note');
 
-                try {
-                    measure = Ava.Measure({
-                            x: 10,
-                            ctx: env.ctx,
-                            tickables: [
-                                new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
-                                new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
-                            ],
-                        });
-                }
-                catch (e) {
-                    equal(e.message, 'Too many ticks.', 'Successfully throw exception');
-                }
+                // try {
+                //     bar = Ava.Bar({
+                //             x: 10,
+                //             ctx: env.ctx,
+                //             tickables: [
+                //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
+                //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
+                //             ],
+                //         });
+                // }
+                // catch (e) {
+                //     equal(e.message, 'Too many ticks.', 'Successfully throw exception');
+                // }
 
             });
 
     test( 'Methods', function() {
-                var measure;
-                var env = avaTestHelper.init_env();
+                var bar;
+                var env = ava_test_helper.init_env();
+                env.$div.hide();
 
-                var test_title = 'Successfully ran method draw';
-                env.title.html('Methods - ' + test_title);
-                measure = Ava.Measure({
+                bar = Ava.Bar({
                         clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        numBeat: 3,
-                        beatValue: 4,
-                        showTimeSignature: true,
+                        show_clef: true,
+                        key_signature: 'G',
+                        num_beat: 3,
+                        beat_value: 4,
+                        show_time_signature: true,
                         tickables: [
                             { keys: ["d/4"], duration: "h" },
                         ],
-                        ctx: env.ctx,
                     });
 
-                ok( (function() {measure.draw(); return true}()), test_title);
+    //             ok( (function() {bar.draw(); return true}()), test_title);
 
-                equal(measure.has_empty_spot(), true, 'Return expected value of has_empty_spot');
+    //             equal(bar.has_empty_spot(), true, 'Return expected value of has_empty_spot');
 
-                ok( (function() { measure.addTickable( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to measure');
-
-
-                env = avaTestHelper.init_env();
-                test_title = 'Successfully ran method draw on measure contains 16 64th note';
-                env.title.html('Methods - ' + test_title);
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-                        ],
-                        ctx: env.ctx,
-                    });
-
-                ok( (function() {measure.draw(); return true}()), test_title);
+                ok( (function() { bar.add_tickable( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
+                equal( bar.get('tickables').length, 2, 'Successfully added another tickable' );
 
 
-                env = avaTestHelper.init_env();
-                test_title = 'Successfully ran method draw on measure contains 8 16th note';
-                env.title.html('Methods - ' + test_title);
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        numBeat: 2,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "16" },
-                            { keys: ["b/4"], duration: "16r" },
-                            { keys: ["c/4"], duration: "16" },
-                            { keys: ["d/4"], duration: "16" },
+    //             env = ava_test_helper.init_env();
+    //             test_title = 'Successfully ran method draw on bar contains 16 64th note';
+    //             env.title.html('Methods - ' + test_title);
+    //             bar = Ava.Bar({
+    //                     clef: 'treble',
+    //                     show_clef: true,
+    //                     key_signature: 'G',
+    //                     show_time_signature: true,
+    //                     tickables: [
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "16" },
-                            { keys: ["b/4"], duration: "16r" },
-                            { keys: ["c/4"], duration: "16" },
-                            { keys: ["d/4"], duration: "16" },
-                        ],
-                        ctx: env.ctx,
-                    });
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                ok( (function() {measure.draw(); return true}()), test_title);
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+    //                     ],
+    //                     ctx: env.ctx,
+    //                 });
+
+    //             ok( (function() {bar.draw(); return true}()), test_title);
 
 
-                env = avaTestHelper.init_env();
-                test_title = 'Successfully ran method draw on measure contains 32 64th note';
-                env.title.html('Methods - ' + test_title);
-                measure = Ava.Measure({
-                        clef: 'treble',
-                        showClef: true,
-                        keySignature: 'G',
-                        showTimeSignature: true,
-                        tickables: [
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //             env = ava_test_helper.init_env();
+    //             test_title = 'Successfully ran method draw on bar contains 8 16th note';
+    //             env.title.html('Methods - ' + test_title);
+    //             bar = Ava.Bar({
+    //                     clef: 'treble',
+    //                     show_clef: true,
+    //                     num_beat: 2,
+    //                     key_signature: 'G',
+    //                     show_time_signature: true,
+    //                     tickables: [
+    //                         { keys: ["d/4"], duration: "16" },
+    //                         { keys: ["b/4"], duration: "16r" },
+    //                         { keys: ["c/4"], duration: "16" },
+    //                         { keys: ["d/4"], duration: "16" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "16" },
+    //                         { keys: ["b/4"], duration: "16r" },
+    //                         { keys: ["c/4"], duration: "16" },
+    //                         { keys: ["d/4"], duration: "16" },
+    //                     ],
+    //                     ctx: env.ctx,
+    //                 });
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //             ok( (function() {bar.draw(); return true}()), test_title);
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //             env = ava_test_helper.init_env();
+    //             test_title = 'Successfully ran method draw on bar contains 32 64th note';
+    //             env.title.html('Methods - ' + test_title);
+    //             bar = Ava.Bar({
+    //                     clef: 'treble',
+    //                     show_clef: true,
+    //                     key_signature: 'G',
+    //                     show_time_signature: true,
+    //                     tickables: [
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                            { keys: ["d/4"], duration: "64" },
-                            { keys: ["b/4"], duration: "64r" },
-                            { keys: ["c/4"], duration: "64" },
-                            { keys: ["d/4"], duration: "64" },
-                        ],
-                        ctx: env.ctx,
-                    });
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
 
-                ok( (function() {measure.draw(); return true}()), test_title);
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+
+    //                         { keys: ["d/4"], duration: "64" },
+    //                         { keys: ["b/4"], duration: "64r" },
+    //                         { keys: ["c/4"], duration: "64" },
+    //                         { keys: ["d/4"], duration: "64" },
+    //                     ],
+    //                     ctx: env.ctx,
+    //                 });
+
+    //             ok( (function() {bar.draw(); return true}()), test_title);
              });
 
 };
