@@ -39,6 +39,10 @@ Ava.BarModel = Backbone.Model.extend({
     // },
 });
 
+Ava.BarList = Backbone.Collection.extend({
+    model: Ava.BarModel,
+});
+
 Ava.Bar = function (spec) {
 
     var that = new Ava.BarModel(spec);

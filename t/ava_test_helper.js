@@ -49,10 +49,11 @@ var ava_test_helper = (function() {
 
     that.run_all = function() {
         avaTest();
-        view_test();
+        music_test();
         bar_test();
         // containerTest();
         tickable_test();
+        view_test();
     };
 
     return that;
