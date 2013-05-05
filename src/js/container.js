@@ -59,15 +59,15 @@ Ava.Container = function (spec) {
     };
 
     /*
-     * addMeasure
+     * add_bar
      *
      * Public
      *
      */
-    that.addMeasure = function() {
+    that.add_bar = function() {
         var x = 10;
-        for(var i=0; i<that.measures.length; i+=1)
-            x += that.measures[i].width;
+        for(var i=0; i<that.bars.length; i+=1)
+            x += that.bars[i].width;
 
         var  measure = Ava.Measure({
                         x: x,
@@ -78,7 +78,7 @@ Ava.Container = function (spec) {
         containerWidth = measure.width + x + 10;
         // resize context based on new width
         that.ctx.resize(containerWidth);
-        that.measures.push(measure);
+        that.bars.push(measure);
         redraw();
     };
 
@@ -94,7 +94,7 @@ Ava.Container = function (spec) {
         // Container offset which would use to get mouse click position
         containerOffset = {top: 0, left: 0};
         editable = false;
-        that.measures = [];
+        that.bars = [];
 
         cursorPosition = {x: 0, y: 0};
 
@@ -127,10 +127,10 @@ Ava.Container = function (spec) {
                 $('#verbose-info').html( e.pageX-containerOffset.left +', '+ (e.pageY-containerOffset.top) );
                 });
         $("#edit-toggle").click(that.toggleEditable);
-        $("#add-measure").click(that.addMeasure);
+        $("#add-measure").click(that.add_bar);
 
 
-        // Add initial measures
+        // Add initial bars
         var initMeasure = Ava.Measure({
                         clef: s.initMeasure.clef,
                         showClef: s.initMeasure.showClef,
@@ -141,7 +141,7 @@ Ava.Container = function (spec) {
                         numBeat: numBeat,
                         beatValue: beatValue,
                     });
-        that.measures.push(initMeasure);
+        that.bars.push(initMeasure);
         containerWidth += initMeasure.width + 30;
 
         $(canvas).css( 'width', containerWidth );
@@ -167,9 +167,9 @@ Ava.Container = function (spec) {
 
         var measure;
 
-        for (var i=0; i < that.measures.length; i+=1) {
-            if (that.measures[i].x <= x)
-                measure = that.measures[i];
+        for (var i=0; i < that.bars.length; i+=1) {
+            if (that.bars[i].x <= x)
+                measure = that.bars[i];
             else
                 break;
         }
@@ -201,8 +201,8 @@ Ava.Container = function (spec) {
      * draw
      */
     that.draw = function () {
-        for (var i=0; i < that.measures.length; i+=1) {
-            that.measures[i].draw();
+        for (var i=0; i < that.bars.length; i+=1) {
+            that.bars[i].draw();
         }
 
         // Set the correct offset as SVG is not before draw
