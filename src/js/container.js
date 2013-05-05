@@ -69,16 +69,16 @@ Ava.Container = function (spec) {
         for(var i=0; i<that.bars.length; i+=1)
             x += that.bars[i].width;
 
-        var  measure = Ava.Measure({
+        var bar = Ava.Bar({
                         x: x,
                         tickables: [],
                         ctx: that.ctx,
                     });
 
-        containerWidth = measure.width + x + 10;
+        containerWidth = bar.width + x + 10;
         // resize context based on new width
         that.ctx.resize(containerWidth);
-        that.bars.push(measure);
+        that.bars.push(bar);
         redraw();
     };
 
@@ -107,7 +107,7 @@ Ava.Container = function (spec) {
         htmlContent += '<div id="verbose-info"></div>';
         $("#"+containerDivId).html(htmlContent);
 
-        $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add Measure</button>');
+        $("#tool-bar").html('<button id="edit-toggle" type="button">edit</button><button id="add-measure" type="button">Add bar</button>');
 
         canvas = $('#vex-canvas')[0];
 
@@ -131,18 +131,18 @@ Ava.Container = function (spec) {
 
 
         // Add initial bars
-        var initMeasure = Ava.Measure({
-                        clef: s.initMeasure.clef,
-                        showClef: s.initMeasure.showClef,
-                        keySignature: s.initMeasure.keySignature,
-                        showTimeSignature: s.initMeasure.showTimeSignature,
-                        tickables: s.initMeasure.tickables,
+        var init_bar = Ava.Bar({
+                        clef: s.init_bar.clef,
+                        showClef: s.init_bar.showClef,
+                        keySignature: s.init_bar.keySignature,
+                        showTimeSignature: s.init_bar.showTimeSignature,
+                        tickables: s.init_bar.tickables,
                         ctx: that.ctx,
                         numBeat: numBeat,
                         beatValue: beatValue,
                     });
-        that.bars.push(initMeasure);
-        containerWidth += initMeasure.width + 30;
+        that.bars.push(init_bar);
+        containerWidth += init_bar.width + 30;
 
         $(canvas).css( 'width', containerWidth );
         $(canvas).css( 'height', '9em' );
@@ -157,7 +157,7 @@ Ava.Container = function (spec) {
 
 
 
-    var _getMeasure = function(x) {
+    var _get_bar = function(x) {
         if (typeof x !== 'number') {
             throw {
                 name: 'positionError',
@@ -165,16 +165,16 @@ Ava.Container = function (spec) {
             };
         }
 
-        var measure;
+        var bar;
 
         for (var i=0; i < that.bars.length; i+=1) {
             if (that.bars[i].x <= x)
-                measure = that.bars[i];
+                bar = that.bars[i];
             else
                 break;
         }
 
-        return measure;
+        return bar;
     };
 
     /*
@@ -188,9 +188,9 @@ Ava.Container = function (spec) {
             };
         }
 
-        var measure = _getMeasure(cursorPosition.x);
-        if (measure.has_empty_spot())
-            measure.addTickable(Ava.Tickable({ keys: ["d/4"], duration: Ava.Context.currentDuration() }));
+        var bar = _get_bar(cursorPosition.x);
+        if (bar.has_empty_spot())
+            bar.addTickable(Ava.Tickable({ keys: ["d/4"], duration: Ava.Context.currentDuration() }));
 
         // redraw would happen after this function get called for sake of
         // performance rather than calling here
