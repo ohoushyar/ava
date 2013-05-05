@@ -3,7 +3,7 @@
  */
 bar_test = function () {
 
-    module('Bar');
+    module('Bar Model');
 
     test( 'Constructor', function() {
                 var bar;
