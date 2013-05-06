@@ -31,7 +31,7 @@ var view_test = function () {
         var ava_view;
 
         ok( (function(){
-                ava_view = new AvaView({canvas_id: env.canvas_id, el: env.$div, model: model});
+                ava_view = new Ava.View({canvas_id: env.canvas_id, el: env.$div, model: model});
                 return ava_view;
             })(), 'Ava.View init sucessfully');
         ok( (function(){

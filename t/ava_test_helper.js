@@ -53,7 +53,7 @@ var ava_test_helper = (function() {
         bar_test();
         // containerTest();
         tickable_test();
-        view_test();
+        stave_view_test();
     };
 
     return that;

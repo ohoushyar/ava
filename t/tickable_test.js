@@ -64,7 +64,6 @@ tickable_test = function () {
                     });
 
                 equal(tickable.get('duration'), "q", 'Return expected value of duration');
-
                 equal(tickable.get('is_removable'), false, 'Return expected value of is_removable');
             });
 

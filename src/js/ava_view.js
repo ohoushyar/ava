@@ -2,7 +2,7 @@
  * AvaView View class
  * Extend from Backbone.View
  */
-var AvaView = Backbone.View.extend({
+Ava.View = Backbone.View.extend({
 
     render: function() {
         var renderer_backend;
