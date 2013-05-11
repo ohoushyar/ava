@@ -40,16 +40,17 @@ var stave_view_test = function () {
 
     sub_module_name = 'Methods';
     test(sub_module_name, function() {
-        var env = ava_test_helper.init_env();
-        model.ctx = Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
 
         var test_title = 'Successfully ran render';
-        env.$title.html(module_name + ' - ' + sub_module_name + ' - ' + test_title);
-        var view = new Ava.StaveView({ model: model });
-        ok( (function(){
-                view.render();
-                return view.$el;
-            })(), test_title);
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(ctx) {
+            model.ctx = ctx;
+            var view = new Ava.StaveView({ model: model });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
     });
 
 };
