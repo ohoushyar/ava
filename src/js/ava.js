@@ -9,6 +9,7 @@ Ava = ( function () {
     };
 
     that.valid_duration = ['w', 'h', 'q', 8, 16, 32, 64];
+    that.valid_clefs = ["treble", "bass", "alto", "tenor", "percussion"];
 
     that.Context = (function () {
             var currDuration = 'w';
