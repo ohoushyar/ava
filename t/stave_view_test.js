@@ -42,8 +42,8 @@ var stave_view_test = function () {
     test(sub_module_name, function() {
 
         var test_title = 'Successfully ran render';
-        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(ctx) {
-            model.ctx = ctx;
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+            model.ctx = env.ctx;
             var view = new Ava.StaveView({ model: model });
             ok( (function(){
                     view.render();

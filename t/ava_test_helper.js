@@ -46,12 +46,16 @@ var ava_test_helper = (function() {
     };
 
     // A view test runner
-    that.run_view_test = function( module, submodule, title, func) {
+    that.run_view_test = function( module, submodule, title, func, hide_env) {
         var env = that.init_env();
-        var ctx = Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
-
+        env.ctx = Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
         env.$title.html(module + ' - ' + submodule + ' - ' + title);
-        func(ctx);
+
+        if (hide_env) {
+            env.$div.hide();
+        }
+
+        func(env);
     };
 
     // Init
