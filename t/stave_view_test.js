@@ -28,6 +28,7 @@ var stave_view_test = function () {
 
         // TODO: use qunit throws instead
         try {
+            // Clone model
             var mod = Object.create(model);
             view = new Ava.StaveView({ model: mod });
             view.render();
