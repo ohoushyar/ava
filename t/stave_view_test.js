@@ -39,13 +39,63 @@ var stave_view_test = function () {
 
     });
 
+    // Methods
     sub_module_name = 'Methods';
     test(sub_module_name, function() {
 
         var test_title = 'Successfully ran render';
+
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
-            model.ctx = env.ctx;
-            var view = new Ava.StaveView({ model: model });
+
+            var mod = Object.create(model);
+            mod.ctx = env.ctx;
+
+            var view = new Ava.StaveView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
+        test_title = 'Successfully ran render with different width';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Object.create(model);
+            env.ctx.resize(700);
+            mod.width = 600;
+            mod.ctx = env.ctx;
+
+            var view = new Ava.StaveView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
+        test_title = 'Successfully ran render stave with clef';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Object.create(model);
+            mod.clef = 'bass';
+            mod.ctx = env.ctx;
+
+            var view = new Ava.StaveView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
+        test_title = 'Successfully ran render stave with clef, time_signature and key_signature';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Object.create(model);
+            mod.clef = 'treble';
+            mod.time_signature = '6/8';
+            mod.key_signature = 'B';
+            mod.ctx = env.ctx;
+
+            var view = new Ava.StaveView({ model: mod });
             ok( (function(){
                     view.render();
                     return view.$el;
