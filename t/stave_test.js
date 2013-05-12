@@ -19,7 +19,16 @@ stave_test = function () {
                         });
                 }
                 catch (e) {
-                    equal(e.message, 'Invalid clef', 'Successfully throw exception');
+                    equal(e.message, 'Invalid clef', 'Successfully throw exception on invalid clef');
+                }
+
+                try {
+                    stave = Ava.Stave({
+                            key_signature: 'terrible',
+                        });
+                }
+                catch (e) {
+                    equal(e.message, 'Invalid key_signature', 'Successfully throw exception on invalid key_signature');
                 }
 
             });
@@ -35,8 +44,10 @@ stave_test = function () {
                 // Init stave with clef
                 stave = Ava.Stave({
                     clef: 'bass',
+                    key_signature: 'F',
                 });
-                equal( stave.get('clef'), 'bass', 'Clef set init successfully');
+                equal( stave.get('clef'), 'bass', 'Clef init successfully');
+                equal( stave.get('key_signature'), 'F', 'Key signature init successfully');
 
             });
 

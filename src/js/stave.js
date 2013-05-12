@@ -26,6 +26,15 @@ Ava.StaveModel = Backbone.Model.extend({
                 message: 'Invalid clef',
             };
         }
+
+        if ( typeof this.get('key_signature') === 'string'
+            && !_.include(Ava.valid_key_signatures, this.get('key_signature')) ) {
+            throw {
+                name: 'initError',
+                message: 'Invalid key_signature',
+            };
+        }
+
     },
 });
 
