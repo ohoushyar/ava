@@ -59,15 +59,15 @@ var ava_test_helper = (function() {
     };
 
     // Init
-
     that.run_all = function() {
         avaTest();
         music_test();
-        bar_test();
         // containerTest();
         tickable_test();
         stave_test();
         stave_view_test();
+        bar_test();
+        bar_view_test();
     };
 
     return that;

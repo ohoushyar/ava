@@ -31,6 +31,8 @@ Ava.StaveView = Backbone.View.extend({
         stave.setWidth(this.model.width)
         stave.setContext( this.model.ctx ).draw();
 
+        this.vex_stave = stave;
+
         return this;
     },
 
