@@ -15,6 +15,11 @@
 Ava.BarModel = Backbone.Model.extend({
     defaults: function() {
         return {
+            stave: {
+                x: 0,
+                y: 0,
+                width: 300,
+            },
             show_clef: false,
             num_beat: 4,
             beat_value: 4,
@@ -23,15 +28,23 @@ Ava.BarModel = Backbone.Model.extend({
     },
 
     initialize: function() {
-        // Init list of notes
+        if (typeof this.get('stave') !== 'object') {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter. Stave have to be an object',
+            };
+        }
+        this.set( 'stave', new Ava.StaveModel(this.get('stave')) );
+
         if (typeof this.get('tickables') !== 'object') {
             throw {
                 name: 'invalidParam',
-                message: 'Passed invalid parameter',
+                message: 'Passed invalid parameter. tickables have to be an array',
             };
         }
-
+        // Init list of tickables
         this.set( 'tickables', new Ava.TickableList(this.get('tickables')) );
+
         this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
     },
 

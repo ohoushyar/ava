@@ -11,12 +11,12 @@ var bar_view_test = function () {
 
         stave: {
             clef: 'treble',
-            x: 10,
+            x: 0,
             y: 0,
             width: 300,
         },
 
-        notes: [
+        tickables: [
             {keys: ["c/4"], duration: "q"},
             {keys: ["d/4"], duration: "q"},
             {keys: ["b/4"], duration: "qr"},
@@ -39,8 +39,8 @@ var bar_view_test = function () {
 
         ok( (function(){
                 // Clone model
-                var mod = Object.create(model);
-                mod.stave.ctx = Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
+                var mod = new Ava.BarModel(model);
+                mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
                 view = new Ava.BarView({ model: mod });
                 return view;
             })(), 'Ava.BarView init sucessfully');
@@ -66,8 +66,8 @@ var bar_view_test = function () {
 
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = Object.create(model);
-            mod.stave.ctx = env.ctx;
+            var mod = new Ava.BarModel(model);
+            mod.get('stave').set('ctx', env.ctx);
 
             var view = new Ava.BarView({ model: mod });
             ok( (function(){

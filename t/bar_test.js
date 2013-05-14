@@ -18,6 +18,10 @@ bar_test = function () {
                 ok( bar, 'Bar has been initiated successfully');
 
                 // Test defaults
+                equal(typeof bar.get('stave'), 'object', 'stave is an object');
+                ok(bar.get('stave').has('x'), 'stave has attribute x');
+                ok(bar.get('stave').has('y'), 'stave has attribute y');
+                ok(bar.get('stave').has('width'), 'stave has attribute width');
                 equal(bar.get('show_clef'), false, 'Got expected default value of show_clef');
                 equal(bar.get('num_beat'), 4, 'Got expected default value of num_beat');
                 equal(bar.get('beat_value'), 4, 'Got expected default value of beat_value');
@@ -35,7 +39,7 @@ bar_test = function () {
                             { keys: ["d/4"], duration: "q" },
                         ],
                     });
-                ok( bar, 'Bar has been initiated successfully with more notes');
+                ok( bar, 'Bar has been initiated successfully with more tickables');
 
                 // bar = Ava.Bar({
                 //         clef: 'treble',
@@ -135,9 +139,6 @@ bar_test = function () {
                         ],
                     });
 
-    //             ok( (function() {bar.draw(); return true}()), test_title);
-
-    //             equal(bar.has_empty_spot(), true, 'Return expected value of has_empty_spot');
 
                 ok( (function() { bar.add_tickable( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
                 equal( bar.get('tickables').length, 2, 'Successfully added another tickable' );
