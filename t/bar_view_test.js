@@ -6,6 +6,30 @@ var bar_view_test = function () {
 
     module(module_name);
 
+    var notes1 = [
+        {keys: ["c/4"], duration: "q"},
+        {keys: ["d/4"], duration: "q"},
+        {keys: ["b/4"], duration: "qr"},
+        {keys: ["c/4", "e/4", "g/4"], duration: "q"},
+    ];
+
+    var notes2 = [
+        { keys: ["f/5"], beam: "beam1", duration: "8"},
+        { keys: ["d/5"], beam: "beam1", duration: "16"},
+        { keys: ["c/5"], beam: "beam1", duration: "16"},
+        { keys: ["c/5"], beam: "beam1", duration: "16"},
+
+        { keys: ["d/5"], beam: "beam2", duration: "16"},
+        { keys: ["e/5"], beam: "beam2", duration: "8"},
+        { keys: ["f/5"], beam: "beam2", duration: "8"},
+        { keys: ["d/5"], beam: "beam2", duration: "16"},
+
+        { keys: ["c/5"], stem_direction: 1, duration: "16"},
+        { keys: ["c/5"], stem_direction: 1, duration: "16"},
+        { keys: ["d/5"], stem_direction: 1, duration: "16"},
+        { keys: ["e/5"], stem_direction: 1, duration: "8"},
+    ];
+
     var model = {
         renderer_backend: Ava.Constant.RAPHAEL,
 
@@ -16,12 +40,7 @@ var bar_view_test = function () {
             width: 300,
         },
 
-        notes: [
-            {keys: ["c/4"], duration: "q"},
-            {keys: ["d/4"], duration: "q"},
-            {keys: ["b/4"], duration: "qr"},
-            {keys: ["c/4", "e/4", "g/4"], duration: "q"},
-        ],
+        notes: notes1,
 
         voice: {
             num_beats: 4,
@@ -35,15 +54,24 @@ var bar_view_test = function () {
     test( sub_module_name, function() {
         var env = ava_test_helper.init_env();
         env.$div.hide();
-        var view;
 
         ok( (function(){
-                // Clone model
-                var mod = new Ava.BarModel(model);
-                mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
-                view = new Ava.BarView({ model: mod });
-                return view;
-            })(), 'Ava.BarView init sucessfully');
+            // Clone model
+            var mod = new Ava.BarModel(model);
+            mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
+            var view = new Ava.BarView({ model: mod });
+            return view;
+        })(), 'Ava.BarView init sucessfully');
+
+        ok( (function(){
+            // Clone model
+            var new_model = _.clone(model);
+            new_model.notes = notes2;
+            var mod = new Ava.BarModel(new_model);
+            mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
+            var view = new Ava.BarView({ model: mod });
+            return view;
+        })(), 'Ava.BarView init sucessfully with notes and different beams');
 
         // TODO: use qunit throws instead
         // try {
@@ -67,6 +95,21 @@ var bar_view_test = function () {
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
             var mod = new Ava.BarModel(model);
+            mod.get('stave').set('ctx', env.ctx);
+
+            var view = new Ava.BarView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
+        test_title = 'Successfully ran render the bar includes notes with beam';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var new_model = _.clone(model);
+            new_model.notes = notes2;
+            var mod = new Ava.BarModel(new_model);
             mod.get('stave').set('ctx', env.ctx);
 
             var view = new Ava.BarView({ model: mod });

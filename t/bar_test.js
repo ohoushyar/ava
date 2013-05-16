@@ -41,16 +41,19 @@ bar_test = function () {
                     });
                 ok( bar, 'Bar has been initiated successfully with more notes');
 
-                // bar = Ava.Bar({
-                //         clef: 'treble',
-                //         show_clef: true,
-                //         key_signature: 'G',
-                //         show_time_signature: true,
-                //         notes: [
-                //             { keys: ["d/4"], duration: "q" },
-                //         ],
-                //     });
-                // ok( bar, 'Bar has been initiated successfully and filled with removable rest');
+                bar = Ava.Bar({
+                        clef: 'treble',
+                        show_clef: true,
+                        key_signature: 'G',
+                        show_time_signature: true,
+                        notes: [
+                            { keys: ["d/4"], duration: "q" , beam: "beam1" },
+                            { keys: ["b/4"], duration: "qr" , beam: "beam1" },
+                            { keys: ["c/4"], duration: "q" , beam: "beam1" },
+                            { keys: ["d/4"], duration: "q" , beam: "beam1" },
+                        ],
+                    });
+                ok( bar, 'Bar has been initiated successfully and filled with removable rest');
 
                 // bar = Ava.Bar({
                 //         clef: 'treble',
