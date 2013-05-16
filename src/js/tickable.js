@@ -13,6 +13,7 @@ Ava.TickableModel = Backbone.Model.extend({
             prev_index: -1,
             next_index: -1,
             is_removable: false,
+            beam: undefined,
         };
     },
 
