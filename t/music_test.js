@@ -41,7 +41,7 @@ music_test = function () {
                         show_clef: true,
                         key_signature: 'G',
                         show_time_signature: true,
-                        tickables: [
+                        notes: [
                             { keys: ["d/4"], duration: "q" },
                             { keys: ["b/4"], duration: "qr" },
                             { keys: ["c/4"], duration: "q" },

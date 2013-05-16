@@ -8,7 +8,7 @@
  * Public Attributes:
  *
  * Public Methods:
- * that.add_tickable
+ * that.add_note
  *
  */
 
@@ -36,14 +36,14 @@ Ava.BarModel = Backbone.Model.extend({
         }
         this.set( 'stave', new Ava.StaveModel(this.get('stave')) );
 
-        if (typeof this.get('tickables') !== 'object') {
+        if (typeof this.get('notes') !== 'object') {
             throw {
                 name: 'invalidParam',
-                message: 'Passed invalid parameter. tickables have to be an array',
+                message: 'Passed invalid parameter. notes have to be an array',
             };
         }
-        // Init list of tickables
-        this.set( 'tickables', new Ava.TickableList(this.get('tickables')) );
+        // Init list of notes
+        this.set( 'notes', new Ava.TickableList(this.get('notes')) );
 
         this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
     },
@@ -80,12 +80,12 @@ Ava.Bar = function (spec) {
         // pixel_per_note = 50;
 
     /*
-     * add_tickable
+     * add_note
      *
      * public
      *
      */
-    that.add_tickable = function(tickable) {
+    that.add_note = function(tickable) {
         if ( typeof tickable !== 'object' ) {
             throw {
                 name: 'invalidParam',
@@ -93,7 +93,7 @@ Ava.Bar = function (spec) {
             };
         }
 
-        that.get('tickables').add(tickable);
+        that.get('notes').add(tickable);
     };
 
     return that;
@@ -200,7 +200,7 @@ Ava.Bar = function (spec) {
     //     for (var i = 0; i < contextList.length; ++i) {
     //         var context = contextMap[contextList[i]];
 
-    //         // preFormat() gets them to descend down to their tickables and modifier
+    //         // preFormat() gets them to descend down to their notes and modifier
     //         // contexts, and calculate their widths.
     //         context.preFormat();
     //         minTotalWidth += context.getWidth();

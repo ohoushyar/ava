@@ -11,7 +11,7 @@ bar_test = function () {
                 env.$div.hide();
 
                 bar = Ava.Bar({
-                        tickables: [
+                        notes: [
                             { keys: ["d/5"], duration: "wr" },
                         ],
                     });
@@ -32,21 +32,21 @@ bar_test = function () {
                         show_clef: true,
                         key_signature: 'G',
                         show_time_signature: true,
-                        tickables: [
+                        notes: [
                             { keys: ["d/4"], duration: "q" },
                             { keys: ["b/4"], duration: "qr" },
                             { keys: ["c/4"], duration: "q" },
                             { keys: ["d/4"], duration: "q" },
                         ],
                     });
-                ok( bar, 'Bar has been initiated successfully with more tickables');
+                ok( bar, 'Bar has been initiated successfully with more notes');
 
                 // bar = Ava.Bar({
                 //         clef: 'treble',
                 //         show_clef: true,
                 //         key_signature: 'G',
                 //         show_time_signature: true,
-                //         tickables: [
+                //         notes: [
                 //             { keys: ["d/4"], duration: "q" },
                 //         ],
                 //     });
@@ -57,7 +57,7 @@ bar_test = function () {
                 //         show_clef: true,
                 //         key_signature: 'G',
                 //         show_time_signature: true,
-                //         tickables: [
+                //         notes: [
                 //             { keys: ["d/4"], duration: "hr" },
                 //         ],
                 //     });
@@ -70,7 +70,7 @@ bar_test = function () {
                 //         num_beat: 3,
                 //         beat_value: 4,
                 //         show_time_signature: true,
-                //         tickables: [
+                //         notes: [
                 //             { keys: ["d/4"], duration: "hr" },
                 //         ],
                 //     });
@@ -81,7 +81,7 @@ bar_test = function () {
                 //         show_clef: true,
                 //         key_signature: 'G',
                 //         show_time_signature: true,
-                //         tickables: [
+                //         notes: [
                 //             { keys: ["d/4"], duration: "64" },
                 //             { keys: ["b/4"], duration: "64r" },
                 //             { keys: ["c/4"], duration: "64" },
@@ -110,7 +110,7 @@ bar_test = function () {
                 //     bar = Ava.Bar({
                 //             x: 10,
                 //             ctx: env.ctx,
-                //             tickables: [
+                //             notes: [
                 //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
                 //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
                 //             ],
@@ -134,14 +134,14 @@ bar_test = function () {
                         num_beat: 3,
                         beat_value: 4,
                         show_time_signature: true,
-                        tickables: [
+                        notes: [
                             { keys: ["d/4"], duration: "h" },
                         ],
                     });
 
 
-                ok( (function() { bar.add_tickable( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
-                equal( bar.get('tickables').length, 2, 'Successfully added another tickable' );
+                ok( (function() { bar.add_note( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
+                equal( bar.get('notes').length, 2, 'Successfully added another tickable' );
 
 
     //             env = ava_test_helper.init_env();
@@ -152,7 +152,7 @@ bar_test = function () {
     //                     show_clef: true,
     //                     key_signature: 'G',
     //                     show_time_signature: true,
-    //                     tickables: [
+    //                     notes: [
     //                         { keys: ["d/4"], duration: "64" },
     //                         { keys: ["b/4"], duration: "64r" },
     //                         { keys: ["c/4"], duration: "64" },
@@ -188,7 +188,7 @@ bar_test = function () {
     //                     num_beat: 2,
     //                     key_signature: 'G',
     //                     show_time_signature: true,
-    //                     tickables: [
+    //                     notes: [
     //                         { keys: ["d/4"], duration: "16" },
     //                         { keys: ["b/4"], duration: "16r" },
     //                         { keys: ["c/4"], duration: "16" },
@@ -213,7 +213,7 @@ bar_test = function () {
     //                     show_clef: true,
     //                     key_signature: 'G',
     //                     show_time_signature: true,
-    //                     tickables: [
+    //                     notes: [
     //                         { keys: ["d/4"], duration: "64" },
     //                         { keys: ["b/4"], duration: "64r" },
     //                         { keys: ["c/4"], duration: "64" },

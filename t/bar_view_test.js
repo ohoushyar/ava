@@ -16,7 +16,7 @@ var bar_view_test = function () {
             width: 300,
         },
 
-        tickables: [
+        notes: [
             {keys: ["c/4"], duration: "q"},
             {keys: ["d/4"], duration: "q"},
             {keys: ["b/4"], duration: "qr"},
