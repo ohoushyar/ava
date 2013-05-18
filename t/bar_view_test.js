@@ -57,7 +57,7 @@ var bar_view_test = function () {
 
         ok( (function(){
             // Clone model
-            var mod = new Ava.BarModel(model);
+            var mod = Ava.Bar(model);
             mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
             var view = new Ava.BarView({ model: mod });
             return view;
@@ -67,7 +67,7 @@ var bar_view_test = function () {
             // Clone model
             var new_model = _.clone(model);
             new_model.notes = notes2;
-            var mod = new Ava.BarModel(new_model);
+            var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
             var view = new Ava.BarView({ model: mod });
             return view;
@@ -94,7 +94,7 @@ var bar_view_test = function () {
 
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = new Ava.BarModel(model);
+            var mod = Ava.Bar(model);
             mod.get('stave').set('ctx', env.ctx);
 
             var view = new Ava.BarView({ model: mod });
@@ -109,7 +109,7 @@ var bar_view_test = function () {
 
             var new_model = _.clone(model);
             new_model.notes = notes2;
-            var mod = new Ava.BarModel(new_model);
+            var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', env.ctx);
 
             var view = new Ava.BarView({ model: mod });

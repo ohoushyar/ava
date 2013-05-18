@@ -143,6 +143,7 @@ bar_test = function () {
                     });
 
 
+                equal( bar.get('notes').length, 1, 'Expect only one note' );
                 ok( (function() { bar.add_note( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
                 equal( bar.get('notes').length, 2, 'Successfully added another tickable' );
 
