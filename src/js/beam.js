@@ -19,8 +19,6 @@ Ava.BeamModel = Backbone.Model.extend({
             };
         }
 
-        // Init list of notes
-        this.set( 'notes', new Ava.TickableList(this.get('notes')) );
     },
 });
 

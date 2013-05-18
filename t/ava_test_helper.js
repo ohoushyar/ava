@@ -67,6 +67,7 @@ var ava_test_helper = (function() {
         stave_test();
         stave_view_test();
         beam_test();
+        beam_view_test();
         bar_test();
         bar_view_test();
     };

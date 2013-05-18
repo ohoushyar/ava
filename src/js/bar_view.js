@@ -24,7 +24,11 @@ Ava.BarView = Backbone.View.extend({
         // Format and justify the tickables
         var formatter = new Vex.Flow.Formatter().
         joinVoices([this.voice]).formatToStave([this.voice], vex_stave);
+
+        // If there is beam get a BeamView instance
+        // Run voice draw
         this.voice.draw(this.model.get('stave').get('ctx'), vex_stave);
+        // Now run BeamView render
 
         return this;
     },
