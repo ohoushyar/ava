@@ -9,21 +9,21 @@ tickable_test = function () {
                         keys: ["d/4"],
                         duration: "q",
                     });
-                ok( tickable, 'tickable has been initiated successfully');
+                ok( tickable, 'tickable initialized successfully with minimum requirements');
 
                 tickable = Ava.Tickable({
                         keys: ["d/4"],
                         duration: "q",
                         is_removable: true,
                     });
-                ok( tickable, 'tickable has been initiated successfully');
+                ok( tickable, 'tickable initialized successfully with is_removable');
 
                 tickable = Ava.Tickable({
                         keys: ["d/4"],
                         duration: "q",
                         beam: "beam1",
                     });
-                ok( tickable, 'tickable has been initiated successfully');
+                ok( tickable, 'tickable initialized successfully with beam');
 
                 try {
                     tickable = Ava.Tickable({
@@ -73,6 +73,15 @@ tickable_test = function () {
                 equal(tickable.get('duration'), "q", 'Return expected value of duration');
                 equal(tickable.get('beam'), undefined, 'Return expected value of beam');
                 equal(tickable.get('is_removable'), false, 'Return expected value of is_removable');
+
+
+                tickable = Ava.Tickable({
+                        keys: ["d/4"],
+                        duration: "q",
+                        beam: 'beam1',
+                    });
+
+                equal(tickable.get('beam'), 'beam1', 'Return expected value of beam');
             });
 
 };

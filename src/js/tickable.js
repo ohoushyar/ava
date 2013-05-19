@@ -14,6 +14,7 @@ Ava.TickableModel = Backbone.Model.extend({
             next_index: -1,
             is_removable: false,
             beam: undefined,
+            stem_direction: undefined,
         };
     },
 
@@ -33,6 +34,5 @@ Ava.TickableList = Backbone.Collection.extend({
 
 Ava.Tickable = function (spec) {
     var that = new Ava.TickableModel(spec);
-
     return that;
 };
