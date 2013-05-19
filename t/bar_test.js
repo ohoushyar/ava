@@ -39,7 +39,7 @@ bar_test = function () {
                             { keys: ["d/4"], duration: "q" },
                         ],
                     });
-                ok( bar, 'Bar has been initiated successfully with more notes');
+                ok( bar, 'Bar initialized successfully with more notes');
 
                 bar = Ava.Bar({
                         clef: 'treble',
@@ -53,7 +53,7 @@ bar_test = function () {
                             { keys: ["d/4"], duration: "q" , beam: "beam1" },
                         ],
                     });
-                ok( bar, 'Bar has been initiated successfully and filled with removable rest');
+                ok( bar, 'Bar initialized successfully with notes include beam');
 
                 // bar = Ava.Bar({
                 //         clef: 'treble',
