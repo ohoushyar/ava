@@ -33,43 +33,45 @@ Ava.BarView = Backbone.View.extend({
     },
 
     render: function() {
-        var vex_stave = this.stave.render().vex_stave;
+        var that = this;
+
+        var vex_stave = that.stave.render().vex_stave;
 
         // Format and justify the tickables
         var formatter = new Vex.Flow.Formatter()
-            .joinVoices([this.voice])
-            .formatToStave([this.voice], vex_stave);
+            .joinVoices([that.voice])
+            .formatToStave([that.voice], vex_stave);
 
-        var ctx = this.model.get('stave').get('ctx');
+        var ctx = that.model.get('stave').get('ctx');
 
-        // TODO: make it a function
         // If there is beam get a BeamView instance
         var beam_view = {};
-        var beams = _.keys(this.beam_indices);
-        for (var beam_index=0; beam_index < beams.length; beam_index+=1) {
-            var note_indices = this.beam_indices[ beams[beam_index] ];
+        _.each( _.keys(that.beam_indices), function(beam_key) {
+            // Get the note indices of notes which they have the same beam
+            var note_indices = that.beam_indices[beam_key];
             var v_notes = [];
-            for (var note_index=0; note_index < note_indices.length; note_index += 1) {
-                v_notes.push(this.notes[ note_indices[note_index] ]);
-            }
+            _.each( note_indices, function(note_index) {
+                v_notes.push(that.notes[note_index]);
+            });
 
-            beam_view[beams[beam_index]] = new Ava.BeamView({
+            // Get the instance
+            beam_view[beam_key] = new Ava.BeamView({
                 model: new Backbone.Model({
                     notes: v_notes,
-                    ctx: ctx
+                    ctx: ctx,
                 })
             });
-        }
+        });
 
         // Run voice draw
-        this.voice.draw(ctx, vex_stave);
+        that.voice.draw(ctx, vex_stave);
 
         // Now run BeamView render
         _.each(_.keys(beam_view), function(beam_view_key) {
             beam_view[beam_view_key].render();
         });
 
-        return this;
+        return that;
     },
 
 });
