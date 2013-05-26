@@ -48,12 +48,6 @@ Ava.BarModel = Backbone.Model.extend({
         this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
     },
 
-    // validate: function(attrs, options) {
-    // },
-});
-
-Ava.BarList = Backbone.Collection.extend({
-    model: Ava.BarModel,
 });
 
 Ava.Bar = function (spec) {
@@ -98,6 +92,11 @@ Ava.Bar = function (spec) {
 
     return that;
 };
+
+
+Ava.BarList = Backbone.Collection.extend({
+    model: Ava.Bar,
+});
 
     /*
      * fill_with_removable_rest

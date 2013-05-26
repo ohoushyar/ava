@@ -55,73 +55,15 @@ bar_test = function () {
                     });
                 ok( bar, 'Bar initialized successfully with notes include beam');
 
-                // bar = Ava.Bar({
-                //         clef: 'treble',
-                //         show_clef: true,
-                //         key_signature: 'G',
-                //         show_time_signature: true,
-                //         notes: [
-                //             { keys: ["d/4"], duration: "hr" },
-                //         ],
-                //     });
-                // ok( bar, 'Bar has been initiated successfully and filled with removable rest');
+                var bar_list = new Ava.BarList([
+                    { notes: [ { keys: ["d/5"], duration: "wr" } ] },
+                    { notes: [ { keys: ["d/5"], duration: "wr" } ] },
+                    { notes: [ { keys: ["d/5"], duration: "wr" } ] },
+                ]);
 
-                // bar = Ava.Bar({
-                //         clef: 'treble',
-                //         show_clef: true,
-                //         key_signature: 'G',
-                //         num_beat: 3,
-                //         beat_value: 4,
-                //         show_time_signature: true,
-                //         notes: [
-                //             { keys: ["d/4"], duration: "hr" },
-                //         ],
-                //     });
-                // ok( bar, 'Bar of 3/4 has been initiated successfully and filled with removable rest');
-
-                // bar = Ava.Bar({
-                //         clef: 'treble',
-                //         show_clef: true,
-                //         key_signature: 'G',
-                //         show_time_signature: true,
-                //         notes: [
-                //             { keys: ["d/4"], duration: "64" },
-                //             { keys: ["b/4"], duration: "64r" },
-                //             { keys: ["c/4"], duration: "64" },
-                //             { keys: ["d/4"], duration: "64" },
-
-                //             { keys: ["d/4"], duration: "64" },
-                //             { keys: ["b/4"], duration: "64r" },
-                //             { keys: ["c/4"], duration: "64" },
-                //             { keys: ["d/4"], duration: "64" },
-
-                //             { keys: ["d/4"], duration: "64" },
-                //             { keys: ["b/4"], duration: "64r" },
-                //             { keys: ["c/4"], duration: "64" },
-                //             { keys: ["d/4"], duration: "64" },
-
-                //             { keys: ["d/4"], duration: "64" },
-                //             { keys: ["b/4"], duration: "64r" },
-                //             { keys: ["c/4"], duration: "64" },
-                //             { keys: ["d/4"], duration: "64" },
-                //         ],
-                //         ctx: env.ctx,
-                //     });
-                // ok( bar, 'Bar has been initiated successfully with 16 64th note');
-
-                // try {
-                //     bar = Ava.Bar({
-                //             x: 10,
-                //             ctx: env.ctx,
-                //             notes: [
-                //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
-                //                 new Vex.Flow.StaveNote({ keys: ["d/5"], duration: "wr" }),
-                //             ],
-                //         });
-                // }
-                // catch (e) {
-                //     equal(e.message, 'Too many ticks.', 'Successfully throw exception');
-                // }
+                ok( bar_list, 'Initialized a list of bars');
+                equal( bar_list.length, 3, 'got expected number of bars');
+                ok( (function() {return bar_list.first().cid;})(), 'successfully got cid attribute of first bar' );
 
             });
 
@@ -142,126 +84,24 @@ bar_test = function () {
                         ],
                     });
 
-
                 equal( bar.get('notes').length, 1, 'Expect only one note' );
                 ok( (function() { bar.add_note( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
                 equal( bar.get('notes').length, 2, 'Successfully added another tickable' );
 
 
-    //             env = ava_test_helper.init_env();
-    //             test_title = 'Successfully ran method draw on bar contains 16 64th note';
-    //             env.title.html('Methods - ' + test_title);
-    //             bar = Ava.Bar({
-    //                     clef: 'treble',
-    //                     show_clef: true,
-    //                     key_signature: 'G',
-    //                     show_time_signature: true,
-    //                     notes: [
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
+                bar = Ava.Bar({
+                    notes: [
+                        { keys: ["d/5"], duration: "wr" },
+                    ],
+                });
 
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
+                throws(
+                    function() {
+                        bar.add_note();
+                    },
+                    'expected to throw exception on invalidParam'
+                );
 
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-    //                     ],
-    //                     ctx: env.ctx,
-    //                 });
-
-    //             ok( (function() {bar.draw(); return true}()), test_title);
-
-
-    //             env = ava_test_helper.init_env();
-    //             test_title = 'Successfully ran method draw on bar contains 8 16th note';
-    //             env.title.html('Methods - ' + test_title);
-    //             bar = Ava.Bar({
-    //                     clef: 'treble',
-    //                     show_clef: true,
-    //                     num_beat: 2,
-    //                     key_signature: 'G',
-    //                     show_time_signature: true,
-    //                     notes: [
-    //                         { keys: ["d/4"], duration: "16" },
-    //                         { keys: ["b/4"], duration: "16r" },
-    //                         { keys: ["c/4"], duration: "16" },
-    //                         { keys: ["d/4"], duration: "16" },
-
-    //                         { keys: ["d/4"], duration: "16" },
-    //                         { keys: ["b/4"], duration: "16r" },
-    //                         { keys: ["c/4"], duration: "16" },
-    //                         { keys: ["d/4"], duration: "16" },
-    //                     ],
-    //                     ctx: env.ctx,
-    //                 });
-
-    //             ok( (function() {bar.draw(); return true}()), test_title);
-
-
-    //             env = ava_test_helper.init_env();
-    //             test_title = 'Successfully ran method draw on bar contains 32 64th note';
-    //             env.title.html('Methods - ' + test_title);
-    //             bar = Ava.Bar({
-    //                     clef: 'treble',
-    //                     show_clef: true,
-    //                     key_signature: 'G',
-    //                     show_time_signature: true,
-    //                     notes: [
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-
-    //                         { keys: ["d/4"], duration: "64" },
-    //                         { keys: ["b/4"], duration: "64r" },
-    //                         { keys: ["c/4"], duration: "64" },
-    //                         { keys: ["d/4"], duration: "64" },
-    //                     ],
-    //                     ctx: env.ctx,
-    //                 });
-
-    //             ok( (function() {bar.draw(); return true}()), test_title);
              });
 
 };
