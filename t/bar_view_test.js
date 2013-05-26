@@ -119,6 +119,24 @@ var bar_view_test = function () {
                 })(), test_title);
         });
 
+        test_title = 'Successfully ran bar render with insufficient note. Expect to fill with rests';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var new_model = _.clone(model);
+            // only one quarter
+            new_model.notes = [
+                {keys: ["c/4"], duration: "q"},
+            ];
+            var mod = Ava.Bar(new_model);
+            mod.get('stave').set('ctx', env.ctx);
+
+            var view = new Ava.BarView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
     //     test_title = 'Successfully ran render with different width';
     //     ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 

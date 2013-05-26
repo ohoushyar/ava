@@ -3,7 +3,51 @@
  */
 Ava.BarView = Backbone.View.extend({
 
+    _fill_with_removable_rest: function() {
+        var that = this;
+        var rests = [];
+
+        // Fill up the rest of Bar with rest and flag it as removable
+        if (!that.voice.isComplete()) {
+            // Get the number of ticks to fill with removable rest
+            var rest_ticks = that.voice.getTotalTicks().value() - that.voice.getTicksUsed().value();
+
+            for (i=0; i<Ava.valid_duration.length; i+=1) {
+
+                var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
+
+                // More than enough, try the next one
+                if (rest_ticks < ticks)
+                    continue;
+
+                var j=1;
+                while (j <= Math.floor(rest_ticks/ticks)) {
+                    var rest_note = new Vex.Flow.StaveNote({
+                        keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position],
+                        duration: Ava.valid_duration[i] + 'r',
+                    });
+
+                    // Sort by size start with small
+                    rests.unshift(rest_note);
+                    j += 1;
+                }
+
+                if (rest_ticks % ticks)
+                    rest_ticks %= ticks;
+                else
+                    break;
+            }
+
+            // Now add them to voice and push to the linked list
+            _.each(rests, function(rest) {
+                that.voice.addTickable(rest)
+            });
+        }
+
+    },
+
     initialize: function() {
+
         this.stave = new Ava.StaveView({model: this.model.get('stave')});
         var beam = {};
 
@@ -27,6 +71,7 @@ Ava.BarView = Backbone.View.extend({
         this.voice = new Vex.Flow.Voice(this.model.get('voice'));
         // Add notes to voice
         this.voice.addTickables(this.notes);
+        this._fill_with_removable_rest();
 
         this.beam_indices = beam;
 
