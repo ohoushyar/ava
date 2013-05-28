@@ -133,8 +133,30 @@ var bar_view_test = function () {
             var view = new Ava.BarView({ model: mod });
             ok( (function(){
                     view.render();
-                    return view.$el;
+                    return true;
                 })(), test_title);
+        });
+
+        test_title = 'Successfully trigger render on model change';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var new_model = _.clone(model);
+            // only one quarter
+            new_model.notes = [
+                {keys: ["c/4"], duration: "q"},
+            ];
+            var mod = Ava.Bar(new_model);
+            mod.get('stave').set('ctx', env.ctx);
+
+            var view = new Ava.BarView({ model: mod });
+            view.render();
+
+            ok( (function(){
+                // Trigger a change on model
+                // This suppose to run render of view again
+                view.add_note( { keys: ["d/4"], duration: "q" } );
+                return true;
+            })(), test_title);
         });
 
     //     test_title = 'Successfully ran render with different width';

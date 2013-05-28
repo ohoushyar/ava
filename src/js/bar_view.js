@@ -48,9 +48,20 @@ Ava.BarView = Backbone.View.extend({
 
     initialize: function() {
 
-        this.stave = new Ava.StaveView({model: this.model.get('stave')});
-        var beam = {};
+        this.model.get('notes').on('add', this.render, this);
 
+        this.stave = new Ava.StaveView({model: this.model.get('stave')});
+
+    },
+
+    add_note: function(spec) {
+        this.model.add_note( Ava.Tickable(spec) );
+    },
+
+    render: function() {
+        var that = this;
+
+        var beam = {};
         var index = 0;
         this.notes = this.model.get('notes').map( function(spec) {
                 if (spec.get('beam')) {
@@ -68,18 +79,15 @@ Ava.BarView = Backbone.View.extend({
                 });
             });
 
+        this.beam_indices = beam;
         this.voice = new Vex.Flow.Voice(this.model.get('voice'));
         // Add notes to voice
         this.voice.addTickables(this.notes);
         this._fill_with_removable_rest();
 
-        this.beam_indices = beam;
-
-    },
-
-    render: function() {
-        var that = this;
-
+        // TODO: Need to find out a proper way to clear the context
+        var ctx = that.model.get('stave').get('ctx');
+        ctx.clear();
         var vex_stave = that.stave.render().vex_stave;
 
         // Format and justify the tickables
@@ -87,7 +95,7 @@ Ava.BarView = Backbone.View.extend({
             .joinVoices([that.voice])
             .formatToStave([that.voice], vex_stave);
 
-        var ctx = that.model.get('stave').get('ctx');
+        ctx = that.model.get('stave').get('ctx');
 
         // If there is beam get a BeamView instance
         var beam_view = {};
