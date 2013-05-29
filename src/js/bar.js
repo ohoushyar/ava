@@ -13,13 +13,13 @@
  */
 
 Ava.BarModel = Backbone.Model.extend({
+
     defaults: function() {
         return {
-            stave: {
-                x: 0,
-                y: 0,
-                width: 300,
-            },
+            x: 0,
+            y: 0,
+            width: 300,
+            height: 120,
             show_clef: false,
             num_beat: 4,
             beat_value: 4,
@@ -28,13 +28,11 @@ Ava.BarModel = Backbone.Model.extend({
     },
 
     initialize: function() {
-        if (typeof this.get('stave') !== 'object') {
-            throw {
-                name: 'invalidParam',
-                message: 'Passed invalid parameter. Stave have to be an object',
-            };
-        }
-        this.set( 'stave', new Ava.StaveModel(this.get('stave')) );
+        this.set( 'stave', new Ava.StaveModel({
+            x: this.get('x'),
+            y: this.get('y'),
+            width: this.get('width'),
+        }) );
 
         if (typeof this.get('notes') !== 'object') {
             throw {

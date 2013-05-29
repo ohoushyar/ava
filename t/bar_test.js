@@ -18,10 +18,10 @@ bar_test = function () {
                 ok( bar, 'Bar has been initiated successfully');
 
                 // Test defaults
-                equal(typeof bar.get('stave'), 'object', 'stave is an object');
-                ok(bar.get('stave').has('x'), 'stave has attribute x');
-                ok(bar.get('stave').has('y'), 'stave has attribute y');
-                ok(bar.get('stave').has('width'), 'stave has attribute width');
+                equal(bar.get('x'), 0, 'Got expected default value of x');
+                equal(bar.get('y'), 0, 'Got expected default value of y');
+                equal(bar.get('width'), 300, 'Got expected default value of width');
+                equal(bar.get('height'), 120, 'Got expected default value of width');
                 equal(bar.get('show_clef'), false, 'Got expected default value of show_clef');
                 equal(bar.get('num_beat'), 4, 'Got expected default value of num_beat');
                 equal(bar.get('beat_value'), 4, 'Got expected default value of beat_value');
