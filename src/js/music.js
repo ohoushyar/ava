@@ -15,6 +15,7 @@
  *
  */
 Ava.MusicModel = Backbone.Model.extend({
+
     defaults: function() {
         return {
             title: 'untitle',
@@ -33,10 +34,10 @@ Ava.MusicModel = Backbone.Model.extend({
             this.set( 'bars', new Ava.BarList(this.get('bars')) );
         }
     },
+
 });
 
 Ava.Music = function (spec) {
     var that = new Ava.MusicModel(spec);
-
     return that;
 }

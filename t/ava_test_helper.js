@@ -61,15 +61,20 @@ var ava_test_helper = (function() {
     // Init
     that.run_all = function() {
         avaTest();
-        music_test();
         // containerTest();
         tickable_test();
+
         stave_test();
         stave_view_test();
+
         beam_test();
         beam_view_test();
+
         bar_test();
         bar_view_test();
+
+        music_test();
+        music_view_test();
     };
 
     return that;
