@@ -46,6 +46,14 @@ Ava.BarModel = Backbone.Model.extend({
         this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
     },
 
+    set_x: function(x) {
+        this.set('x', x);
+    },
+
+    set_y: function(y) {
+        this.set('y', y);
+    },
+
 });
 
 Ava.Bar = function (spec) {
