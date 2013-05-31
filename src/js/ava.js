@@ -7,6 +7,8 @@ Ava = ( function () {
     that.Constant = {
         CANVAS:  'canvas',
         RAPHAEL: 'raphael',
+        BAR_DEFAULT_WIDTH: 300,
+        BAR_DEFAULT_HEIGHT: 120,
         BAR_CONTEXT_EXTRA_WIDTH: 5,
         DEFAULT_WIDTH: 1024,
         DEFAULT_HEIGHT: 120,

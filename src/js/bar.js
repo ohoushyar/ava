@@ -18,8 +18,8 @@ Ava.BarModel = Backbone.Model.extend({
         return {
             x: 0,
             y: 0,
-            width: 300,
-            height: 120,
+            width: Ava.Constant.BAR_DEFAULT_WIDTH,
+            height: Ava.Constant.BAR_DEFAULT_HEIGHT,
             show_clef: false,
             num_beat: 4,
             beat_value: 4,
