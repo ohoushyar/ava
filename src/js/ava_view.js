@@ -22,6 +22,12 @@ Ava.View = Backbone.View.extend({
         // in application
         Ava.set_vexflow_context( Vex.Flow.Renderer.buildContext($ava_canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT) );
 
+        // Get an instance of MusicView and run render
+        var music_view = new Ava.MusicView({
+            model: Ava.Music( this.model.music ),
+        });
+        music_view.render();
+
         return this;
     },
 
