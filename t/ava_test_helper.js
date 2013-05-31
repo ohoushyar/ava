@@ -86,6 +86,8 @@ var ava_test_helper = (function() {
 
         music_test();
         music_view_test();
+
+        ava_view_test();
     };
 
     return that;
