@@ -8,14 +8,25 @@ Ava.MusicView = Backbone.View.extend({
 
     render: function() {
         var that = this;
-        var ctx = Vex.Flow.Renderer.buildContext(this.model.get('canvas_id'), Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
 
         // Run views of each bar
-        // I need to access to this ctx from other views
-        //
+        this.model.get('bars').forEach( this.render_bar, this);
+
         // I can set the width of ctx to default and 
 
         return that;
+    },
+
+    render_bar: function(bar) {
+        var bar_model = Ava.Bar(bar)
+        // every time set x and y of a new bar according to ctx or perhaps
+        // previous bar position which would be x + width
+        bar_model.set_x(Ava.Context.current_x);
+        bar_model.set_y(Ava.Context.current_y);
+
+        var bar_view = new Ava.BarView( {model: bar_model} );
+
+        bar_view.render();
     },
 
 });
