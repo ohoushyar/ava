@@ -17,6 +17,7 @@ Ava.Bar = function (spec) {
         var BarModel = Backbone.Model.extend({
             defaults: function() {
                 return {
+
                     /**
                      * Bar x
                      * @attribute x
@@ -25,6 +26,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     x: 0,
+
                     /**
                      * Bar y
                      * @attribute y
@@ -33,6 +35,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     y: 0,
+
                     /**
                      * Bar width
                      * @attribute width
@@ -41,6 +44,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     width: Ava.Constant.BAR_DEFAULT_WIDTH,
+
                     /**
                      * Bar height
                      * @attribute height
@@ -49,6 +53,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     height: Ava.Constant.BAR_DEFAULT_HEIGHT,
+
                     /**
                      * Flag to represent showing of clef in bar
                      * @attribute show_clef
@@ -57,6 +62,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     show_clef: false,
+
                     /**
                      * @attribute num_beat
                      * @type {Number}
@@ -64,6 +70,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     num_beat: 4,
+
                     /**
                      * @attribute beat_value
                      * @type {Number}
@@ -71,6 +78,7 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     beat_value: 4,
+
                     /**
                      * Flag to represent showing of time signature in bar
                      * @attribute show_time_signature
