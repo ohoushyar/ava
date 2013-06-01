@@ -40,7 +40,7 @@ var music_view_test = function () {
         mod.set('canvas_id', env.canvas_id);
 
         ok( (function(){
-            var view = new Ava.MusicView({ model: mod });
+            var view = Ava.MusicView({ model: mod });
             return view;
         })(), 'Ava.MusicView init sucessfully');
 
@@ -58,7 +58,7 @@ var music_view_test = function () {
             mod.set('canvas_id', env.canvas_id);
             //mod.get('stave').set('ctx', env.ctx);
 
-            var view = new Ava.MusicView({ model: mod });
+            var view = Ava.MusicView({ model: mod });
             ok( (function(){
                     view.render();
                     return true;

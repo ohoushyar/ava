@@ -15,6 +15,7 @@ Ava.Music = function (spec) {
         var MusicModel = Backbone.Model.extend({
             defaults: function() {
                 return {
+
                     /**
                      * Music title
                      * @attribute title
@@ -23,6 +24,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     title: 'untitle',
+
                     /**
                      * Music sub-title
                      * @attribute subtitle
@@ -31,6 +33,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     subtitle: 'no-subtitle',
+
                     /**
                      * Music composer
                      * @attribute composer
@@ -39,6 +42,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     composer: 'unknown',
+
                     /**
                      * Song clef
                      * @attribute clef
@@ -47,6 +51,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     clef: 'treble',
+
                     /**
                      * Song Key Signature (https://en.wikipedia.org/wiki/Key_signature)
                      *
@@ -63,6 +68,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     key_signature: 'C',
+
                     /**
                      * Song Time Signature (https://en.wikipedia.org/wiki/Time_signature)
                      * @attribute time_signature
@@ -71,6 +77,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     time_signature: '4/4',
+
                     /**
                      * @attribute num_beat
                      * @type {Number}
@@ -78,6 +85,7 @@ Ava.Music = function (spec) {
                      * @optional
                      **/
                     num_beat: 4,
+
                     /**
                      * @attribute beat_value
                      * @type {Number}

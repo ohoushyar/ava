@@ -59,7 +59,7 @@ var bar_view_test = function () {
             // Clone model
             var mod = Ava.Bar(model);
             mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             return view;
         })(), 'Ava.BarView init sucessfully');
 
@@ -69,7 +69,7 @@ var bar_view_test = function () {
             new_model.notes = notes2;
             var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120));
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             return view;
         })(), 'Ava.BarView init sucessfully with notes and different beams');
 
@@ -77,7 +77,7 @@ var bar_view_test = function () {
         // try {
         //     // Clone model
         //     var mod = Object.create(model);
-        //     view = new Ava.BarView({ model: mod });
+        //     view = Ava.BarView({ model: mod });
         //     view.render();
         // }
         // catch(e) {
@@ -97,7 +97,7 @@ var bar_view_test = function () {
             var mod = Ava.Bar(model);
             mod.get('stave').set('ctx', env.ctx);
 
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             ok( (function(){
                     view.render();
                     return view.$el;
@@ -112,7 +112,7 @@ var bar_view_test = function () {
             var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', env.ctx);
 
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             ok( (function(){
                     view.render();
                     return view.$el;
@@ -130,7 +130,7 @@ var bar_view_test = function () {
             var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', env.ctx);
 
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             ok( (function(){
                     view.render();
                     return true;
@@ -148,7 +148,7 @@ var bar_view_test = function () {
             var mod = Ava.Bar(new_model);
             mod.get('stave').set('ctx', env.ctx);
 
-            var view = new Ava.BarView({ model: mod });
+            var view = Ava.BarView({ model: mod });
             view.render();
 
             ok( (function(){
@@ -167,7 +167,7 @@ var bar_view_test = function () {
     //         mod.width = 600;
     //         mod.ctx = env.ctx;
 
-    //         var view = new Ava.BarView({ model: mod });
+    //         var view = Ava.BarView({ model: mod });
     //         ok( (function(){
     //                 view.render();
     //                 return view.$el;
@@ -181,7 +181,7 @@ var bar_view_test = function () {
     //         mod.clef = 'bass';
     //         mod.ctx = env.ctx;
 
-    //         var view = new Ava.BarView({ model: mod });
+    //         var view = Ava.BarView({ model: mod });
     //         ok( (function(){
     //                 view.render();
     //                 return view.$el;
@@ -197,7 +197,7 @@ var bar_view_test = function () {
     //         mod.key_signature = 'B';
     //         mod.ctx = env.ctx;
 
-    //         var view = new Ava.BarView({ model: mod });
+    //         var view = Ava.BarView({ model: mod });
     //         ok( (function(){
     //                 view.render();
     //                 return view.$el;
