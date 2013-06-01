@@ -5,7 +5,7 @@
  *
  * @class Ava.Bar
  * @constructor
- * @param {Object} An object to init a Bar
+ * @param {Object} spec An object to init a Bar
  * @extend Backbone.Model
  **/
 Ava.Bar = function (spec) {
