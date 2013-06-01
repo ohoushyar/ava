@@ -31,9 +31,9 @@ music_test = function () {
         });
         ok( music, 'Music has been initiated successfully with attributes');
 
-        equal(music.get('title'), 'test title', 'Got expected default value of title');
-        equal(music.get('subtitle'), 'subtitle test', 'Got expected default value of subtitle');
-        equal(music.get('composer'), 'A composer', 'Got expected default value of composer');
+        equal(music.get('title'), 'test title', 'Got expected  value of title');
+        equal(music.get('subtitle'), 'subtitle test', 'Got expected  value of subtitle');
+        equal(music.get('composer'), 'A composer', 'Got expected  value of composer');
 
         music = Ava.Music({
             bars: [{
