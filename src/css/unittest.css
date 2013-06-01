@@ -1,6 +1,6 @@
 .ut-canvas {
     height: 125px;
-    width: 1024px;
+    width: auto;
     background-color: #FFFFEE;
     border: 5px solid #CCCCCC;
     padding: 10px;
