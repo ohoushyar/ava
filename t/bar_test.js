@@ -55,7 +55,7 @@ bar_test = function () {
                     });
                 ok( bar, 'Bar initialized successfully with notes include beam');
 
-                var bar_list = new Ava.BarList([
+                var bar_list = Ava.BarList([
                     { notes: [ { keys: ["d/5"], duration: "wr" } ] },
                     { notes: [ { keys: ["d/5"], duration: "wr" } ] },
                     { notes: [ { keys: ["d/5"], duration: "wr" } ] },

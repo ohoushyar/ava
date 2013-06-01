@@ -1,90 +1,123 @@
-/*
- * Bar
- *
+/**
  * Bar (or measure) is a segment of time defined by a given number of
  * beats, each of which are assigned a particular note value
  * (https://en.wikipedia.org/wiki/Bar_%28music%29)
  *
- * Public Attributes:
- *
- * Public Methods:
- * that.add_note
- *
- */
-
-Ava.BarModel = Backbone.Model.extend({
-
-    defaults: function() {
-        return {
-            x: 0,
-            y: 0,
-            width: Ava.Constant.BAR_DEFAULT_WIDTH,
-            height: Ava.Constant.BAR_DEFAULT_HEIGHT,
-            show_clef: false,
-            num_beat: 4,
-            beat_value: 4,
-            show_time_signature: false,
-        };
-    },
-
-    initialize: function() {
-        this.set( 'stave', new Ava.StaveModel({
-            x: this.get('x'),
-            y: this.get('y'),
-            width: this.get('width'),
-        }) );
-
-        if (typeof this.get('notes') !== 'object') {
-            throw {
-                name: 'invalidParam',
-                message: 'Passed invalid parameter. notes have to be an array',
-            };
-        }
-        // Init list of notes
-        this.set( 'notes', new Ava.TickableList(this.get('notes')) );
-
-        this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
-    },
-
-    set_x: function(x) {
-        this.set('x', x);
-    },
-
-    set_y: function(y) {
-        this.set('y', y);
-    },
-
-});
-
+ * @class Ava.Bar
+ * @constructor
+ * @param {Object} An object to init a Bar
+ * @extend Backbone.Model
+ **/
 Ava.Bar = function (spec) {
 
-    var that = new Ava.BarModel(spec);
+    var that = {};
 
-    // Private attribute
-    var first,
-        current,
-        last,
-        clef,
-        show_clef,
-        key_signature,
-        num_beat,
-        beat_value,
-        show_time_signature,
-        time_signature,
-        next_bar,
-        prev_bar,
-        time,
-        voice,
-        stave;
-        // default_width = 250,
-        // pixel_per_note = 50;
+    ( function(spec) {
 
-    /*
-     * add_note
-     *
-     * public
-     *
-     */
+        var BarModel = Backbone.Model.extend({
+            defaults: function() {
+                return {
+                    /**
+                     * Bar x
+                     * @attribute x
+                     * @type {Number}
+                     * @default 0
+                     * @optional
+                     **/
+                    x: 0,
+                    /**
+                     * Bar y
+                     * @attribute y
+                     * @type {Number}
+                     * @default 0
+                     * @optional
+                     **/
+                    y: 0,
+                    /**
+                     * Bar width
+                     * @attribute width
+                     * @type {Number}
+                     * @default (defined in Ava.Constant)
+                     * @optional
+                     **/
+                    width: Ava.Constant.BAR_DEFAULT_WIDTH,
+                    /**
+                     * Bar height
+                     * @attribute height
+                     * @type {Number}
+                     * @default (defined in Ava.Constant)
+                     * @optional
+                     **/
+                    height: Ava.Constant.BAR_DEFAULT_HEIGHT,
+                    /**
+                     * Flag to represent showing of clef in bar
+                     * @attribute show_clef
+                     * @type {Boolean}
+                     * @default false
+                     * @optional
+                     **/
+                    show_clef: false,
+                    /**
+                     * @attribute num_beat
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
+                    num_beat: 4,
+                    /**
+                     * @attribute beat_value
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
+                    beat_value: 4,
+                    /**
+                     * Flag to represent showing of time signature in bar
+                     * @attribute show_time_signature
+                     * @type {Boolean}
+                     * @default false
+                     * @optional
+                     **/
+                    show_time_signature: false,
+                };
+            },
+
+            initialize: function() {
+                this.set( 'stave', new Ava.StaveModel({
+                    x: this.get('x'),
+                    y: this.get('y'),
+                    width: this.get('width'),
+                }) );
+
+                /**
+                 * List of notes
+                 * @attribute notes
+                 * @type {Object} Ava.NoteList
+                 * @required
+                 **/
+                if (typeof this.get('notes') !== 'object') {
+                    throw {
+                        name: 'invalidParam',
+                        message: 'Passed invalid parameter. notes have to be an array',
+                    };
+                }
+                // Init list of notes
+                this.set( 'notes', new Ava.TickableList(this.get('notes')) );
+
+                this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
+            },
+
+        });
+
+        that = new BarModel(spec);
+
+    })(spec);
+
+    /**
+     * @method add_note
+     * @param {Object} Ava.Tickable
+     * @return
+     **/
     that.add_note = function(tickable) {
         if ( typeof tickable !== 'object' ) {
             throw {
@@ -96,89 +129,41 @@ Ava.Bar = function (spec) {
         that.get('notes').add(tickable);
     };
 
+    /**
+     * @method set_x
+     * @param {Number} x
+     * @return
+     **/
+    that.set_x = function(x) {
+        that.set('x', x);
+    };
+
+    /**
+     * @method set_y
+     * @param {Number} y
+     * @return
+     **/
+    that.set_y = function(y) {
+        that.set('y', y);
+    };
+
     return that;
 };
 
+/**
+ * Represents a collection of Bars
+ * @class Ava.BarList
+ * @constructor
+ * @param {Array} An array of Ava.Bar object
+ * @extends Backbone.Collection
+ **/
+Ava.BarList = function(spec) {
+    var List = Backbone.Collection.extend({
+        model: Ava.Bar,
+    });
+    return new List(spec);
+};
 
-Ava.BarList = Backbone.Collection.extend({
-    model: Ava.Bar,
-});
-
-    /*
-     * fill_with_removable_rest
-     *
-     * private
-     *
-     */
-    // var fill_with_removable_rest = function() {
-
-    //     var rests = [];
-
-    //     // Fill up the rest of Bar with rest and flag it as removable
-    //     if (!voice.isComplete()) {
-    //         // Get the number of ticks to fill with removable rest
-    //         var rest_ticks = voice.getTotalTicks() - voice.getTicksUsed();
-
-    //         for (i=0; i<Ava.valid_duration.length; i+=1) {
-    //             var ticks = Vex.Flow.durationToTicks(Ava.valid_duration[i]);
-
-    //             // More than enough, try the next one
-    //             if (rest_ticks < ticks)
-    //                 continue;
-
-    //             for (var j=1; j<=Math.floor(rest_ticks/ticks); j+=1) {
-    //                 var rest_note = Ava.Tickable({
-    //                     keys: [Vex.Flow.durationToGlyph(Ava.valid_duration[i], 'r').position],
-    //                     duration: Ava.valid_duration[i] + 'r',
-    //                     isRemovable: true,
-    //                 });
-
-    //                 // Sort by size start with small
-    //                 rests.unshift(rest_note);
-    //             }
-
-    //             if (rest_ticks % ticks)
-    //                 rest_ticks %= ticks;
-    //             else
-    //                 break;
-    //         }
-
-
-    //         // Now add them to voice and push to the linked list
-    //         for (i=0; i<rests.length; i++) {
-    //             try {
-    //                 voice.addTickable(rests[i].note)
-    //                 push_to_link(rests[i]);
-    //             }
-    //             catch (e) {
-    //                 $(errorContainer).html('[Bar] ' + e.code + ': ' + e.message);
-    //                 throw e;
-    //             }
-    //         }
-
-    //     }
-    // };
-
-    // /*
-    //  * draw
-    //  *
-    //  * public
-    //  *
-    //  */
-    // that.draw = function () {
-    //     // Do some hack to get the right justification width to pass to stave before
-    //     // running formatToStave
-    //     adjust_width();
-
-    //     try {
-    //         stave.draw();
-    //         formatter.joinVoices([voice]).formatToStave([voice], stave);
-    //         voice.draw(ctx, stave);
-    //     }
-    //     catch (e) {
-    //         $(errorContainer).html('[Measure::draw] ' + e.code + ': ' + e.message);
-    //     }
-    // };
 
     // var adjust_width = function() {
     //     var current_width = get_current_width();
@@ -216,25 +201,6 @@ Ava.BarList = Backbone.Collection.extend({
     //     }
 
     //     return minTotalWidth;
-    // };
-
-    /*
-     * has_empty_spot
-     *
-     * public
-     *
-     */
-    // that.has_empty_spot = function() {
-    //         current = first;
-
-    //         while (current) {
-    //             if (current.isRemovable)
-    //                 return true;
-
-    //             current = current.next;
-    //         }
-
-    //         return false;
     // };
 
 
