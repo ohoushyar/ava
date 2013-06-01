@@ -1,40 +1,100 @@
-/*
- * Ava.Music
+/**
+ * Represents Music model
  *
- * Container of all music property
- *
- * Title
- * Subtitle
- * Composer
- *
- * Clef
- * Key Signature
- * Time Signature
- * Bars: Ava.BarList
- * Stave
- *
- */
+ * @class Ava.Music
+ * @extends Backbone.Model
+ * @constructor
+ * @param {Object} spec Object includes all properties value
+ * @return {Object} Returns Music model object
+ **/
 Ava.Music = function (spec) {
     var that = {};
 
-    // Constructor
     ( function(spec) {
 
         var MusicModel = Backbone.Model.extend({
             defaults: function() {
                 return {
+                    /**
+                     * Music title
+                     * @attribute title
+                     * @type {String}
+                     * @default untitle
+                     * @optional
+                     **/
                     title: 'untitle',
+                    /**
+                     * Music sub-title
+                     * @attribute subtitle
+                     * @type {String}
+                     * @default no-subtitle
+                     * @optional
+                     **/
                     subtitle: 'no-subtitle',
+                    /**
+                     * Music composer
+                     * @attribute composer
+                     * @type {String}
+                     * @default unknown
+                     * @optional
+                     **/
                     composer: 'unknown',
+                    /**
+                     * Song clef
+                     * @attribute clef
+                     * @type {String}
+                     * @default treble
+                     * @optional
+                     **/
                     clef: 'treble',
+                    /**
+                     * Song Key Signature (https://en.wikipedia.org/wiki/Key_signature)
+                     *
+                     * Valid key signature:
+                     *
+                     * "C", "Am", "F", "Dm", "Bb", "Gm", "Eb", "Cm",
+                     * "Ab", "Fm", "Db", "Bbm", "Gb", "Ebm", "Cb",
+                     * "Abm", "G", "Em", "D", "Bm", "A", "F#m", "E",
+                     * "C#m", "B", "G    #m", "F#", "D#m", "C#", "A#m"
+                     *
+                     * @attribute key_signature
+                     * @type {String}
+                     * @default C
+                     * @optional
+                     **/
                     key_signature: 'C',
+                    /**
+                     * Song Time Signature (https://en.wikipedia.org/wiki/Time_signature)
+                     * @attribute time_signature
+                     * @type {String}
+                     * @default 4/4
+                     * @optional
+                     **/
                     time_signature: '4/4',
+                    /**
+                     * @attribute num_beat
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
                     num_beat: 4,
+                    /**
+                     * @attribute beat_value
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
                     beat_value: 4,
                 };
             },
 
             initialize: function() {
+                /**
+                 * List of bars
+                 * @attribute bars
+                 * @type {Object} Ava.BarList
+                 * @required
+                 **/
                 if (typeof this.get('bars') === 'object') {
                     this.set( 'bars', new Ava.BarList(this.get('bars')) );
                 }
