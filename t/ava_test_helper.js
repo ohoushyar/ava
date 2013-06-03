@@ -40,26 +40,25 @@ var ava_test_helper = (function() {
 
         $unittest_div_element.append( get_$div(unittest_div_id + '-canvas') );
 
-        var $canvas = $("#"+unittest_div_id+"-canvas");
+        var canvas_id = unittest_div_id+'-canvas';
+        var $canvas = $("#"+canvas_id);
         $canvas.addClass("ut-canvas");
 
-        var renderer = new Vex.Flow.Renderer($canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL);
+        Ava.Context.vexflow_ctx_div_id(canvas_id);
 
         return {
             $div: $unittest_div_element,
             div_id: unittest_div_id,
             $title: $title,
             $canvas: $canvas,
-            canvas_id: unittest_div_id+'-canvas',
-            renderer: renderer,
-            ctx: renderer.getContext(),
+            canvas_id: canvas_id,
+            ctx: Ava.Context.vexflow_ctx(),
         };
     };
 
     // A view test runner
     that.run_view_test = function( module, submodule, title, func, hide_env) {
         var env = that.init_env();
-        env.ctx = Vex.Flow.Renderer.buildContext(env.canvas_id, Vex.Flow.Renderer.Backends.RAPHAEL, 500, 120);
         env.$title.html(module + ' - ' + submodule + ' - ' + title);
 
         if (hide_env) {
