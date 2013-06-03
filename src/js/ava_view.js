@@ -18,9 +18,8 @@ Ava.View = Backbone.View.extend({
         $ava_canvas.addClass( this.model.canvas_class_name );
         this.$el.append( $ava_canvas );
 
-        // Create a vexflow context and make it available from everywhere
-        // in application
-        Ava.set_vexflow_context( Vex.Flow.Renderer.buildContext($ava_canvas[0], Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT) );
+        // Set context div_id
+        Ava.Context.vexflow_ctx_div_id($ava_canvas[0]);
 
         // Get an instance of MusicView and run render
         var music_view = new Ava.MusicView({
