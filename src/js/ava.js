@@ -19,10 +19,12 @@ Ava = ( function () {
     that.valid_key_signatures = ["C", "Am", "F", "Dm", "Bb", "Gm", "Eb", "Cm", "Ab", "Fm", "Db", "Bbm", "Gb", "Ebm", "Cb", "Abm", "G", "Em", "D", "Bm", "A", "F#m", "E", "C#m", "B", "G    #m", "F#", "D#m", "C#", "A#m"];
 
     that.Context = (function () {
-        var currDuration = 'w';
+        var curr_duration = 'w';
+        var vexflow_context_div_id;
+        var vexflow_context;
 
         return {
-            currentDuration: function (duration) {
+            current_duration: function(duration) {
 
                 if (typeof duration !== 'undefined') {
                     if ($.inArray(!isNaN(duration) ? parseInt(duration) : duration, that.valid_duration) == -1) {
@@ -32,24 +34,55 @@ Ava = ( function () {
                         }
                     }
 
-                    currDuration = duration;
+                    curr_duration = duration;
                 }
 
-                return currDuration;
+                return curr_duration;
+            },
+
+
+            vexflow_ctx_div_id: function(div_id) {
+                if ( typeof div_id !== 'undefined' ) {
+                    if ( !(typeof div_id === 'string' && $("#"+div_id).length) ) {
+                        throw {
+                            name: 'invalidParam',
+                            message: 'Invalid param. div_id has to be string or div is not valid',
+                        }
+                    }
+
+                    vexflow_context_div_id = div_id;
+                }
+
+                return vexflow_context_div_id;
+            },
+
+            vexflow_ctx: function(ctx) {
+
+                if (typeof ctx !== 'undefined') {
+                    if (typeof ctx !== 'object') {
+                        throw {
+                            name: 'invalidParam',
+                            message: 'Invalid param. ctx has to be object',
+                        }
+                    }
+                    vexflow_context = ctx;
+                }
+
+                if ( typeof vexflow_context === 'undefined'
+                    && !(typeof vexflow_context_div_id === 'string'
+                        || $("#"+vexflow_context_div_id).length) ) {
+                    throw {
+                        name: 'invalidDiv',
+                        message: 'Invalid div for context',
+                    }
+                } else {
+                    vexflow_context = Vex.Flow.Renderer.buildContext( vexflow_context_div_id, Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT);
+                }
+
+                return vexflow_context;
             },
         };
     }() );
-
-    that.set_vexflow_context = function(ctx) {
-        if (typeof ctx !== 'object') {
-            throw {
-                name: 'invalidParam',
-                message: 'Invalid param. ctx has to be object',
-            }
-        }
-
-        that.Context.vexflow_ctx = ctx;
-    };
 
     return that;
 }() );
