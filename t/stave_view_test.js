@@ -19,7 +19,7 @@ var stave_view_test = function () {
         var view;
 
         ok( (function(){
-                var mod = new Ava.StaveModel(model);
+                var mod = Ava.Stave(model);
                 view = Ava.StaveView({ model: mod });
                 return view;
             })(), 'Ava.StaveView init sucessfully');
@@ -34,7 +34,7 @@ var stave_view_test = function () {
 
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = new Ava.StaveModel(model);
+            var mod = Ava.Stave(model);
             var view = Ava.StaveView({ model: mod });
             ok( (function(){
                     view.render();
@@ -45,7 +45,7 @@ var stave_view_test = function () {
         test_title = 'Successfully ran render with different width';
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = new Ava.StaveModel(model);
+            var mod = Ava.Stave(model);
             env.ctx.resize(700);
             mod.set('width', 600);
 
@@ -59,7 +59,7 @@ var stave_view_test = function () {
         test_title = 'Successfully ran render stave with clef';
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = new Ava.StaveModel(model);
+            var mod = Ava.Stave(model);
             mod.set('clef', 'bass');
             mod.set('ctx', env.ctx);
 
@@ -73,7 +73,7 @@ var stave_view_test = function () {
         test_title = 'Successfully ran render stave with clef, time_signature and key_signature';
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
-            var mod = new Ava.StaveModel(model);
+            var mod = Ava.Stave(model);
             mod.set('clef', 'treble');
             mod.set('time_signature', '6/8');
             mod.set('key_signature', 'B');

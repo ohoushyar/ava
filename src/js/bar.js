@@ -91,7 +91,7 @@ Ava.Bar = function (spec) {
             },
 
             initialize: function() {
-                this.set( 'stave', new Ava.StaveModel({
+                this.set( 'stave', Ava.Stave({
                     x: this.get('x'),
                     y: this.get('y'),
                     width: this.get('width'),
