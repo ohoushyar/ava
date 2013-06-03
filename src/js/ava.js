@@ -27,7 +27,7 @@ Ava = ( function () {
     that.Context = (function () {
         var curr_duration = 'w';
         var vexflow_context_div_id;
-        var vexflow_context;
+        var vexflow_context = {};
 
         return {
             current_duration: function(duration) {
@@ -85,21 +85,24 @@ Ava = ( function () {
                             message: 'Invalid param. ctx has to be object',
                         }
                     }
-                    vexflow_context = ctx;
+
+                    vexflow_context[vexflow_context_div_id] = ctx;
                 }
 
-                if ( typeof vexflow_context === 'undefined'
-                    && !(typeof vexflow_context_div_id === 'string'
+                // build context
+                if ( typeof vexflow_context[vexflow_context_div_id] === 'undefined') {
+                    if ( !(typeof vexflow_context_div_id === 'string'
                         || $("#"+vexflow_context_div_id).length) ) {
-                    throw {
-                        name: 'invalidDiv',
-                        message: 'Invalid div for context',
+                        throw {
+                            name: 'invalidDiv',
+                            message: 'Invalid div for context',
+                        }
                     }
-                } else {
-                    vexflow_context = Vex.Flow.Renderer.buildContext( vexflow_context_div_id, Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT);
+
+                    vexflow_context[vexflow_context_div_id] = Vex.Flow.Renderer.buildContext( vexflow_context_div_id, Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT);
                 }
 
-                return vexflow_context;
+                return vexflow_context[vexflow_context_div_id];
             },
         };
     }() );
