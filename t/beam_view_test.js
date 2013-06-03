@@ -6,12 +6,11 @@ var beam_view_test = function () {
     var module_name = 'Ava.BeamView';
 
     var init = function(spec) {
-        var stave = new Ava.StaveView({
+        var stave = Ava.StaveView({
             model: Ava.Stave({
                 x: 0,
                 y: 0,
                 width: 300,
-                ctx: spec.ctx,
             }),
         });
         var notes = spec.notes.map( function(note) {
@@ -36,7 +35,6 @@ var beam_view_test = function () {
 
         return {
             notes: notes,
-            ctx: spec.ctx,
             voice: voice,
             vex_stave: vex_stave,
         };
@@ -69,32 +67,23 @@ var beam_view_test = function () {
         var env = ava_test_helper.init_env();
         env.$div.hide();
         var mod = _.clone(model);
-        mod.ctx = env.ctx;
         var mod_result = init(mod);
 
         var view;
         ok( (function() {
-                view = new Ava.BeamView( { model: new Backbone.Model(mod_result) } );
+                view = Ava.BeamView( { model: new Backbone.Model(mod_result) } );
                 return view;
             })(), 'Successfully initial a BeamView object');
 
         try {
-            view = new Ava.BeamView({
-                model: new Backbone.Model({notes: "not_array notes", ctx: env.ctx}),
+            view = Ava.BeamView({
+                model: new Backbone.Model({notes: "not_array notes"}),
             });
         }
         catch(err) {
             equal(err.message, 'Invalid notes. It has to be an Array and has to have more than one element', 'Expected to throw exception on non-array notes');
         }
 
-        try {
-            view = new Ava.BeamView({
-                model: new Backbone.Model({notes: mod_result.notes}),
-            });
-        }
-        catch(err) {
-            equal(err.message, 'Invalid context (ctx)', 'Expected to throw exception on invalid context(ctx)');
-        }
     });
 
     // Methods
@@ -105,12 +94,10 @@ var beam_view_test = function () {
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
             var mod = _.clone(model);
-            mod.ctx = env.ctx;
             var mod_result = init(mod);
 
-            var view = new Ava.BeamView( { model: new Backbone.Model({
+            var view = Ava.BeamView( { model: new Backbone.Model({
                         notes: mod_result.notes.slice(0, 8),
-                        ctx: mod_result.ctx,
                     }) } );
             // Voice draw has to happen after instantiation of BeamView
             mod_result.voice.draw(mod_result.ctx, mod_result.vex_stave);
@@ -131,13 +118,13 @@ var beam_view_test = function () {
             var mod_result = init(mod);
 
             var beam_views = [
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(0, 4),
                         ctx: mod_result.ctx,
                     })
                 }),
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(8, 12),
                         ctx: mod_result.ctx,
@@ -165,19 +152,19 @@ var beam_view_test = function () {
             var mod_result = init(mod);
 
             var beam_views = [
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(0, 2),
                         ctx: mod_result.ctx,
                     })
                 }),
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(2, 4),
                         ctx: mod_result.ctx,
                     })
                 }),
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(8, 12),
                         ctx: mod_result.ctx,
@@ -223,7 +210,7 @@ var beam_view_test = function () {
             var mod_result = init(mod);
 
             var beam_views = [
-                new Ava.BeamView({
+                Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes,
                         ctx: mod_result.ctx,

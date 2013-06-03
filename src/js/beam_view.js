@@ -1,31 +1,34 @@
 /*
  * Beam View
  */
-Ava.BeamView = Backbone.View.extend({
+Ava.BeamView = function(spec) {
+    var that = {};
 
-    initialize: function() {
+    (function(spec){
+        var View = Backbone.View.extend({
 
-        if (! (_.isArray(this.model.get('notes')) && this.model.get('notes').length > 1) ) {
-            throw {
-                name: 'invalidParam',
-                message: 'Invalid notes. It has to be an Array and has to have more than one element',
-            };
-        }
+            initialize: function() {
 
-        if (typeof this.model.get('ctx') !== 'object') {
-            throw {
-                name: 'invalidParam',
-                message: 'Invalid context (ctx)',
-            };
-        }
+                if (! (_.isArray(this.model.get('notes')) && this.model.get('notes').length > 1) ) {
+                    throw {
+                        name: 'invalidParam',
+                        message: 'Invalid notes. It has to be an Array and has to have more than one element',
+                    };
+                }
 
-        this.vex_beam = new Vex.Flow.Beam( this.model.get('notes') );
-    },
+                this.vex_beam = new Vex.Flow.Beam( this.model.get('notes') );
+            },
 
-    // This can run after voice draw
-    render: function() {
-        this.vex_beam.setContext( this.model.get('ctx') ).draw();
-        return this;
-    },
+            // This can run after voice draw
+            render: function() {
+                this.vex_beam.setContext( Ava.Context.vexflow_ctx() ).draw();
+                return this;
+            },
 
-});
+        });
+
+        that = new View(spec);
+    })(spec);
+
+    return that;
+};
