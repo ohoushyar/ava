@@ -107,7 +107,7 @@ Ava.BarView = function(spec) {
                 this._fill_with_removable_rest();
 
                 // TODO: Need to find out a proper way to clear the context
-                var ctx = that.model.get('stave').get('ctx');
+                var ctx = Ava.Context.vexflow_ctx();
                 ctx.clear();
                 //ctx.clearRect(that.model.get('x'), that.model.get('y'), that.model.get('width'), that.model.get('height'));
                 var vex_stave = that.stave.render().vex_stave;
@@ -116,8 +116,6 @@ Ava.BarView = function(spec) {
                 var formatter = new Vex.Flow.Formatter()
                     .joinVoices([that.voice])
                     .formatToStave([that.voice], vex_stave);
-
-                ctx = that.model.get('stave').get('ctx');
 
                 // If there is beam get a BeamView instance
                 var beam_view = {};
