@@ -1,8 +1,17 @@
 /**
  * Stave View
+ * @example
+ *      view = Ava.StaveView({
+ *          // mod, required attribute to init stave model
+ *          model: Ava.Stave(mod),
+ *      });
+ *
  * @class Ava.StaveView
  * @constructor
  * @param {Object} spec
+ * @uses Ava.Context
+ * @uses Ava.Stave
+ * @extends Backbone.View
  */
 Ava.StaveView = function(spec) {
     var that = {};
@@ -10,6 +19,10 @@ Ava.StaveView = function(spec) {
     (function(spec) {
         var View = Backbone.View.extend({
 
+            /**
+             * @method render
+             * @chainable
+             **/
             render: function() {
                 var stave = new Vex.Flow.Stave( this.model.get('x'), this.model.get('y') );
 
