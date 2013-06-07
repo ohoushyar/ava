@@ -46,7 +46,6 @@ var stave_view_test = function () {
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
             var mod = Ava.Stave(model);
-            env.ctx.resize(700);
             mod.set('width', 600);
 
             var view = Ava.StaveView({ model: mod });
@@ -61,7 +60,6 @@ var stave_view_test = function () {
 
             var mod = Ava.Stave(model);
             mod.set('clef', 'bass');
-            mod.set('ctx', env.ctx);
 
             var view = Ava.StaveView({ model: mod });
             ok( (function(){
@@ -77,7 +75,6 @@ var stave_view_test = function () {
             mod.set('clef', 'treble');
             mod.set('time_signature', '6/8');
             mod.set('key_signature', 'B');
-            mod.set('ctx', env.ctx);
 
             var view = Ava.StaveView({ model: mod });
             ok( (function(){
