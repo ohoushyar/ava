@@ -44,9 +44,11 @@ stave_test = function () {
                 // Init stave with clef
                 stave = Ava.Stave({
                     clef: 'bass',
+                    time_signature: '6/8',
                     key_signature: 'F',
                 });
                 equal( stave.get('clef'), 'bass', 'Clef init successfully');
+                equal( stave.get('time_signature'), '6/8', 'Time signature init successfully');
                 equal( stave.get('key_signature'), 'F', 'Key signature init successfully');
 
             });
