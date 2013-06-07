@@ -1,8 +1,15 @@
 /**
  * Bar View
+ * @example
+ *      view = Ava.BarView({
+ *          // mod is required attribute to init a Bar model
+ *          model: Ava.Bar(mod),
+ *      });
+ *
  * @class Ava.BarView
  * @constructor
  * @param {Object} spec
+ * @uses Ava.StaveView
  * @extends Backbone.View
  **/
 Ava.BarView = function(spec) {

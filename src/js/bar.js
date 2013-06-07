@@ -104,6 +104,23 @@ Ava.Bar = function (spec) {
                      * @optional
                      **/
                     show_time_signature: false,
+
+                    /**
+                     * @attribute key_signature
+                     * @type {String}
+                     * @default C
+                     * @optional
+                     **/
+                    key_signature: 'C',
+
+                    /**
+                     * Flag to represent showing of key signature in bar
+                     * @attribute show_key_signature
+                     * @type {Boolean}
+                     * @default false
+                     * @optional
+                     **/
+                    show_key_signature: false,
                 };
             },
 

@@ -26,6 +26,8 @@ bar_test = function () {
                 equal(bar.get('num_beat'), 4, 'Got expected default value of num_beat');
                 equal(bar.get('beat_value'), 4, 'Got expected default value of beat_value');
                 equal(bar.get('show_time_signature'), false, 'Got expected default value of show_time_signature');
+                equal(bar.get('key_signature'), 'C', 'Got expected default value of key_signature');
+                equal(bar.get('show_key_signature'), false, 'Got expected default value of show_key_signature');
 
                 bar = Ava.Bar({
                         clef: 'treble',
