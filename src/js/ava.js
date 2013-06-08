@@ -7,17 +7,71 @@ Ava = ( function () {
     var that = {};
 
     that.Constant = {
+
+        /**
+         * @property Constant.CANVAS
+         * @type {String}
+         * @static
+         * @final
+         **/
         CANVAS:  'canvas',
+
+        /**
+         * @property Constant.RAPHAEL
+         * @type {String}
+         * @static
+         * @final
+         **/
         RAPHAEL: 'raphael',
+
+        /**
+         * @property Constant.BAR_DEFAULT_WIDTH
+         * @type {Number}
+         * @static
+         * @final
+         **/
         BAR_DEFAULT_WIDTH: 300,
+
+        /**
+         * @property Constant.BAR_DEFAULT_HEIGHT
+         * @type {Number}
+         * @static
+         * @final
+         **/
         BAR_DEFAULT_HEIGHT: 120,
-        BAR_CONTEXT_EXTRA_WIDTH: 5,
+
+        /**
+         * App default width
+         * @property Constant.DEFAULT_WIDTH
+         * @type {Number}
+         * @static
+         * @final
+         **/
         DEFAULT_WIDTH: 1024,
-        DEFAULT_HEIGHT: 120,
     };
 
+    /**
+     * @property valid_duration
+     * @type {Array} string
+     * @static
+     * @final
+     **/
     that.valid_duration = ['w', 'h', 'q', 8, 16, 32, 64];
+
+    /**
+     * @property valid_clefs
+     * @type {Array} string
+     * @static
+     * @final
+     **/
     that.valid_clefs = ["treble", "bass", "alto", "tenor", "percussion"];
+
+    /**
+     * @property valid_key_signatures
+     * @type {Array} string
+     * @static
+     * @final
+     **/
     that.valid_key_signatures = ["C", "Am", "F", "Dm", "Bb", "Gm", "Eb", "Cm", "Ab", "Fm", "Db", "Bbm", "Gb", "Ebm", "Cb", "Abm", "G", "Em", "D", "Bm", "A", "F#m", "E", "C#m", "B", "G    #m", "F#", "D#m", "C#", "A#m"];
 
     /**
