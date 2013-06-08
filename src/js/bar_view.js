@@ -71,7 +71,27 @@ Ava.BarView = function(spec) {
 
                 this.model.get('notes').on('add', this.render, this);
 
-                this.stave = new Ava.StaveView({model: this.model.get('stave')});
+                var stave_model = Ava.Stave({
+                    x: this.model.get('x'),
+                    y: this.model.get('y'),
+                    width: this.model.get('width'),
+                });
+
+                // Show clef
+                if (this.model.get('show_clef') && typeof this.model.get('clef') === 'string') {
+                    stave_model.set('clef', this.model.get('clef'));
+                }
+                // Show time signature
+                if (this.model.get('show_time_signature')) {
+                    var time_signature = this.model.get('num_beats') + '/' + this.model.get('beat_value');
+                    stave_model.set('time_signature', time_signature);
+                }
+                // Show key signature
+                if (this.model.get('show_key_signature')) {
+                    stave_model.set('key_signature', this.model.get('key_signature'));
+                }
+
+                this.stave = Ava.StaveView({model: stave_model});
 
             },
 
@@ -108,7 +128,12 @@ Ava.BarView = function(spec) {
                     });
 
                 this.beam_indices = beam;
-                this.voice = new Vex.Flow.Voice(this.model.get('voice'));
+                this.voice = new Vex.Flow.Voice({
+                    num_beats: this.model.get('num_beats'),
+                    beat_value: this.model.get('beat_value'),
+                    resolution: Vex.Flow.RESOLUTION,
+                });
+
                 // Add notes to voice
                 this.voice.addTickables(this.notes);
                 this._fill_with_removable_rest();

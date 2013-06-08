@@ -23,11 +23,20 @@ bar_test = function () {
                 equal(bar.get('width'), 300, 'Got expected default value of width');
                 equal(bar.get('height'), 120, 'Got expected default value of width');
                 equal(bar.get('show_clef'), false, 'Got expected default value of show_clef');
-                equal(bar.get('num_beat'), 4, 'Got expected default value of num_beat');
+                equal(bar.get('num_beats'), 4, 'Got expected default value of num_beats');
                 equal(bar.get('beat_value'), 4, 'Got expected default value of beat_value');
                 equal(bar.get('show_time_signature'), false, 'Got expected default value of show_time_signature');
                 equal(bar.get('key_signature'), 'C', 'Got expected default value of key_signature');
                 equal(bar.get('show_key_signature'), false, 'Got expected default value of show_key_signature');
+                deepEqual(
+                    bar.get_stave().attributes,
+                    Ava.Stave({
+                        x: bar.get('x'),
+                        y: bar.get('y'),
+                        width: bar.get('width'),
+                    }).attributes,
+                    'Got the expected object from get_stave'
+                );
 
                 bar = Ava.Bar({
                         clef: 'treble',
@@ -48,6 +57,7 @@ bar_test = function () {
                         show_clef: true,
                         key_signature: 'G',
                         show_time_signature: true,
+                        show_key_signature: true,
                         notes: [
                             { keys: ["d/4"], duration: "q" , beam: "beam1" },
                             { keys: ["b/4"], duration: "qr" , beam: "beam1" },
@@ -56,6 +66,18 @@ bar_test = function () {
                         ],
                     });
                 ok( bar, 'Bar initialized successfully with notes include beam');
+                deepEqual(
+                    bar.get_stave().attributes,
+                    Ava.Stave({
+                        x: bar.get('x'),
+                        y: bar.get('y'),
+                        width: bar.get('width'),
+                        clef: bar.get('clef'),
+                        time_signature: bar.get('num_beats') + '/' + bar.get('beat_value'),
+                        key_signature: bar.get('key_signature'),
+                    }).attributes,
+                    'Got the expected object from get_stave with more params'
+                );
 
                 var bar_list = Ava.BarList([
                     { notes: [ { keys: ["d/5"], duration: "wr" } ] },
@@ -78,7 +100,7 @@ bar_test = function () {
                         clef: 'treble',
                         show_clef: true,
                         key_signature: 'G',
-                        num_beat: 3,
+                        num_beats: 3,
                         beat_value: 4,
                         show_time_signature: true,
                         notes: [

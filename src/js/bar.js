@@ -8,7 +8,7 @@
  *          clef: 'treble',
  *          show_clef: true,
  *          key_signature: 'G',
- *          num_beat: 3,
+ *          num_beats: 3,
  *          beat_value: 4,
  *          show_time_signature: true,
  *          notes: [
@@ -81,12 +81,12 @@ Ava.Bar = function (spec) {
                     show_clef: false,
 
                     /**
-                     * @attribute num_beat
+                     * @attribute num_beats
                      * @type {Number}
                      * @default 4
                      * @optional
                      **/
-                    num_beat: 4,
+                    num_beats: 4,
 
                     /**
                      * @attribute beat_value
@@ -125,11 +125,6 @@ Ava.Bar = function (spec) {
             },
 
             initialize: function() {
-                this.set( 'stave', Ava.Stave({
-                    x: this.get('x'),
-                    y: this.get('y'),
-                    width: this.get('width'),
-                }) );
 
                 /**
                  * List of notes
@@ -146,7 +141,7 @@ Ava.Bar = function (spec) {
                 // Init list of notes
                 this.set( 'notes', new Ava.TickableList(this.get('notes')) );
 
-                this.set( 'time_signature', this.get('num_beat') + "/" + this.get('beat_value') );
+                this.set( 'time_signature', this.get('num_beats') + "/" + this.get('beat_value') );
             },
 
         });
@@ -184,6 +179,36 @@ Ava.Bar = function (spec) {
      **/
     that.set_y = function(y) {
         that.set('y', y);
+    };
+
+
+    /**
+     * @method get_stave
+     * @return {Object} Ava.Stave
+     **/
+    that.get_stave = function() {
+        var stave_param = {
+            x: that.get('x'),
+            y: that.get('y'),
+            width: that.get('width'),
+        };
+
+        // Show clef
+        if (that.get('show_clef') && typeof that.get('clef') === 'string') {
+            stave_param.clef = that.get('clef');
+        }
+        // Show time signature
+        if (that.get('show_time_signature')) {
+            var time_signature = that.get('num_beats') + '/' + that.get('beat_value');
+            stave_param.time_signature = time_signature;
+        }
+        // Show key signature
+        if (that.get('show_key_signature')) {
+            stave_param.key_signature = that.get('key_signature');
+        }
+
+        return Ava.Stave(stave_param);
+
     };
 
     return that;
