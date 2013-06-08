@@ -82,6 +82,9 @@ Ava = ( function () {
         var curr_duration = 'w';
         var vexflow_context_div_id;
         var vexflow_context = {};
+        var curr_x, curr_y;
+        curr_x = curr_y = 0;
+
 
         return {
             current_duration: function(duration) {
@@ -157,6 +160,34 @@ Ava = ( function () {
                 }
 
                 return vexflow_context[vexflow_context_div_id];
+            },
+
+            /**
+             * @method current_x
+             * @static
+             * @param {Number} x
+             * @return {Number}
+             **/
+            current_x: function(x) {
+                if (typeof x === 'number') {
+                    curr_x = x;
+                }
+
+                return curr_x;
+            },
+
+            /**
+             * @method current_y
+             * @static
+             * @param {Number} y
+             * @return {Number}
+             **/
+            current_y: function(y) {
+                if (typeof y === 'number') {
+                    curr_y = y;
+                }
+
+                return curr_y;
             },
         };
     }() );
