@@ -33,21 +33,13 @@ var bar_view_test = function () {
     var model = {
         renderer_backend: Ava.Constant.RAPHAEL,
 
-        stave: {
-            clef: 'treble',
-            x: 0,
-            y: 0,
-            width: 300,
-        },
+        clef: 'treble',
+        show_clef: true,
+        key_signature: 'G',
+        show_time_signature: true,
+        show_key_signature: true,
 
         notes: notes1,
-
-        voice: {
-            num_beats: 4,
-            beat_value: 4,
-            resolution: Vex.Flow.RESOLUTION
-        },
-
     };
 
     var sub_module_name = 'Constructor';
@@ -93,7 +85,6 @@ var bar_view_test = function () {
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
             var mod = Ava.Bar(model);
-            mod.get('stave').set('ctx', env.ctx);
 
             var view = Ava.BarView({ model: mod });
             ok( (function(){
@@ -108,7 +99,6 @@ var bar_view_test = function () {
             var new_model = _.clone(model);
             new_model.notes = notes2;
             var mod = Ava.Bar(new_model);
-            mod.get('stave').set('ctx', env.ctx);
 
             var view = Ava.BarView({ model: mod });
             ok( (function(){
@@ -126,7 +116,6 @@ var bar_view_test = function () {
                 {keys: ["c/4"], duration: "q"},
             ];
             var mod = Ava.Bar(new_model);
-            mod.get('stave').set('ctx', env.ctx);
 
             var view = Ava.BarView({ model: mod });
             ok( (function(){
@@ -144,7 +133,6 @@ var bar_view_test = function () {
                 {keys: ["c/4"], duration: "q"},
             ];
             var mod = Ava.Bar(new_model);
-            mod.get('stave').set('ctx', env.ctx);
 
             var view = Ava.BarView({ model: mod });
             view.render();

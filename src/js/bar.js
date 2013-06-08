@@ -11,6 +11,7 @@
  *          num_beats: 3,
  *          beat_value: 4,
  *          show_time_signature: true,
+ *          show_key_signature: true,
  *          notes: [
  *              { keys: ["d/4"], duration: "q" },
  *              { keys: ["b/4"], duration: "qr" },
