@@ -95,5 +95,37 @@ Ava.Stave = function (spec) {
         that = new Model(spec);
     })(spec);
 
+    /**
+     * Change the x and y value of stave to given value
+     * @method move_to
+     * @param {Number} x
+     * @param {Number} y
+     * @chainable
+     **/
+    that.move_to = function(x, y) {
+        if ( typeof x !== 'number' || typeof y !== 'number' ) {
+            throw {
+                name: 'invalidParam',
+                message: 'x and y have to be number',
+            };
+        }
+
+        that.set('x', x);
+        that.set('y', y);
+
+        return that;
+    };
+
+    /**
+     * Get the value of current positions on context and set the stave
+     * values.
+     * @method move_to_current_pos
+     * @chainable
+     **/
+    that.move_to_current_pos = function() {
+        that.move_to(Ava.Context.current_x(), Ava.Context.current_y());
+        return that;
+    };
+
     return that;
 };

@@ -51,6 +51,10 @@ stave_test = function () {
                 equal( stave.get('time_signature'), '6/8', 'Time signature init successfully');
                 equal( stave.get('key_signature'), 'F', 'Key signature init successfully');
 
+                ok( stave.move_to(10,100), 'Successfully ran move_to method');
+                equal( stave.get('x'), 10, 'The value of x updated successfully');
+                equal( stave.get('y'), 100, 'The value of y updated successfully');
+
             });
 
 };
