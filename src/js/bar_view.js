@@ -22,7 +22,9 @@ Ava.BarView = function(spec) {
 
             initialize: function() {
                 this.model.get('notes').on('add', this.render, this);
-                this.stave = Ava.StaveView({model: this.model.get_stave()});
+                var stave_model = this.model.get_stave();
+                stave_model.move_to_current_pos();
+                this.stave = Ava.StaveView({model: stave_model});
             },
 
             /**
@@ -68,9 +70,10 @@ Ava.BarView = function(spec) {
 
                 // TODO: Need to find out a proper way to clear the context
                 var ctx = Ava.Context.vexflow_ctx();
-                ctx.clear();
+                //ctx.clear();
                 //ctx.clearRect(this.model.get('x'), this.model.get('y'), this.model.get('width'), this.model.get('height'));
                 var vex_stave = this.stave.render().vex_stave;
+                Ava.Context.current_x(vex_stave.x + vex_stave.width);
 
                 // Format and justify the tickables
                 var formatter = new Vex.Flow.Formatter()
