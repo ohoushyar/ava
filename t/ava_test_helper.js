@@ -44,7 +44,7 @@ var ava_test_helper = (function() {
         var $canvas = $("#"+canvas_id);
         $canvas.addClass("ut-canvas");
 
-        Ava.Context.vexflow_ctx_div_id(canvas_id);
+        Ava.Context.current_div_id(canvas_id);
 
         return {
             $div: $unittest_div_element,

@@ -100,7 +100,7 @@ var beam_view_test = function () {
                         notes: mod_result.notes.slice(0, 8),
                     }) } );
             // Voice draw has to happen after instantiation of BeamView
-            mod_result.voice.draw(mod_result.ctx, mod_result.vex_stave);
+            mod_result.voice.draw(Ava.Context.vexflow_ctx(), mod_result.vex_stave);
 
             // Then after voice draw run BeamView render otherwise it
             // won't render properly. This is how VexFlow works.
@@ -121,18 +121,16 @@ var beam_view_test = function () {
                 Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(0, 4),
-                        ctx: mod_result.ctx,
                     })
                 }),
                 Ava.BeamView({
                     model: new Backbone.Model({
                         notes: mod_result.notes.slice(8, 12),
-                        ctx: mod_result.ctx,
                     })
                 })
             ];
             // Voice draw has to happen after instantiation of BeamView
-            mod_result.voice.draw(mod_result.ctx, mod_result.vex_stave);
+            mod_result.voice.draw( Ava.Context.vexflow_ctx(), mod_result.vex_stave);
 
             // Then after voice draw run BeamView render otherwise it
             // won't render properly. This is how VexFlow works.
@@ -172,7 +170,7 @@ var beam_view_test = function () {
                 })
             ];
             // Voice draw has to happen after instantiation of BeamView
-            mod_result.voice.draw(mod_result.ctx, mod_result.vex_stave);
+            mod_result.voice.draw( Ava.Context.vexflow_ctx(), mod_result.vex_stave);
 
             // Then after voice draw run BeamView render otherwise it
             // won't render properly. This is how VexFlow works.
@@ -218,7 +216,7 @@ var beam_view_test = function () {
                 }),
             ];
             // Voice draw has to happen after instantiation of BeamView
-            mod_result.voice.draw(mod_result.ctx, mod_result.vex_stave);
+            mod_result.voice.draw( Ava.Context.vexflow_ctx(), mod_result.vex_stave);
 
             // Then after voice draw run BeamView render otherwise it
             // won't render properly. This is how VexFlow works.

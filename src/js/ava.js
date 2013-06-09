@@ -86,8 +86,6 @@ Ava.Context = ( function () {
 
     var curr_duration = 'w';
     var curr_div_id;
-    var vexflow_context;
-    var curr_x, curr_y;
 
     /**
      * Accessor to get/set current div id. The context is different for each
@@ -158,7 +156,7 @@ Ava.Context = ( function () {
         }
 
         // build context
-        if ( typeof vexflow_context === 'undefined') {
+        if ( typeof that[curr_div_id].vexflow_context === 'undefined') {
             if ( !(typeof curr_div_id === 'string'
                 || $("#"+curr_div_id).length) ) {
                 throw {
@@ -184,6 +182,10 @@ Ava.Context = ( function () {
             that[curr_div_id].curr_x = x;
         }
 
+        if (typeof x !== 'number' && typeof that[curr_div_id].curr_x === 'undefined') {
+            that[curr_div_id].curr_x = 0;
+        }
+
         return that[curr_div_id].curr_x;
     };
 
@@ -196,6 +198,10 @@ Ava.Context = ( function () {
     that.current_y = function(y) {
         if (typeof y === 'number') {
             that[curr_div_id].curr_y = y;
+        }
+
+        if (typeof y !== 'number' && typeof that[curr_div_id].curr_y === 'undefined') {
+            that[curr_div_id].curr_y = 0;
         }
 
         return that[curr_div_id].curr_y;
