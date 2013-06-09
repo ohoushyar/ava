@@ -21,11 +21,8 @@ Ava.BarView = function(spec) {
         var View = Backbone.View.extend({
 
             initialize: function() {
-
                 this.model.get('notes').on('add', this.render, this);
-
                 this.stave = Ava.StaveView({model: this.model.get_stave()});
-
             },
 
             /**
@@ -40,8 +37,6 @@ Ava.BarView = function(spec) {
              * @method render
              **/
             render: function() {
-                var outer = this;
-
                 var beam = {};
                 var index = 0;
                 this.notes = this.model.get('notes').map( function(spec) {
