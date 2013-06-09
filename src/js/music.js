@@ -104,7 +104,7 @@ Ava.Music = function (spec) {
                  * @required
                  **/
                 if (typeof this.get('bars') === 'object') {
-                    this.set( 'bars', new Ava.BarList(this.get('bars')) );
+                    this.set( 'bars', Ava.BarList(this.get('bars')) );
                 }
             },
 
