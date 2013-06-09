@@ -55,5 +55,7 @@ avaTest = function () {
             equal( typeof Ava.Context.vexflow_ctx(), 'object', 'Successfully got the expected object');
             ok( Ava.Context.vexflow_ctx( Vex.Flow.Renderer.buildContext( 'test', Vex.Flow.Renderer.Backends.RAPHAEL, 200, 200) ), 'Successfully set vexflow_ctx');
 
+            // clean-up
+            ok( $('#test').detach(), 'detached the test div successfully');
         });
 };
