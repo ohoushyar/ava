@@ -5,10 +5,12 @@ avaTest = function () {
     module('Ava');
 
     test( 'Constructor', function() {
-            equal( Ava.Context.current_duration(), 'w', 'Ava constructed successfully');
-            });
+            equal( typeof Ava, 'object', 'Successfully initialized');
+            equal( typeof Ava.Context, 'object', 'Successfully initialized');
+    });
 
     test( 'Context', function() {
+            equal( Ava.Context.current_duration(), 'w', 'Ava constructed successfully');
             // current_duration
             equal( Ava.Context.current_duration('q'), 'q', 'current_duration returns the value has been passed');
             equal( Ava.Context.current_duration(), 'q', 'current_duration returns the value has been set');
@@ -20,22 +22,22 @@ avaTest = function () {
                     Ava.Context.current_duration('a');
                 }, "Throws exception on invalid duration [a]");
 
-            // vexflow_ctx_div_id
+            // current_div_id
             throws(
                 function() {
-                    Ava.Context.vexflow_ctx_div_id('test');
+                    Ava.Context.current_div_id('test');
                 },
                 'Throws exception on invalid DOM object'
             );
             throws(
                 function() {
-                    Ava.Context.vexflow_ctx_div_id(123);
+                    Ava.Context.current_div_id(123);
                 },
                 'Throws exception on invalid div'
             );
             ok( $('body').append('<div id="test"></div>'), 'added test div successfully');
-            equal( Ava.Context.vexflow_ctx_div_id('test'), 'test', 'Successfully get the value of div_id' );
-            equal( Ava.Context.vexflow_ctx_div_id(), 'test', 'Successfully get the value of div_id' );
+            equal( Ava.Context.current_div_id('test'), 'test', 'Successfully get the value of div_id' );
+            equal( Ava.Context.current_div_id(), 'test', 'Successfully get the value of div_id' );
 
             // vexflow_ctx
             throws(

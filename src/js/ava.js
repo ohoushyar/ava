@@ -3,7 +3,7 @@
  * @class Ava
  * @constructor
  **/
-Ava = ( function () {
+Ava = ( function() {
     var that = {};
 
     that.Constant = {
@@ -74,124 +74,132 @@ Ava = ( function () {
      **/
     that.valid_key_signatures = ["C", "Am", "F", "Dm", "Bb", "Gm", "Eb", "Cm", "Ab", "Fm", "Db", "Bbm", "Gb", "Ebm", "Cb", "Abm", "G", "Em", "D", "Bm", "A", "F#m", "E", "C#m", "B", "G    #m", "F#", "D#m", "C#", "A#m"];
 
-    /**
-     * @class Ava.Context
-     * @constructor
-     **/
-    that.Context = (function () {
-        var curr_duration = 'w';
-        var vexflow_context_div_id;
-        var vexflow_context = {};
-        var curr_x, curr_y;
-        curr_x = curr_y = 0;
-
-
-        return {
-            current_duration: function(duration) {
-
-                if (typeof duration !== 'undefined') {
-                    if ($.inArray(!isNaN(duration) ? parseInt(duration) : duration, that.valid_duration) == -1) {
-                        throw {
-                            name: 'typeError',
-                            message: "Invalid duration. Duration needs to be char"
-                        }
-                    }
-
-                    curr_duration = duration;
-                }
-
-                return curr_duration;
-            },
-
-
-            /**
-             * A global accessor to get/set ctx div id.
-             * @method vexflow_ctx_div_id
-             * @static
-             * @param {String} div_id
-             * @return {String} div_id
-             **/
-            vexflow_ctx_div_id: function(div_id) {
-                if ( typeof div_id !== 'undefined' ) {
-                    if ( !(typeof div_id === 'string' && $("#"+div_id).length) ) {
-                        throw {
-                            name: 'invalidParam',
-                            message: 'Invalid param. div_id has to be string or div is not valid',
-                        }
-                    }
-
-                    vexflow_context_div_id = div_id;
-                }
-
-                return vexflow_context_div_id;
-            },
-
-            /**
-             * A global accessor to get/set ctx.
-             * @method vexflow_ctx
-             * @static
-             * @param {Object} ctx Vex.Flow.Renderer
-             * @return {Object} Vex.Flow.Renderer
-             **/
-            vexflow_ctx: function(ctx) {
-
-                if (typeof ctx !== 'undefined') {
-                    if (typeof ctx !== 'object') {
-                        throw {
-                            name: 'invalidParam',
-                            message: 'Invalid param. ctx has to be object',
-                        }
-                    }
-
-                    vexflow_context[vexflow_context_div_id] = ctx;
-                }
-
-                // build context
-                if ( typeof vexflow_context[vexflow_context_div_id] === 'undefined') {
-                    if ( !(typeof vexflow_context_div_id === 'string'
-                        || $("#"+vexflow_context_div_id).length) ) {
-                        throw {
-                            name: 'invalidDiv',
-                            message: 'Invalid div for context',
-                        }
-                    }
-
-                    vexflow_context[vexflow_context_div_id] = Vex.Flow.Renderer.buildContext( vexflow_context_div_id, Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT);
-                }
-
-                return vexflow_context[vexflow_context_div_id];
-            },
-
-            /**
-             * @method current_x
-             * @static
-             * @param {Number} x
-             * @return {Number}
-             **/
-            current_x: function(x) {
-                if (typeof x === 'number') {
-                    curr_x = x;
-                }
-
-                return curr_x;
-            },
-
-            /**
-             * @method current_y
-             * @static
-             * @param {Number} y
-             * @return {Number}
-             **/
-            current_y: function(y) {
-                if (typeof y === 'number') {
-                    curr_y = y;
-                }
-
-                return curr_y;
-            },
-        };
-    }() );
-
     return that;
 }() );
 
+/**
+ * @class Ava.Context
+ * @constructor
+ **/
+Ava.Context = ( function () {
+    var that = {};
+
+    var curr_duration = 'w';
+    var curr_div_id;
+    var vexflow_context;
+    var curr_x, curr_y;
+
+    /**
+     * Accessor to get/set current div id. The context is different for each
+     * div_id.
+     * @method current_div_id
+     * @param {String} div_id
+     * @return {String}
+     **/
+    that.current_div_id = function(div_id) {
+        if ( typeof div_id !== 'undefined' ) {
+            if( !(typeof div_id === 'string' && $("#"+div_id).length) ) {
+                throw {
+                    name: 'invalidParam',
+                    message: 'Invalid div_id',
+                };
+            }
+            curr_div_id = div_id;
+        }
+
+        if ( typeof that[curr_div_id] !== 'object' ) {
+            that[curr_div_id] = {};
+        }
+
+        return curr_div_id;
+    };
+
+    /**
+     * @method current_duration
+     * @param {String|Number} duration
+     * @return {String|Number}
+     **/
+    that.current_duration = function(duration) {
+
+        if (typeof duration !== 'undefined') {
+            if ($.inArray(!isNaN(duration) ? parseInt(duration) : duration, Ava.valid_duration) == -1) {
+                throw {
+                    name: 'typeError',
+                    message: "Invalid duration. Duration needs to be char"
+                }
+            }
+
+            curr_duration = duration;
+        }
+
+        return curr_duration;
+    };
+
+
+
+    /**
+     * A global accessor to get/set ctx.
+     * @method vexflow_ctx
+     * @static
+     * @param {Object} ctx Vex.Flow.Renderer
+     * @return {Object} Vex.Flow.Renderer
+     **/
+    that.vexflow_ctx = function(ctx) {
+
+        if (typeof ctx !== 'undefined') {
+            if (typeof ctx !== 'object') {
+                throw {
+                    name: 'invalidParam',
+                    message: 'Invalid param. ctx has to be object',
+                }
+            }
+
+            that[curr_div_id].vexflow_context = ctx;
+        }
+
+        // build context
+        if ( typeof vexflow_context === 'undefined') {
+            if ( !(typeof curr_div_id === 'string'
+                || $("#"+curr_div_id).length) ) {
+                throw {
+                    name: 'invalidDiv',
+                    message: 'Invalid div for context',
+                }
+            }
+
+            that[curr_div_id].vexflow_context = Vex.Flow.Renderer.buildContext( curr_div_id, Vex.Flow.Renderer.Backends.RAPHAEL, Ava.Constant.DEFAULT_WIDTH, Ava.Constant.DEFAULT_HEIGHT);
+        }
+
+        return that[curr_div_id].vexflow_context;
+    };
+
+    /**
+     * @method current_x
+     * @static
+     * @param {Number} x
+     * @return {Number}
+     **/
+    that.current_x = function(x) {
+        if (typeof x === 'number') {
+            that[curr_div_id].curr_x = x;
+        }
+
+        return that[curr_div_id].curr_x;
+    };
+
+    /**
+     * @method current_y
+     * @static
+     * @param {Number} y
+     * @return {Number}
+     **/
+    that.current_y = function(y) {
+        if (typeof y === 'number') {
+            that[curr_div_id].curr_y = y;
+        }
+
+        return that[curr_div_id].curr_y;
+    };
+
+    return that;
+} )();
