@@ -6,8 +6,26 @@ var ava_view_test = function () {
 
     module(module_name);
 
+    var music_model = {
+        title: 'test title',
+        subtitle: 'subtitle test',
+        composer: 'A composer',
+        bars: [{
+            clef: 'treble',
+            show_clef: true,
+            key_signature: 'G',
+            show_time_signature: true,
+            notes: [
+                { keys: ["d/4"], duration: "q" },
+                { keys: ["b/4"], duration: "qr" },
+                { keys: ["c/4"], duration: "q" },
+                { keys: ["d/4"], duration: "q" },
+            ],
+        }],
+    };
+
     var model = {
-        canvas_class_name: 'ut-canvas',
+        music: music_model,
     };
 
     var sub_module_name = 'Constructor';
@@ -17,8 +35,8 @@ var ava_view_test = function () {
         env.$div.hide();
 
         ok( (function(){
-                return new Ava.View({
-                    el: env.div_id,
+                return Ava.View({
+                    div_id: env.div_id,
                 });
             })(), 'Successfully init Ava.View' );
 
@@ -32,8 +50,8 @@ var ava_view_test = function () {
 
         var env = ava_test_helper.get_unittest_div_and_title();
         env.$title.html(module_name + ' - ' + sub_module_name + ' - ' + test_title);
-        var view = new Ava.View({
-            el: env.$div,
+        var view = Ava.View({
+            div_id: env.div_id,
             model: model,
         });
         ok( (function(){
