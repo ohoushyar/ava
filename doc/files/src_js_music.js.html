@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/js/music.js - AVA</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="AVA"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.01</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Ava.html">Ava</a></li>
+            
+                <li><a href="../classes/Ava.Bar.html">Ava.Bar</a></li>
+            
+                <li><a href="../classes/Ava.BarList.html">Ava.BarList</a></li>
+            
+                <li><a href="../classes/Ava.BarView.html">Ava.BarView</a></li>
+            
+                <li><a href="../classes/Ava.Context.html">Ava.Context</a></li>
+            
+                <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
+            
+                <li><a href="../classes/Ava.MusicView.html">Ava.MusicView</a></li>
+            
+                <li><a href="../classes/Ava.Stave.html">Ava.Stave</a></li>
+            
+                <li><a href="../classes/Ava.StaveView.html">Ava.StaveView</a></li>
+            
+                <li><a href="../classes/Ava.View.html">Ava.View</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Ava.html">Ava</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/js/music.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * Represents Music model
+ *
+ * @class Ava.Music
+ * @extends Backbone.Model
+ * @constructor
+ * @param {Object} spec Object includes all properties value
+ * @return {Object} Returns Music model object
+ **/
+Ava.Music = function (spec) {
+    var that = {};
+
+    ( function(spec) {
+
+        var MusicModel = Backbone.Model.extend({
+            defaults: function() {
+                return {
+
+                    /**
+                     * Music title
+                     * @attribute title
+                     * @type {String}
+                     * @default untitle
+                     * @optional
+                     **/
+                    title: &#x27;untitle&#x27;,
+
+                    /**
+                     * Music sub-title
+                     * @attribute subtitle
+                     * @type {String}
+                     * @default no-subtitle
+                     * @optional
+                     **/
+                    subtitle: &#x27;no-subtitle&#x27;,
+
+                    /**
+                     * Music composer
+                     * @attribute composer
+                     * @type {String}
+                     * @default unknown
+                     * @optional
+                     **/
+                    composer: &#x27;unknown&#x27;,
+
+                    /**
+                     * Song clef
+                     * @attribute clef
+                     * @type {String}
+                     * @default treble
+                     * @optional
+                     **/
+                    clef: &#x27;treble&#x27;,
+
+                    /**
+                     * Song Key Signature (https://en.wikipedia.org/wiki/Key_signature)
+                     *
+                     * Valid key signature:
+                     *
+                     * &quot;C&quot;, &quot;Am&quot;, &quot;F&quot;, &quot;Dm&quot;, &quot;Bb&quot;, &quot;Gm&quot;, &quot;Eb&quot;, &quot;Cm&quot;,
+                     * &quot;Ab&quot;, &quot;Fm&quot;, &quot;Db&quot;, &quot;Bbm&quot;, &quot;Gb&quot;, &quot;Ebm&quot;, &quot;Cb&quot;,
+                     * &quot;Abm&quot;, &quot;G&quot;, &quot;Em&quot;, &quot;D&quot;, &quot;Bm&quot;, &quot;A&quot;, &quot;F#m&quot;, &quot;E&quot;,
+                     * &quot;C#m&quot;, &quot;B&quot;, &quot;G    #m&quot;, &quot;F#&quot;, &quot;D#m&quot;, &quot;C#&quot;, &quot;A#m&quot;
+                     *
+                     * @attribute key_signature
+                     * @type {String}
+                     * @default C
+                     * @optional
+                     **/
+                    key_signature: &#x27;C&#x27;,
+
+                    /**
+                     * Song Time Signature (https://en.wikipedia.org/wiki/Time_signature)
+                     * @attribute time_signature
+                     * @type {String}
+                     * @default 4/4
+                     * @optional
+                     **/
+                    time_signature: &#x27;4/4&#x27;,
+
+                    /**
+                     * @attribute num_beat
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
+                    num_beat: 4,
+
+                    /**
+                     * @attribute beat_value
+                     * @type {Number}
+                     * @default 4
+                     * @optional
+                     **/
+                    beat_value: 4,
+                };
+            },
+
+            initialize: function() {
+                /**
+                 * List of bars
+                 * @attribute bars
+                 * @type {Object} Ava.BarList
+                 * @required
+                 **/
+                if (typeof this.get(&#x27;bars&#x27;) === &#x27;object&#x27;) {
+                    this.set( &#x27;bars&#x27;, Ava.BarList(this.get(&#x27;bars&#x27;)) );
+                }
+            },
+
+        });
+
+        that = new MusicModel(spec);
+
+    })(spec);
+
+    return that;
+}
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

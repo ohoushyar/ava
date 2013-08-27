@@ -1,0 +1,10 @@
+{
+    "name": "AVA",
+    "description": "Web based sheetmusic WYSIWYG editor",
+    "version": "0.01",
+    "url": "http://ava.com/",
+    "options": {
+        "paths": "src/js",
+        "outdir": "doc"
+    }
+}
