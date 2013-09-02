@@ -15,6 +15,36 @@
 Ava.View = function(spec) {
     var that = {};
 
+    var tmpl = "<div id=ava_toolbar>";
+
+    tmpl    += '    <div class="ava toolbar toolbar-mainbar">';
+    tmpl    += '        <div class="btn-group">';
+
+    // primary buttons
+    tmpl    += '<% _.each( btns, function(btn_obj) { btn = _.keys(btn_obj); %>              <button type="button" class="btn btn-primary btn-lg" id="toolbar-button-clef"><%= btn[0] %></button> <% }); %>';
+
+    tmpl    += '        </div>';
+    tmpl    += '    </div>';
+
+    tmpl    += '    <div class="ava toolbar toolbar-subbar">';
+    // A div for each primary button
+    tmpl    += '<% _.each( btns, function(btn_obj) { %>';
+    tmpl    += '<%      var primary_btn = _.first(_.keys(btn_obj)).toLowerCase(); %>';
+    tmpl    += '<%      var id = "toolbar-btngrp-" + primary_btn; %>';
+    tmpl    += '        <div class="btn-group" id="<%= id %>">';
+    tmpl    += '<%      _.each(_.first(_.values( btn_obj )), function(subbtn) { %>';
+    tmpl    += '<%          var id = "toolbar-button-" + primary_btn + "-" + subbtn.toLowerCase(); %>';
+    tmpl    += '            <button type="button" class="btn btn-default btn-sm" id="<%= id %>"><%= subbtn %></button>';
+    tmpl    += '<%          }); %>';
+    tmpl    += '        </div>';
+    tmpl    += '<%      }); %>';
+    tmpl    += '    </div>';
+
+    tmpl    += "</div>";
+    tmpl    += "<div id=<%= canvas_id %> class=<%= canvas_class_name %> ></div>";
+    tmpl    += "<div id=ava_error></div>";
+
+
     // Set the default value if nothing passed
     /**
      * The id of div the application is going to render in.
@@ -36,15 +66,24 @@ Ava.View = function(spec) {
             };
         }
 
+        var btns = [
+            {'Clefs': ['Treble', 'Bass', 'Soprano', 'Alto', 'Tenor', 'Percussion']},
+            {'Times': ['2/2', '2/4', '3/4', '4/4', '5/4', '6/4', '3/8', '6/8', '9/8', '12/8', 'C', 'C|']},
+            {'Keys': ['GM/Em', 'DM/Bm', 'AM/F#m', 'EM/C#m', 'BM/G#m', 'F#M/D#m', 'C#M/A#m', 'CbM/Abm', 'GbM/Ebm', 'DbM/Bbm', 'AbM/Fm', 'EbM/Cm', 'BbM/Gm', 'FM/Dm', 'CM/Am']},
+            {'Note': ['W', 'H', 'Q', 'B']}
+            ];
+
         var View = Backbone.View.extend({
 
+            template: _.template( tmpl ),
+
             render: function() {
-                this.$el.append( $("<div id=ava_toolbar></div>").html(' -- Toolbar -- ') );
                 var canvas_id = 'ava_canvas';
-                var $ava_canvas = $("<div id=" + canvas_id + "></div>");
-                $ava_canvas.addClass( this.model.canvas_class_name );
-                this.$el.append( $ava_canvas );
-                this.$el.append( $("<div id=ava_error></div>") );
+                this.$el.html( this.template({
+                    btns: btns,
+                    canvas_id: canvas_id,
+                    canvas_class_name: this.model.canvas_class_name
+                }) );
 
                 // Set context div_id
                 Ava.Context.current_div_id(canvas_id);
