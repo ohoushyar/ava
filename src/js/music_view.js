@@ -12,17 +12,33 @@ Ava.MusicView = function(spec) {
         var View = Backbone.View.extend({
 
             initialize: function() {
+                this.model.get('bars').on('add', this.render, this);
+                //this.model.on("change:dirty", this.render, this);
+            },
+
+            /**
+             * @method add_bar
+             * @param {Object} spec Ava.Bar
+             **/
+            add_bar: function(spec) {
+                this.model.add_bar( Ava.Bar(spec) );
             },
 
             /**
              * @method render
              **/
             render: function() {
+                if (this.model.is_dirty()) {
+                    // Clear the ctx
+                    Ava.Context.vexflow_ctx().clear();
+                    // Reset current x and y
+                    Ava.Context.reset_currents();
+                    // Not dirty anymore
+                    this.model.unset_dirty();
+                }
+
                 // Run views of each bar
                 this.model.get('bars').forEach( this._render_bar, this);
-
-                // I can set the width of ctx to default and 
-
                 return this;
             },
 

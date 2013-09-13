@@ -215,5 +215,14 @@ Ava.Context = ( function () {
         return that[curr_div_id].curr_y;
     };
 
+    /**
+     * @method reset_currents
+     * @static
+     **/
+    that.reset_currents = function() {
+        that[curr_div_id].curr_x = 0;
+        that[curr_div_id].curr_y = 0;
+    };
+
     return that;
 } )();

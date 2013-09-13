@@ -7,14 +7,14 @@ var ava_view_test = function () {
     module(module_name);
 
     var music_model = {
-        title: 'test title',
-        subtitle: 'subtitle test',
-        composer: 'A composer',
+        title:     'test title',
+        subtitle:  'subtitle test',
+        composer:  'A composer',
         bars: [{
-            clef: 'treble',
-            show_clef: true,
-            key_signature: 'G',
-            show_time_signature: true,
+            clef:                 'treble',
+            show_clef:            true,
+            key_signature:        'G',
+            show_time_signature:  true,
             notes: [
                 { keys: ["d/4"], duration: "q" },
                 { keys: ["b/4"], duration: "qr" },

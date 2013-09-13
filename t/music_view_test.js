@@ -66,6 +66,24 @@ var music_view_test = function () {
                 })(), test_title);
         });
 
+        test_title = 'Successfully triggered render on model change';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Ava.Music(model);
+            mod.set('canvas_id', env.canvas_id);
+            var view = Ava.MusicView({ model: mod });
+            view.render();
+
+            ok( (function() {
+                    view.add_bar({
+                        notes: [
+                            { keys: ["d/5"], duration: "wr" },
+                        ],
+                    });
+                    return true;
+                })(), test_title);
+        });
+
     });
 
 };

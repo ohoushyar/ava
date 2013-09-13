@@ -55,11 +55,42 @@ music_test = function () {
 
     });
 
-    // test( 'Methods', function() {
-    //     var bar;
-    //     var env = ava_test_helper.init_env();
-    //     env.$div.hide();
-    // });
+    test( 'Methods', function() {
+        var music;
+        var env = ava_test_helper.init_env();
+        env.$div.hide();
+
+        music = Ava.Music({
+            bars: [{
+                clef:                 'treble',
+                show_clef:            true,
+                key_signature:        'G',
+                show_time_signature:  true,
+                notes: [
+                    { keys: ["d/4"], duration: "q"  },
+                    { keys: ["b/4"], duration: "qr" },
+                    { keys: ["c/4"], duration: "q"  },
+                    { keys: ["d/4"], duration: "q"  },
+                ],
+            }],
+        });
+
+        ok( (function() { music.set_dirty(); return true; })(), 'Successfully called set_dirty');
+        ok( music.is_dirty(), 'Got expected value of dirty after set_dirty' );
+        ok( (function() { music.unset_dirty(); return true; })(), 'Successfully called unset_dirty');
+        ok( !music.is_dirty(), 'Got expected value of dirty after unset_dirty' );
+
+
+        // Add bar
+        var bar = Ava.Bar({
+            notes: [
+                { keys: ["d/5"], duration: "wr" },
+            ],
+        });
+        ok( (function() { music.add_bar(bar); return true; })(), 'Successfully added bar' );
+        ok( music.is_dirty(), 'Got expected value of dirty after adding bar' );
+
+    });
 
 };
 

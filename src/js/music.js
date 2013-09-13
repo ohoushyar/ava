@@ -114,5 +114,45 @@ Ava.Music = function (spec) {
 
     })(spec);
 
+    /**
+     * @method add_bar
+     * @param {Object} Ava.Bar
+     **/
+    that.add_bar = function(bar) {
+        if ( typeof bar !== 'object' ) {
+            throw {
+                name: 'invalidParam',
+                message: 'Passed invalid parameter',
+            };
+        }
+
+        that.set_dirty();
+        that.get('bars').add(bar);
+    };
+
+
+    /**
+     * Set dirty attribute to true
+     * @method set_dirty
+     **/
+    that.set_dirty = function() {
+        that.set('dirty', true);
+    };
+
+    /**
+     * Set dirty attribute to false
+     * @method unset_dirty
+     **/
+    that.unset_dirty = function() {
+        that.set('dirty', false);
+    };
+
+    /**
+     * @method is_dirty
+     **/
+    that.is_dirty = function() {
+        return that.get('dirty') ? true : false;
+    };
+
     return that;
 }
