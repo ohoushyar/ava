@@ -70,10 +70,15 @@ Ava.BarView = function(spec) {
 
                 // TODO: Need to find out a proper way to clear the context
                 var ctx = Ava.Context.vexflow_ctx();
-                //ctx.clear();
-                //ctx.clearRect(this.model.get('x'), this.model.get('y'), this.model.get('width'), this.model.get('height'));
+                if ( this.model.is_dirty() ) {
+                    ctx.clearRect(this.model.get('x'), this.model.get('y'), this.model.get('width') + Ava.Constant.BAR_WIDTH_CORRECTION, this.model.get('height'));
+                    this.model.unset_dirty();
+                    // _clear(ctx);
+                }
                 var vex_stave = this.stave.render().vex_stave;
                 Ava.Context.current_x(vex_stave.x + vex_stave.width);
+                // update model width
+                this.model.set_width(vex_stave.width);
 
                 // Format and justify the tickables
                 var formatter = new Vex.Flow.Formatter()

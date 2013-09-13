@@ -5,18 +5,18 @@
  *
  * @example
  *      bar = Ava.Bar({
- *          clef: 'treble',
- *          show_clef: true,
- *          key_signature: 'G',
- *          num_beats: 3,
- *          beat_value: 4,
- *          show_time_signature: true,
- *          show_key_signature: true,
+ *          clef:                 'treble',
+ *          show_clef:            true,
+ *          key_signature:        'G',
+ *          num_beats:            3,
+ *          beat_value:           4,
+ *          show_time_signature:  true,
+ *          show_key_signature:   true,
  *          notes: [
- *              { keys: ["d/4"], duration: "q" },
+ *              { keys: ["d/4"], duration: "q"  },
  *              { keys: ["b/4"], duration: "qr" },
- *              { keys: ["c/4"], duration: "q" },
- *              { keys: ["d/4"], duration: "q" },
+ *              { keys: ["c/4"], duration: "q"  },
+ *              { keys: ["d/4"], duration: "q"  },
  *          ],
  *      });
  *
@@ -163,6 +163,7 @@ Ava.Bar = function (spec) {
             };
         }
 
+        that.set_dirty();
         that.get('notes').add(tickable);
     };
 
@@ -175,11 +176,42 @@ Ava.Bar = function (spec) {
     };
 
     /**
+     * @method set_width
+     * @param {Number} width
+     **/
+    that.set_width = function(width) {
+        that.set('width', width);
+    };
+
+    /**
      * @method set_y
      * @param {Number} y
      **/
     that.set_y = function(y) {
         that.set('y', y);
+    };
+
+    /**
+     * Set dirty attribute to true
+     * @method set_dirty
+     **/
+    that.set_dirty = function() {
+        that.set('dirty', true);
+    };
+
+    /**
+     * Set dirty attribute to false
+     * @method unset_dirty
+     **/
+    that.unset_dirty = function() {
+        that.set('dirty', false);
+    };
+
+    /**
+     * @method is_dirty
+     **/
+    that.is_dirty = function() {
+        return that.get('dirty') ? true : false;
     };
 
 

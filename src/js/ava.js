@@ -33,6 +33,14 @@ Ava = ( function() {
         BAR_DEFAULT_WIDTH: 300,
 
         /**
+         * @property Constant.BAR_WIDTH_CORRECTION
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        BAR_WIDTH_CORRECTION: 5,
+
+        /**
          * @property Constant.BAR_DEFAULT_HEIGHT
          * @type {Number}
          * @static

@@ -112,6 +112,13 @@ bar_test = function () {
                 ok( (function() { bar.add_note( Ava.Tickable({ keys: ["d/4"], duration: "q" })); return true; }()), 'Successfully added a tickable to bar');
                 equal( bar.get('notes').length, 2, 'Successfully added another tickable' );
 
+                ok( (function() { bar.set_dirty(); return true; })(), 'Successfully called set_dirty');
+                ok( bar.is_dirty(), 'Got expected value of dirty after set_dirty' );
+                ok( (function() { bar.unset_dirty(); return true; })(), 'Successfully called unset_dirty');
+                ok( !bar.is_dirty(), 'Got expected value of dirty after unset_dirty' );
+
+                ok( (function() { bar.set_width(100); return true; })(), 'Successfully called set_width');
+                equal( bar.get('width'), 100, 'Got expected value of width' );
 
                 bar = Ava.Bar({
                     notes: [
