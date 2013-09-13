@@ -141,6 +141,14 @@ Ava = ( function() {
         BAR_DEFAULT_WIDTH: 300,
 
         /**
+         * @property Constant.BAR_WIDTH_CORRECTION
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        BAR_WIDTH_CORRECTION: 5,
+
+        /**
          * @property Constant.BAR_DEFAULT_HEIGHT
          * @type {Number}
          * @static
@@ -313,6 +321,15 @@ Ava.Context = ( function () {
         }
 
         return that[curr_div_id].curr_y;
+    };
+
+    /**
+     * @method reset_currents
+     * @static
+     **/
+    that.reset_currents = function() {
+        that[curr_div_id].curr_x = 0;
+        that[curr_div_id].curr_y = 0;
     };
 
     return that;

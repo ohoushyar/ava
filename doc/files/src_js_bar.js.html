@@ -113,18 +113,18 @@
  *
  * @example
  *      bar = Ava.Bar({
- *          clef: &#x27;treble&#x27;,
- *          show_clef: true,
- *          key_signature: &#x27;G&#x27;,
- *          num_beats: 3,
- *          beat_value: 4,
- *          show_time_signature: true,
- *          show_key_signature: true,
+ *          clef:                 &#x27;treble&#x27;,
+ *          show_clef:            true,
+ *          key_signature:        &#x27;G&#x27;,
+ *          num_beats:            3,
+ *          beat_value:           4,
+ *          show_time_signature:  true,
+ *          show_key_signature:   true,
  *          notes: [
- *              { keys: [&quot;d/4&quot;], duration: &quot;q&quot; },
+ *              { keys: [&quot;d/4&quot;], duration: &quot;q&quot;  },
  *              { keys: [&quot;b/4&quot;], duration: &quot;qr&quot; },
- *              { keys: [&quot;c/4&quot;], duration: &quot;q&quot; },
- *              { keys: [&quot;d/4&quot;], duration: &quot;q&quot; },
+ *              { keys: [&quot;c/4&quot;], duration: &quot;q&quot;  },
+ *              { keys: [&quot;d/4&quot;], duration: &quot;q&quot;  },
  *          ],
  *      });
  *
@@ -271,6 +271,7 @@ Ava.Bar = function (spec) {
             };
         }
 
+        that.set_dirty();
         that.get(&#x27;notes&#x27;).add(tickable);
     };
 
@@ -283,11 +284,42 @@ Ava.Bar = function (spec) {
     };
 
     /**
+     * @method set_width
+     * @param {Number} width
+     **/
+    that.set_width = function(width) {
+        that.set(&#x27;width&#x27;, width);
+    };
+
+    /**
      * @method set_y
      * @param {Number} y
      **/
     that.set_y = function(y) {
         that.set(&#x27;y&#x27;, y);
+    };
+
+    /**
+     * Set dirty attribute to true
+     * @method set_dirty
+     **/
+    that.set_dirty = function() {
+        that.set(&#x27;dirty&#x27;, true);
+    };
+
+    /**
+     * Set dirty attribute to false
+     * @method unset_dirty
+     **/
+    that.unset_dirty = function() {
+        that.set(&#x27;dirty&#x27;, false);
+    };
+
+    /**
+     * @method is_dirty
+     **/
+    that.is_dirty = function() {
+        return that.get(&#x27;dirty&#x27;) ? true : false;
     };
 
 

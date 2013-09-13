@@ -123,7 +123,36 @@
 Ava.View = function(spec) {
     var that = {};
 
-    // Set the default value if nothing passed
+    // TODO: Load from a file
+    var tmpl = &quot;&lt;div id=ava_toolbar&gt;&quot;;
+
+    tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+
+    // primary buttons
+    tmpl    += &#x27;&lt;% _.each( btns, function(btn_obj) { btn = _.keys(btn_obj); %&gt;              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-lg&quot; id=&quot;toolbar-button-clef&quot;&gt;&lt;%= btn[0] %&gt;&lt;/button&gt; &lt;% }); %&gt;&#x27;;
+
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;    &lt;/nav&gt;&#x27;;
+
+    tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
+    // A div for each primary button
+    tmpl    += &#x27;&lt;% _.each( btns, function(btn_obj) { %&gt;&#x27;;
+    tmpl    += &#x27;&lt;%      var primary_btn = _.first(_.keys(btn_obj)).toLowerCase(); %&gt;&#x27;;
+    tmpl    += &#x27;&lt;%      var id = &quot;toolbar-btngrp-&quot; + primary_btn; %&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot; id=&quot;&lt;%= id %&gt;&quot;&gt;&#x27;;
+    tmpl    += &#x27;&lt;%      _.each(_.first(_.values( btn_obj )), function(subbtn) { %&gt;&#x27;;
+    tmpl    += &#x27;&lt;%          var id = &quot;toolbar-button-&quot; + primary_btn + &quot;-&quot; + subbtn.toLowerCase(); %&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-sm&quot; id=&quot;&lt;%= id %&gt;&quot;&gt;&lt;%= subbtn %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;&lt;%          }); %&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;&lt;%      }); %&gt;&#x27;;
+    tmpl    += &#x27;    &lt;/nav&gt;&#x27;;
+
+    tmpl    += &quot;&lt;/div&gt;&quot;;
+    tmpl    += &quot;&lt;div id=&lt;%= canvas_id %&gt; class=&lt;%= canvas_class_name %&gt; &gt;&lt;/div&gt;&quot;;
+    tmpl    += &quot;&lt;div id=ava_error&gt;&lt;/div&gt;&quot;;
+
     /**
      * The id of div the application is going to render in.
      *
@@ -144,16 +173,24 @@ Ava.View = function(spec) {
             };
         }
 
-        var tmpl = &quot;&lt;div id=ava_toolbar&gt; -- Toolbar -- &lt;/div&gt;&quot;;
-        tmpl    += &quot;&lt;div id=&lt;%= canvas_id %&gt; class=&lt;%= canvas_class_name %&gt; &gt;&lt;/div&gt;&quot;;
-        tmpl    += &quot;&lt;div id=ava_error&gt;&lt;/div&gt;&quot;;
+        var btns = [
+            {&#x27;Clefs&#x27;:  [&#x27;Treble&#x27;, &#x27;Bass&#x27;, &#x27;Soprano&#x27;, &#x27;Alto&#x27;, &#x27;Tenor&#x27;, &#x27;Percussion&#x27;]},
+            {&#x27;Times&#x27;:  [&#x27;2/2&#x27;, &#x27;2/4&#x27;, &#x27;3/4&#x27;, &#x27;4/4&#x27;, &#x27;5/4&#x27;, &#x27;6/4&#x27;, &#x27;3/8&#x27;, &#x27;6/8&#x27;, &#x27;9/8&#x27;, &#x27;12/8&#x27;, &#x27;C&#x27;, &#x27;C|&#x27;]},
+            {&#x27;Keys&#x27;:   [&#x27;GM/Em&#x27;, &#x27;DM/Bm&#x27;, &#x27;AM/F#m&#x27;, &#x27;EM/C#m&#x27;, &#x27;BM/G#m&#x27;, &#x27;F#M/D#m&#x27;, &#x27;C#M/A#m&#x27;, &#x27;CbM/Abm&#x27;, &#x27;GbM/Ebm&#x27;, &#x27;DbM/Bbm&#x27;, &#x27;AbM/Fm&#x27;, &#x27;EbM/Cm&#x27;, &#x27;BbM/Gm&#x27;, &#x27;FM/Dm&#x27;, &#x27;CM/Am&#x27;]},
+            {&#x27;Note&#x27;:   [&#x27;W&#x27;, &#x27;H&#x27;, &#x27;Q&#x27;, &#x27;B&#x27;]}
+            ];
+
         var View = Backbone.View.extend({
 
             template: _.template( tmpl ),
 
             render: function() {
                 var canvas_id = &#x27;ava_canvas&#x27;;
-                this.$el.html( this.template({ canvas_id: canvas_id, canvas_class_name: this.model.canvas_class_name }) );
+                this.$el.html( this.template({
+                    btns: btns,
+                    canvas_id: canvas_id,
+                    canvas_class_name: this.model.canvas_class_name
+                }) );
 
                 // Set context div_id
                 Ava.Context.current_div_id(canvas_id);

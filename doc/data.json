@@ -134,7 +134,7 @@
             "module": "Ava",
             "namespace": "",
             "file": "src/js/ava.js",
-            "line": 80,
+            "line": 88,
             "is_constructor": 1
         },
         "Ava.View": {
@@ -175,7 +175,7 @@
             "line": 1,
             "description": "Bar (or measure) is a segment of time defined by a given number of\nbeats, each of which are assigned a particular note value\n(https://en.wikipedia.org/wiki/Bar_%28music%29)",
             "example": [
-                "\n     bar = Ava.Bar({\n         clef: 'treble',\n         show_clef: true,\n         key_signature: 'G',\n         num_beats: 3,\n         beat_value: 4,\n         show_time_signature: true,\n         show_key_signature: true,\n         notes: [\n             { keys: [\"d/4\"], duration: \"q\" },\n             { keys: [\"b/4\"], duration: \"qr\" },\n             { keys: [\"c/4\"], duration: \"q\" },\n             { keys: [\"d/4\"], duration: \"q\" },\n         ],\n     });"
+                "\n     bar = Ava.Bar({\n         clef:                 'treble',\n         show_clef:            true,\n         key_signature:        'G',\n         num_beats:            3,\n         beat_value:           4,\n         show_time_signature:  true,\n         show_key_signature:   true,\n         notes: [\n             { keys: [\"d/4\"], duration: \"q\"  },\n             { keys: [\"b/4\"], duration: \"qr\" },\n             { keys: [\"c/4\"], duration: \"q\"  },\n             { keys: [\"d/4\"], duration: \"q\"  },\n         ],\n     });"
             ],
             "is_constructor": 1,
             "params": [
@@ -201,7 +201,7 @@
             "module": "Ava",
             "namespace": "",
             "file": "src/js/bar.js",
-            "line": 218,
+            "line": 250,
             "description": "Represents a collection of Bars",
             "is_constructor": 1,
             "params": [
@@ -393,7 +393,7 @@
             "file": "src/js/ava.js",
             "line": 35,
             "itemtype": "property",
-            "name": "Constant.BAR_DEFAULT_HEIGHT",
+            "name": "Constant.BAR_WIDTH_CORRECTION",
             "type": "{Number}",
             "static": 1,
             "final": 1,
@@ -403,6 +403,17 @@
         {
             "file": "src/js/ava.js",
             "line": 43,
+            "itemtype": "property",
+            "name": "Constant.BAR_DEFAULT_HEIGHT",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 51,
             "description": "App default width",
             "itemtype": "property",
             "name": "Constant.DEFAULT_WIDTH",
@@ -414,7 +425,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 53,
+            "line": 61,
             "itemtype": "property",
             "name": "valid_duration",
             "type": "{Array} string",
@@ -425,7 +436,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 61,
+            "line": 69,
             "itemtype": "property",
             "name": "valid_clefs",
             "type": "{Array} string",
@@ -436,7 +447,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 69,
+            "line": 77,
             "itemtype": "property",
             "name": "valid_key_signatures",
             "type": "{Array} string",
@@ -447,7 +458,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 90,
+            "line": 98,
             "description": "Accessor to get/set current div id. The context is different for each\ndiv_id.",
             "itemtype": "method",
             "name": "current_div_id",
@@ -467,7 +478,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 115,
+            "line": 123,
             "itemtype": "method",
             "name": "current_duration",
             "params": [
@@ -486,7 +497,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 138,
+            "line": 146,
             "description": "A global accessor to get/set ctx.",
             "itemtype": "method",
             "name": "vexflow_ctx",
@@ -507,7 +518,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 174,
+            "line": 182,
             "itemtype": "method",
             "name": "current_x",
             "static": 1,
@@ -527,7 +538,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 192,
+            "line": 200,
             "itemtype": "method",
             "name": "current_y",
             "static": 1,
@@ -546,8 +557,17 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/ava.js",
+            "line": 218,
+            "itemtype": "method",
+            "name": "reset_currents",
+            "static": 1,
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/ava_view.js",
-            "line": 19,
+            "line": 48,
             "description": "The id of div the application is going to render in.",
             "itemtype": "attribute",
             "name": "div_id",
@@ -702,7 +722,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 169,
+            "line": 170,
             "itemtype": "method",
             "name": "set_x",
             "params": [
@@ -717,7 +737,22 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 177,
+            "line": 178,
+            "itemtype": "method",
+            "name": "set_width",
+            "params": [
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 186,
             "itemtype": "method",
             "name": "set_y",
             "params": [
@@ -732,7 +767,33 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 186,
+            "line": 194,
+            "description": "Set dirty attribute to true",
+            "itemtype": "method",
+            "name": "set_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 202,
+            "description": "Set dirty attribute to false",
+            "itemtype": "method",
+            "name": "unset_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 210,
+            "itemtype": "method",
+            "name": "is_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 218,
             "itemtype": "method",
             "name": "get_stave",
             "return": {
@@ -767,7 +828,7 @@
         },
         {
             "file": "src/js/bar_view.js",
-            "line": 119,
+            "line": 124,
             "itemtype": "method",
             "name": "_fill_with_removable_rest",
             "access": "private",
@@ -881,8 +942,64 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/music.js",
+            "line": 117,
+            "itemtype": "method",
+            "name": "add_bar",
+            "params": [
+                {
+                    "name": "Ava.Bar",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 134,
+            "description": "Set dirty attribute to true",
+            "itemtype": "method",
+            "name": "set_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 142,
+            "description": "Set dirty attribute to false",
+            "itemtype": "method",
+            "name": "unset_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 150,
+            "itemtype": "method",
+            "name": "is_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/music_view.js",
-            "line": 17,
+            "line": 19,
+            "itemtype": "method",
+            "name": "add_bar",
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Ava.Bar",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 27,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.MusicView",
@@ -890,7 +1007,7 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 29,
+            "line": 45,
             "itemtype": "method",
             "name": "_render_bar",
             "params": [
