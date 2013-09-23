@@ -49,6 +49,22 @@ Ava = ( function() {
         BAR_DEFAULT_HEIGHT: 120,
 
         /**
+         * @property Constant.CURSOR_DEFAULT_WIDTH
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        CURSOR_DEFAULT_WIDTH: 16.5,
+
+        /**
+         * @property Constant.CURSOR_DEFAULT_HEIGHT
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        CURSOR_DEFAULT_HEIGHT: 95,
+
+        /**
          * App default width
          * @property Constant.DEFAULT_WIDTH
          * @type {Number}
