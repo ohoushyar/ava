@@ -21,14 +21,6 @@ Ava.CursorView = function(spec) {
         var View = Backbone.View.extend({
 
             initialize: function() {
-                var x      = this.model.get('x');
-                var y      = this.model.get('y');
-                var width  = this.model.get('width');
-                var height = this.model.get('height');
-
-                var ctx   = Ava.Context.vexflow_ctx();
-                this.rect = ctx.paper.rect(x, y, width, height);
-                this.rect.attr({fill:"#000", opacity: 0.2});
 
                 this.model.on('change', this.render, this);
             },
@@ -65,19 +57,21 @@ Ava.CursorView = function(spec) {
              **/
             render: function() {
 
-                var hide   = this.model.get('hide');
+                var x      = this.model.get('x');
+                var y      = this.model.get('y');
+                var width  = this.model.get('width');
+                var height = this.model.get('height');
 
+                var ctx   = Ava.Context.vexflow_ctx();
+                this.rect = ctx.paper.rect(x, y, width, height);
+                this.rect.attr({fill:"#000", opacity: 0.2});
+
+                var hide   = this.model.get('hide');
                 if (hide) {
                     this.rect.hide();
                 } else {
                     this.rect.show();
                 }
-
-    // var move = function (x, y) {
-    //     rect.hide();
-    //     rect.attr({x: x, y: y});
-    //     rect.show();
-    // };
 
                 return this;
             },
