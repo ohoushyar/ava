@@ -37,7 +37,6 @@ var cursor_view_test = function () {
                 })(), test_title);
         });
 
-
         test_title = "Successfully moved to new coordinates";
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
@@ -48,6 +47,21 @@ var cursor_view_test = function () {
 
             ok( (function(){
                     view.move(30, 0);
+                    return true;
+                })(), test_title);
+        });
+
+        test_title = "Successfully moved multiple times";
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Ava.Cursor({});
+
+            var view = Ava.CursorView({ model: mod });
+            view.render();
+            view.move(30, 0);
+
+            ok( (function(){
+                    view.move(50, 0);
                     return true;
                 })(), test_title);
         });
