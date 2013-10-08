@@ -72,6 +72,24 @@ Ava = ( function() {
          * @final
          **/
         DEFAULT_WIDTH: 1024,
+
+        /**
+         * App default canvas class name
+         * @property Constant.DEFAULT_CANVAS_CLASS
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_CANVAS_CLASS: 'ava-canvas',
+
+        /**
+         * App default canvas id
+         * @property Constant.DEFAULT_CANVAS_ID
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_CANVAS_ID: 'ava-canvas'
     };
 
     /**
