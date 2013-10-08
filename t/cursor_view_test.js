@@ -51,6 +51,34 @@ var cursor_view_test = function () {
                     return true;
                 })(), test_title);
         });
+
+        test_title = "Successfully resized";
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Ava.Cursor({});
+
+            var view = Ava.CursorView({ model: mod });
+            view.render();
+
+            ok( (function(){
+                    view.resize(10, 10);
+                    return true;
+                })(), test_title);
+        });
+
+        test_title = "Successfully resized and moved";
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var mod = Ava.Cursor({});
+
+            var view = Ava.CursorView({ model: mod });
+            view.render();
+
+            ok( (function(){
+                    view.resize_and_move(10, 10, 30, 30);
+                    return true;
+                })(), test_title);
+        });
     });
 
 };

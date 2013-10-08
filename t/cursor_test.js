@@ -38,14 +38,21 @@ cursor_test = function () {
 
         cursor = Ava.Cursor({});
 
+        // move
         ok( (function() { cursor.move(10, 11); return true; })(), 'Successfully ran move');
         equal(cursor.get('x'),  10,  'Got expected value of x');
         equal(cursor.get('y'),  11,  'Got expected value of y');
 
+        // resize
+        ok( (function() { cursor.resize(10, 11); return true; })(), 'Successfully ran resize');
+        equal(cursor.get('width'),  10,  'Got expected value of width');
+        equal(cursor.get('height'),  11,  'Got expected value of height');
 
+        // hide
         ok( (function() { cursor.hide(); return true; })(), 'Successfully ran hide');
         equal(cursor.get('hide'),  true,  'Got expected value of hide');
 
+        // show
         ok( (function() { cursor.show(); return true; })(), 'Successfully ran show');
         equal(cursor.get('hide'),  false,  'Got expected value of hide');
 

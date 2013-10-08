@@ -85,6 +85,16 @@ Ava.Cursor = function (spec) {
     };
 
     /**
+     * @method resize
+     * @param {Number} w width
+     * @param {Number} h height
+     **/
+    that.resize = function(w, h) {
+        that.set('width', w);
+        that.set('height', h);
+    };
+
+    /**
      * @method hide
      **/
     that.hide = function() {

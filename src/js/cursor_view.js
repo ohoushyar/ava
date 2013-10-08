@@ -21,7 +21,7 @@ Ava.CursorView = function(spec) {
         var View = Backbone.View.extend({
 
             initialize: function() {
-                this.model.on('change', this.render, this);
+                this.model.on('change', this._rerender, this);
             },
 
 
@@ -44,12 +44,32 @@ Ava.CursorView = function(spec) {
              * @method move
              **/
             move: function(x, y) {
-                this.rect.hide();
                 this.model.move(x, y);
             },
 
-            // resize
-            // move_and_resize
+            /**
+             * @method resize
+             **/
+            resize: function(w, h) {
+                this.model.resize(w, h);
+            },
+
+            /**
+             * @method resize_and_move
+             **/
+            resize_and_move: function(w, h, x, y) {
+                this.model.resize(w, h);
+                this.model.move(x, y);
+            },
+
+            /**
+             * @method: _rerender
+             * @private
+             **/
+            _rerender: function() {
+                this.rect.hide();
+                this.render();
+            },
 
             /**
              * @method render
