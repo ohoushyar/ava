@@ -15,6 +15,37 @@
 Ava.View = function(spec) {
     var that = {};
 
+    add_click_event = function (div_id) {
+        var $div = $('#' + div_id + ' svg');
+        // Set to global context if not valid
+        if ( ! $div.length ) {
+            $div = $('#' + Ava.Context.current_div_id() + ' svg');
+            if (! $div.length ) {
+                throw {
+                    name: 'initError',
+                    message: "Unable to select element",
+                };
+            }
+        }
+
+        var cursor = Ava.CursorView({
+                model: Ava.Cursor({})
+            }).render();
+
+        var containerOffset = {top: 0, left: 0};
+        containerOffset.left = Math.floor($div.offset().left);
+        containerOffset.top = Math.floor($div.offset().top);
+
+        $div.mouseover( function (e) {
+            var mouse_x = e.pageX - containerOffset.left;
+            var mouse_y = e.pageY - containerOffset.top;
+
+            var move = _.bind( cursor.move, cursor);
+            _.delay( move, 2000, mouse_x, mouse_y);
+            //alert( mouse_x +', '+ (mouse_y) + ', left offset: ' + containerOffset.left + ', right top: '+ containerOffset.top );
+        } );
+    };
+
     // TODO: Load from a file
     var tmpl = "<div id=ava_toolbar>";
 
@@ -44,6 +75,7 @@ Ava.View = function(spec) {
     tmpl    += "</div>";
     tmpl    += "<div id=<%= canvas_id %> class=<%= canvas_class_name %> ></div>";
     tmpl    += "<div id=ava_error></div>";
+    tmpl    += "<div id=ava_verbose></div>";
 
     /**
      * The id of div the application is going to render in.
@@ -77,11 +109,13 @@ Ava.View = function(spec) {
             template: _.template( tmpl ),
 
             render: function() {
-                var canvas_id = 'ava_canvas';
+                var canvas_id = Ava.Constant.DEFAULT_CANVAS_ID;
+
+                // Set the correct offset as SVG is not before draw
                 this.$el.html( this.template({
                     btns: btns,
                     canvas_id: canvas_id,
-                    canvas_class_name: this.model.canvas_class_name
+                    canvas_class_name: Ava.Constant.DEFAULT_CANVAS_CLASS
                 }) );
 
                 // Set context div_id
@@ -92,6 +126,9 @@ Ava.View = function(spec) {
                     model: Ava.Music( this.model.music ),
                 });
                 music_view.render();
+
+                // Add event
+                add_click_event( Ava.Context.current_div_id() );
 
                 return this;
             },
