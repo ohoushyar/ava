@@ -21,7 +21,6 @@ Ava.CursorView = function(spec) {
         var View = Backbone.View.extend({
 
             initialize: function() {
-
                 this.model.on('change', this.render, this);
             },
 
