@@ -54,5 +54,53 @@ Ava.StaveView = function(spec) {
         that = new View(spec);
     })(spec);
 
+    var _y_map_line = {};
+    /**
+     * @method _init_y_map_line
+     * @private
+     **/
+    var _init_y_map_line = function() {
+        if (!that.vex_stave) {
+            throw {
+                name: 'invalidVexStave',
+                message: 'vex_stave is not defined. Need to run render first'
+            };
+        }
+
+        var y_of_line;
+        for (var line=-4; line<=8; line+=.5) {
+            y_of_line = that.vex_stave.getYForLine(line);
+            if ( y_of_line >= that.vex_stave.y) {
+                _y_map_line[y_of_line] = line;
+            }
+        }
+    };
+
+    /**
+     * @method get_y_hot_spot
+     * @param y
+     **/
+    that.get_y_hot_spot = function( y ) {
+        if (!_.keys(_y_map_line).length) {
+            _init_y_map_line();
+        }
+
+        var fact = 5;
+        var r = y - (y % fact);
+        if ( y < r+(fact/2) ) {
+            return r;
+        } else {
+            return r+fact;
+        }
+    };
+
+    /**
+     * @method get_line_of
+     * @param y
+     **/
+    that.get_line_of = function( y ) {
+        return 1;
+    };
+
     return that;
 };

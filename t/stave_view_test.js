@@ -83,6 +83,19 @@ var stave_view_test = function () {
                 })(), test_title);
         });
 
+        env = ava_test_helper.init_env();
+        env.$div.hide();
+        mod = Ava.Stave(model);
+        view = Ava.StaveView({ model: mod });
+        // TODO: test exception before running render
+
+        view.render();
+
+        var y = view.vex_stave.y + 22;
+        equal( view.get_y_hot_spot(y), 20, "Got expected value from get_y_hot_spot" );
+        y += 0.5;
+        equal( view.get_y_hot_spot(y), 25, "Got expected value from get_y_hot_spot on hot boundry" );
+
     });
 
 };
