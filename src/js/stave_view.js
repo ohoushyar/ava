@@ -81,17 +81,24 @@ Ava.StaveView = function(spec) {
      * @param y
      **/
     that.get_y_hot_spot = function( y ) {
-        if (!_.keys(_y_map_line).length) {
-            _init_y_map_line();
+
+        var y0, sign, res, result;
+        var fact = 5;
+
+        y0 = that.vex_stave.getYForLine(0);
+        y = y - y0;
+        sign = y >= 0 ? 1 : -1;
+        y *= sign;
+
+        res = y - (y % fact);
+        result;
+        if ( y < res + (fact/2) ) {
+            result = sign * res;
+        } else {
+            result = sign * (res + fact);
         }
 
-        var fact = 5;
-        var r = y - (y % fact);
-        if ( y < r+(fact/2) ) {
-            return r;
-        } else {
-            return r+fact;
-        }
+        return result + y0;
     };
 
     /**
@@ -99,7 +106,13 @@ Ava.StaveView = function(spec) {
      * @param y
      **/
     that.get_line_of = function( y ) {
-        return 1;
+        var y_hot = that.get_y_hot_spot(y);
+
+        if (!_.keys(_y_map_line).length) {
+            _init_y_map_line();
+        }
+
+        return _y_map_line[y];
     };
 
     return that;
