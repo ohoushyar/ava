@@ -15,7 +15,7 @@
 Ava.View = function(spec) {
     var that = {};
 
-    add_click_event = function (div_id) {
+    var add_click_event = function (div_id, context) {
         var $div = $('#' + div_id + ' svg');
         // Set to global context if not valid
         if ( ! $div.length ) {
@@ -36,12 +36,29 @@ Ava.View = function(spec) {
         containerOffset.left = Math.floor($div.offset().left);
         containerOffset.top = Math.floor($div.offset().top);
 
+        var prev_mouse_x, prev_mouse_y;
         $div.mouseover( function (e) {
+        //$div.click( function (e) {
+            var bar_view, c_width, c_height;
             var mouse_x = e.pageX - containerOffset.left;
             var mouse_y = e.pageY - containerOffset.top;
 
-            var move = _.bind( cursor.move, cursor);
-            _.delay( move, 2000, mouse_x, mouse_y);
+            try {
+                // get bar over which the mouse move and pass it to get_hot_spot
+                bar_view = context.music_view.get_bar_view_of(mouse_x);
+            } catch (e) {
+                // do nothing
+            }
+
+            // move the cursor to hot spot over the stave
+            if (typeof bar_view === 'object') {
+                c_width = c_height = 10;
+                mouse_y = bar_view.stave.get_y_hot_spot(mouse_y) - (c_height/2);
+            }
+            // calculate the hot spot and return the postion
+            var move = _.bind( cursor.resize_and_move, cursor );
+            // Call move in defer as it's pretty expensive to run and render
+            _.defer( move, c_width, c_height, mouse_x, mouse_y);
             //alert( mouse_x +', '+ (mouse_y) + ', left offset: ' + containerOffset.left + ', right top: '+ containerOffset.top );
         } );
     };
@@ -122,13 +139,13 @@ Ava.View = function(spec) {
                 Ava.Context.current_div_id(canvas_id);
 
                 // Get an instance of MusicView and run render
-                var music_view = Ava.MusicView({
+                this.music_view = Ava.MusicView({
                     model: Ava.Music( this.model.music ),
                 });
-                music_view.render();
+                this.music_view.render();
 
                 // Add event
-                add_click_event( Ava.Context.current_div_id() );
+                add_click_event( Ava.Context.current_div_id(), this );
 
                 return this;
             },
