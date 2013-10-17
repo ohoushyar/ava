@@ -56,6 +56,8 @@ Ava.StaveView = function(spec) {
 
     var _y_map_line = {};
     /**
+     * Init _y_map_line (y to line number map)
+     *
      * @method _init_y_map_line
      * @private
      **/
@@ -77,6 +79,10 @@ Ava.StaveView = function(spec) {
     };
 
     /**
+     * Find the hot spot for passed y
+     * What is hot spot? Hot spot is the exact y for a line which calculate
+     * based on passed y.
+     *
      * @method get_y_hot_spot
      * @param y
      **/
@@ -102,6 +108,8 @@ Ava.StaveView = function(spec) {
     };
 
     /**
+     * Return line number relative to y.
+     *
      * @method get_line_of
      * @param y
      **/
@@ -112,7 +120,7 @@ Ava.StaveView = function(spec) {
             _init_y_map_line();
         }
 
-        return _y_map_line[y];
+        return _y_map_line[y_hot];
     };
 
     return that;

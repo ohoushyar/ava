@@ -115,6 +115,7 @@ var stave_view_test = function () {
         y = view.vex_stave.y + 45;
         equal( view.get_y_hot_spot(y), 47, "Got expected value from get_y_hot_spot" );
         equal( view.get_line_of(y), 0.5, "Got the line correspond to y");
+        equal( view.get_line_of(68), 2.5, "Got the line correspond to y");
 
 
     });
