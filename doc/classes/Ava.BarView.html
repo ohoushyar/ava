@@ -51,6 +51,8 @@
             
                 <li><a href="../classes/Ava.Context.html">Ava.Context</a></li>
             
+                <li><a href="../classes/Ava.CursorView.html">Ava.CursorView</a></li>
+            
                 <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
             
                 <li><a href="../classes/Ava.MusicView.html">Ava.MusicView</a></li>
@@ -275,8 +277,29 @@
                                 
                             </li>
                         
+                            <li class="index-item method private inherited">
+                                <a href="#method__init_y_map_line">_init_y_map_line</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
                                 <a href="#method_add_note">add_note</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_get_line_of">get_line_of</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_get_y_hot_spot">get_y_hot_spot</a>
 
                                 
                                 
@@ -361,6 +384,59 @@
 </div>
 
                 
+                    <div id="method__init_y_map_line" class="method item private inherited">
+    <h3 class="name"><code>_init_y_map_line</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.StaveView.html#method__init_y_map_line">Ava.StaveView</a>:
+            
+        
+        
+        <a href="../files/src_js_stave_view.js.html#l58"><code>src&#x2F;js&#x2F;stave_view.js:58</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Init <em>y</em>map_line (y to line number map)</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_add_note" class="method item">
     <h3 class="name"><code>add_note</code></h3>
 
@@ -433,6 +509,176 @@
 
                     <div class="param-description">
                         <p>Ava.Tickable</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_get_line_of" class="method item inherited">
+    <h3 class="name"><code>get_line_of</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>y</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.StaveView.html#method_get_line_of">Ava.StaveView</a>:
+            
+        
+        
+        <a href="../files/src_js_stave_view.js.html#l110"><code>src&#x2F;js&#x2F;stave_view.js:110</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Return line number relative to y.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_get_y_hot_spot" class="method item inherited">
+    <h3 class="name"><code>get_y_hot_spot</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>y</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.StaveView.html#method_get_y_hot_spot">Ava.StaveView</a>:
+            
+        
+        
+        <a href="../files/src_js_stave_view.js.html#l81"><code>src&#x2F;js&#x2F;stave_view.js:81</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Find the hot spot for passed y
+What is hot spot? Hot spot is the exact y for a line which calculate
+based on passed y.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
                     </div>
 
                     

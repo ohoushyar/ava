@@ -51,6 +51,8 @@
             
                 <li><a href="../classes/Ava.Context.html">Ava.Context</a></li>
             
+                <li><a href="../classes/Ava.CursorView.html">Ava.CursorView</a></li>
+            
                 <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
             
                 <li><a href="../classes/Ava.MusicView.html">Ava.MusicView</a></li>
@@ -165,12 +167,47 @@ Ava.MusicView = function(spec) {
                 var bar_view = Ava.BarView( {model: bar_model} );
 
                 bar_view.render();
+                that.bars.push(bar_view);
+
             },
 
         });
 
         that = new View(spec);
+        that.bars = [];
     })(spec);
+
+    /**
+     * Return BarView object of passed x and y
+     * TODO: It could accept y when we have wrap enable
+     *
+     * @method get_bar_view_of
+     * @param {Number} x
+     * @return {Object} Ava.BarView
+     **/
+    that.get_bar_view_of = function( x ) {
+        var bar_x, bar_w, i;
+
+        if ( typeof x === &#x27;undefined&#x27; ) {
+            throw {
+                name: &#x27;reqParam&#x27;,
+                message: &quot;x is required&quot;
+            };
+        }
+
+        for (i=0; i &lt; that.bars.length; i+=1) {
+             bar_x = that.bars[i].model.get(&#x27;x&#x27;);
+             bar_w = that.bars[i].model.get(&#x27;width&#x27;);
+            if (x &gt;= bar_x &amp;&amp; x &lt; bar_x + bar_w) {
+                return that.bars[i];
+            }
+        }
+
+        throw {
+            name: &#x27;outOfRange&#x27;,
+            message: &quot;No bar found for x: &quot; + x,
+        };
+    };
 
     return that;
 };

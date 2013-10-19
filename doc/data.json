@@ -46,6 +46,22 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/js/cursor.js": {
+            "name": "src/js/cursor.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/cursor_view.js": {
+            "name": "src/js/cursor_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.CursorView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/js/music.js": {
             "name": "src/js/music.js",
             "modules": {},
@@ -94,6 +110,7 @@
                 "Ava.Bar": 1,
                 "Ava.BarList": 1,
                 "Ava.BarView": 1,
+                "Ava.CursorView": 1,
                 "Ava.Music": 1,
                 "Ava.MusicView": 1,
                 "Ava.Stave": 1,
@@ -134,7 +151,7 @@
             "module": "Ava",
             "namespace": "",
             "file": "src/js/ava.js",
-            "line": 88,
+            "line": 122,
             "is_constructor": 1
         },
         "Ava.View": {
@@ -245,6 +262,35 @@
             ],
             "extends": "Backbone.View"
         },
+        "Ava.CursorView": {
+            "name": "Ava.CursorView",
+            "shortname": "Ava.CursorView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/cursor_view.js",
+            "line": 1,
+            "description": "Cursor View",
+            "example": [
+                "\n     view = Ava.CursorView({\n         // mod is required attribute to init a Cursor model\n         model: Ava.Cursor(mod),\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "uses": [
+                "Ava.StaveView"
+            ],
+            "extends": "Backbone.View"
+        },
         "Ava.Music": {
             "name": "Ava.Music",
             "shortname": "Ava.Music",
@@ -330,7 +376,8 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [
-                "Ava.BarView"
+                "Ava.BarView",
+                "Ava.CursorView"
             ],
             "module": "Ava",
             "namespace": "",
@@ -414,6 +461,28 @@
         {
             "file": "src/js/ava.js",
             "line": 51,
+            "itemtype": "property",
+            "name": "Constant.CURSOR_DEFAULT_WIDTH",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 59,
+            "itemtype": "property",
+            "name": "Constant.CURSOR_DEFAULT_HEIGHT",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 67,
             "description": "App default width",
             "itemtype": "property",
             "name": "Constant.DEFAULT_WIDTH",
@@ -425,7 +494,31 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 61,
+            "line": 76,
+            "description": "App default canvas class name",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_CANVAS_CLASS",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 85,
+            "description": "App default canvas id",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_CANVAS_ID",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 95,
             "itemtype": "property",
             "name": "valid_duration",
             "type": "{Array} string",
@@ -436,7 +529,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 69,
+            "line": 103,
             "itemtype": "property",
             "name": "valid_clefs",
             "type": "{Array} string",
@@ -447,7 +540,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 77,
+            "line": 111,
             "itemtype": "property",
             "name": "valid_key_signatures",
             "type": "{Array} string",
@@ -458,7 +551,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 98,
+            "line": 132,
             "description": "Accessor to get/set current div id. The context is different for each\ndiv_id.",
             "itemtype": "method",
             "name": "current_div_id",
@@ -478,7 +571,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 123,
+            "line": 157,
             "itemtype": "method",
             "name": "current_duration",
             "params": [
@@ -497,7 +590,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 146,
+            "line": 180,
             "description": "A global accessor to get/set ctx.",
             "itemtype": "method",
             "name": "vexflow_ctx",
@@ -518,7 +611,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 182,
+            "line": 216,
             "itemtype": "method",
             "name": "current_x",
             "static": 1,
@@ -538,7 +631,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 200,
+            "line": 234,
             "itemtype": "method",
             "name": "current_y",
             "static": 1,
@@ -558,7 +651,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 218,
+            "line": 252,
             "itemtype": "method",
             "name": "reset_currents",
             "static": 1,
@@ -567,7 +660,7 @@
         },
         {
             "file": "src/js/ava_view.js",
-            "line": 48,
+            "line": 97,
             "description": "The id of div the application is going to render in.",
             "itemtype": "attribute",
             "name": "div_id",
@@ -837,6 +930,180 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/cursor.js",
+            "line": 24,
+            "description": "Cursor x",
+            "itemtype": "attribute",
+            "name": "x",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 33,
+            "description": "Cursor y",
+            "itemtype": "attribute",
+            "name": "y",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 42,
+            "description": "Cursor width",
+            "itemtype": "attribute",
+            "name": "width",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 51,
+            "description": "Cursor height",
+            "itemtype": "attribute",
+            "name": "height",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 60,
+            "description": "Cursor hide flag",
+            "itemtype": "attribute",
+            "name": "hide",
+            "type": "{Boolean}",
+            "default": "false",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 77,
+            "itemtype": "method",
+            "name": "move",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 87,
+            "itemtype": "method",
+            "name": "resize",
+            "params": [
+                {
+                    "name": "w",
+                    "description": "width",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "height",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 97,
+            "itemtype": "method",
+            "name": "hide",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 104,
+            "itemtype": "method",
+            "name": "show",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 29,
+            "itemtype": "method",
+            "name": "hide",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 36,
+            "itemtype": "method",
+            "name": "show",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 43,
+            "itemtype": "method",
+            "name": "move",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 50,
+            "itemtype": "method",
+            "name": "resize",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "resize_and_move",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 65,
+            "itemtype": "method",
+            "name": ": _rerender",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 74,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/music.js",
             "line": 19,
             "description": "Music title",
@@ -1023,6 +1290,26 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/music_view.js",
+            "line": 70,
+            "description": "Return BarView object of passed x and y\nTODO: It could accept y when we have wrap enable",
+            "itemtype": "method",
+            "name": "get_bar_view_of",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Ava.BarView",
+                "type": "Object"
+            },
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/stave.js",
             "line": 23,
             "itemtype": "attribute",
@@ -1126,6 +1413,47 @@
             "itemtype": "method",
             "name": "render",
             "chainable": 1,
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 58,
+            "description": "Init _y_map_line (y to line number map)",
+            "itemtype": "method",
+            "name": "_init_y_map_line",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 81,
+            "description": "Find the hot spot for passed y\nWhat is hot spot? Hot spot is the exact y for a line which calculate\nbased on passed y.",
+            "itemtype": "method",
+            "name": "get_y_hot_spot",
+            "params": [
+                {
+                    "name": "y",
+                    "description": ""
+                }
+            ],
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 110,
+            "description": "Return line number relative to y.",
+            "itemtype": "method",
+            "name": "get_line_of",
+            "params": [
+                {
+                    "name": "y",
+                    "description": ""
+                }
+            ],
             "class": "Ava.StaveView",
             "module": "Ava"
         }

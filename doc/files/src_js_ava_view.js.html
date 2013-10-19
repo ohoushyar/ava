@@ -51,6 +51,8 @@
             
                 <li><a href="../classes/Ava.Context.html">Ava.Context</a></li>
             
+                <li><a href="../classes/Ava.CursorView.html">Ava.CursorView</a></li>
+            
                 <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
             
                 <li><a href="../classes/Ava.MusicView.html">Ava.MusicView</a></li>
@@ -123,6 +125,54 @@
 Ava.View = function(spec) {
     var that = {};
 
+    var add_click_event = function (div_id, context) {
+        var $div = $(&#x27;#&#x27; + div_id + &#x27; svg&#x27;);
+        // Set to global context if not valid
+        if ( ! $div.length ) {
+            $div = $(&#x27;#&#x27; + Ava.Context.current_div_id() + &#x27; svg&#x27;);
+            if (! $div.length ) {
+                throw {
+                    name: &#x27;initError&#x27;,
+                    message: &quot;Unable to select element&quot;,
+                };
+            }
+        }
+
+        var cursor = Ava.CursorView({
+                model: Ava.Cursor({})
+            }).render();
+
+        var containerOffset = {top: 0, left: 0};
+        containerOffset.left = Math.floor($div.offset().left);
+        containerOffset.top = Math.floor($div.offset().top);
+
+        var prev_mouse_x, prev_mouse_y;
+        $div.mouseover( function (e) {
+        //$div.click( function (e) {
+            var bar_view, c_width, c_height;
+            var mouse_x = e.pageX - containerOffset.left;
+            var mouse_y = e.pageY - containerOffset.top;
+
+            try {
+                // get bar over which the mouse move and pass it to get_hot_spot
+                bar_view = context.music_view.get_bar_view_of(mouse_x);
+            } catch (e) {
+                // do nothing
+            }
+
+            // move the cursor to hot spot over the stave
+            if (typeof bar_view === &#x27;object&#x27;) {
+                c_width = c_height = 10;
+                mouse_y = bar_view.stave.get_y_hot_spot(mouse_y) - (c_height/2);
+            }
+            // calculate the hot spot and return the postion
+            var move = _.bind( cursor.resize_and_move, cursor );
+            // Call move in defer as it&#x27;s pretty expensive to run and render
+            _.defer( move, c_width, c_height, mouse_x, mouse_y);
+            //alert( mouse_x +&#x27;, &#x27;+ (mouse_y) + &#x27;, left offset: &#x27; + containerOffset.left + &#x27;, right top: &#x27;+ containerOffset.top );
+        } );
+    };
+
     // TODO: Load from a file
     var tmpl = &quot;&lt;div id=ava_toolbar&gt;&quot;;
 
@@ -152,6 +202,7 @@ Ava.View = function(spec) {
     tmpl    += &quot;&lt;/div&gt;&quot;;
     tmpl    += &quot;&lt;div id=&lt;%= canvas_id %&gt; class=&lt;%= canvas_class_name %&gt; &gt;&lt;/div&gt;&quot;;
     tmpl    += &quot;&lt;div id=ava_error&gt;&lt;/div&gt;&quot;;
+    tmpl    += &quot;&lt;div id=ava_verbose&gt;&lt;/div&gt;&quot;;
 
     /**
      * The id of div the application is going to render in.
@@ -185,21 +236,26 @@ Ava.View = function(spec) {
             template: _.template( tmpl ),
 
             render: function() {
-                var canvas_id = &#x27;ava_canvas&#x27;;
+                var canvas_id = Ava.Constant.DEFAULT_CANVAS_ID;
+
+                // Set the correct offset as SVG is not before draw
                 this.$el.html( this.template({
                     btns: btns,
                     canvas_id: canvas_id,
-                    canvas_class_name: this.model.canvas_class_name
+                    canvas_class_name: Ava.Constant.DEFAULT_CANVAS_CLASS
                 }) );
 
                 // Set context div_id
                 Ava.Context.current_div_id(canvas_id);
 
                 // Get an instance of MusicView and run render
-                var music_view = Ava.MusicView({
+                this.music_view = Ava.MusicView({
                     model: Ava.Music( this.model.music ),
                 });
-                music_view.render();
+                this.music_view.render();
+
+                // Add event
+                add_click_event( Ava.Context.current_div_id(), this );
 
                 return this;
             },

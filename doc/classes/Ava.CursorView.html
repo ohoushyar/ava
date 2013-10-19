@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Ava.BarList - AVA</title>
+    <title>Ava.CursorView - AVA</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,14 +104,14 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Ava.BarList Class</h1>
+                        <h1>Ava.CursorView Class</h1>
 <div class="box meta">
     
         <div class="uses">
             Uses
             <ul class="inline commas">
                 
-                    <li><a href="Ava.Bar.html">Ava.Bar</a></li>
+                    <li><a href="Ava.StaveView.html">Ava.StaveView</a></li>
                 
             </ul>
         </div>
@@ -119,13 +119,13 @@
 
     
         <div class="extends">
-            Extends Backbone.Collection
+            Extends Backbone.View
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_js_bar.js.html#l250"><code>src&#x2F;js&#x2F;bar.js:250</code></a>
+            Defined in: <a href="../files/src_js_cursor_view.js.html#l1"><code>src&#x2F;js&#x2F;cursor_view.js:1</code></a>
         </div>
     
 
@@ -141,14 +141,14 @@
 
 
 <div class="box intro">
-    <p>Represents a collection of Bars</p>
+    <p>Cursor View</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Ava.BarList" class="method item">
-    <h3 class="name"><code>Ava.BarList</code></h3>
+        <div id="method_Ava.CursorView" class="method item">
+    <h3 class="name"><code>Ava.CursorView</code></h3>
 
     
         <div class="args">
@@ -189,7 +189,7 @@
             
         
         
-        <a href="../files/src_js_bar.js.html#l250"><code>src&#x2F;js&#x2F;bar.js:250</code></a>
+        <a href="../files/src_js_cursor_view.js.html#l1"><code>src&#x2F;js&#x2F;cursor_view.js:1</code></a>
         
         </p>
 
@@ -212,13 +212,13 @@
                 <li class="param">
                     
                         <code class="param-name">spec</code>
-                        <span class="type">Array</span>
+                        <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Array of Ava.Bar object</p>
+                         
                     </div>
 
                     
@@ -230,6 +230,18 @@
 
     
 
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code> view = Ava.CursorView({
+     // mod is required attribute to init a Cursor model
+     model: Ava.Cursor(mod),
+ });
+</code></pre>
+            </div>
+        </div>
     
 </div>
 
@@ -260,57 +272,99 @@
 
                     <ul class="index-list methods extends">
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_add_note">add_note</a>
+                            <li class="index-item method private">
+                                <a href="#method_: _rerender">: _rerender</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private inherited">
+                                <a href="#method__init_y_map_line">_init_y_map_line</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_get_stave">get_stave</a>
+                                <a href="#method_get_line_of">get_line_of</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_is_dirty">is_dirty</a>
+                                <a href="#method_get_y_hot_spot">get_y_hot_spot</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_hide">hide</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_hide">hide</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_move">move</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_move">move</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method inherited">
-                                <a href="#method_set_dirty">set_dirty</a>
+                                <a href="#method_render">render</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_set_width">set_width</a>
+                            <li class="index-item method">
+                                <a href="#method_resize">resize</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_set_x">set_x</a>
+                            <li class="index-item method">
+                                <a href="#method_resize">resize</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_set_y">set_y</a>
+                            <li class="index-item method">
+                                <a href="#method_resize_and_move">resize_and_move</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#method_unset_dirty">unset_dirty</a>
+                            <li class="index-item method">
+                                <a href="#method_show">show</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_show">show</a>
 
                                 
                                 
@@ -328,47 +382,23 @@
 
                     <ul class="index-list attrs extends">
                         
-                            <li class="index-item attr inherited">
-                                <a href="#attr_beat_value">beat_value</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
+                            <li class="index-item attr">
                                 <a href="#attr_height">height</a>
                             </li>
                         
-                            <li class="index-item attr inherited">
-                                <a href="#attr_key_signature">key_signature</a>
+                            <li class="index-item attr">
+                                <a href="#attr_hide">hide</a>
                             </li>
                         
-                            <li class="index-item attr inherited">
-                                <a href="#attr_notes">notes</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
-                                <a href="#attr_num_beats">num_beats</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
-                                <a href="#attr_show_clef">show_clef</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
-                                <a href="#attr_show_key_signature">show_key_signature</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
-                                <a href="#attr_show_time_signature">show_time_signature</a>
-                            </li>
-                        
-                            <li class="index-item attr inherited">
+                            <li class="index-item attr">
                                 <a href="#attr_width">width</a>
                             </li>
                         
-                            <li class="index-item attr inherited">
+                            <li class="index-item attr">
                                 <a href="#attr_x">x</a>
                             </li>
                         
-                            <li class="index-item attr inherited">
+                            <li class="index-item attr">
                                 <a href="#attr_y">y</a>
                             </li>
                         
@@ -384,160 +414,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_add_note" class="method item inherited">
-    <h3 class="name"><code>add_note</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>Ava.Tickable</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_add_note">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l154"><code>src&#x2F;js&#x2F;bar.js:154</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">Ava.Tickable</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_get_stave" class="method item inherited">
-    <h3 class="name"><code>get_stave</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_get_stave">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l218"><code>src&#x2F;js&#x2F;bar.js:218</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Object</span>:
-                    
-                    Ava.Stave
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_is_dirty" class="method item inherited">
-    <h3 class="name"><code>is_dirty</code></h3>
+                    <div id="method_: _rerender" class="method item private">
+    <h3 class="name"><code>: _rerender</code></h3>
 
     
         <span class="paren">()</span>
@@ -548,6 +426,8 @@
     
 
     
+        <span class="flag private">private</span>
+    
 
     
 
@@ -560,12 +440,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_is_dirty">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l210"><code>src&#x2F;js&#x2F;bar.js:210</code></a>
+        <a href="../files/src_js_cursor_view.js.html#l65"><code>src&#x2F;js&#x2F;cursor_view.js:65</code></a>
         
         </p>
 
@@ -587,8 +470,8 @@
 </div>
 
                 
-                    <div id="method_set_dirty" class="method item inherited">
-    <h3 class="name"><code>set_dirty</code></h3>
+                    <div id="method__init_y_map_line" class="method item private inherited">
+    <h3 class="name"><code>_init_y_map_line</code></h3>
 
     
         <span class="paren">()</span>
@@ -599,66 +482,7 @@
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_set_dirty">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l194"><code>src&#x2F;js&#x2F;bar.js:194</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set dirty attribute to true</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_set_width" class="method item inherited">
-    <h3 class="name"><code>set_width</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>width</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
+        <span class="flag private">private</span>
     
 
     
@@ -673,11 +497,11 @@
         
             
                 <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_set_width">Ava.Bar</a>:
+                <a href="../classes/Ava.StaveView.html#method__init_y_map_line">Ava.StaveView</a>:
             
         
         
-        <a href="../files/src_js_bar.js.html#l178"><code>src&#x2F;js&#x2F;bar.js:178</code></a>
+        <a href="../files/src_js_stave_view.js.html#l58"><code>src&#x2F;js&#x2F;stave_view.js:58</code></a>
         
         </p>
 
@@ -688,32 +512,9 @@
     </div>
 
     <div class="description">
-        
+        <p>Init <em>y</em>map_line (y to line number map)</p>
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">width</code>
-                        <span class="type">Number</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -722,92 +523,8 @@
 </div>
 
                 
-                    <div id="method_set_x" class="method item inherited">
-    <h3 class="name"><code>set_x</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>x</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_set_x">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l170"><code>src&#x2F;js&#x2F;bar.js:170</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">x</code>
-                        <span class="type">Number</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_set_y" class="method item inherited">
-    <h3 class="name"><code>set_y</code></h3>
+                    <div id="method_get_line_of" class="method item inherited">
+    <h3 class="name"><code>get_line_of</code></h3>
 
     
         <div class="args">
@@ -841,11 +558,11 @@
         
             
                 <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_set_y">Ava.Bar</a>:
+                <a href="../classes/Ava.StaveView.html#method_get_line_of">Ava.StaveView</a>:
             
         
         
-        <a href="../files/src_js_bar.js.html#l186"><code>src&#x2F;js&#x2F;bar.js:186</code></a>
+        <a href="../files/src_js_stave_view.js.html#l110"><code>src&#x2F;js&#x2F;stave_view.js:110</code></a>
         
         </p>
 
@@ -856,7 +573,7 @@
     </div>
 
     <div class="description">
-        
+        <p>Return line number relative to y.</p>
     </div>
 
     
@@ -868,7 +585,7 @@
                 <li class="param">
                     
                         <code class="param-name">y</code>
-                        <span class="type">Number</span>
+                        <span class="type">Object</span>
                     
 
                     
@@ -890,8 +607,94 @@
 </div>
 
                 
-                    <div id="method_unset_dirty" class="method item inherited">
-    <h3 class="name"><code>unset_dirty</code></h3>
+                    <div id="method_get_y_hot_spot" class="method item inherited">
+    <h3 class="name"><code>get_y_hot_spot</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>y</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.StaveView.html#method_get_y_hot_spot">Ava.StaveView</a>:
+            
+        
+        
+        <a href="../files/src_js_stave_view.js.html#l81"><code>src&#x2F;js&#x2F;stave_view.js:81</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Find the hot spot for passed y
+What is hot spot? Hot spot is the exact y for a line which calculate
+based on passed y.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_hide" class="method item">
+    <h3 class="name"><code>hide</code></h3>
 
     
         <span class="paren">()</span>
@@ -914,12 +717,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#method_unset_dirty">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l202"><code>src&#x2F;js&#x2F;bar.js:202</code></a>
+        <a href="../files/src_js_cursor.js.html#l97"><code>src&#x2F;js&#x2F;cursor.js:97</code></a>
         
         </p>
 
@@ -930,7 +736,601 @@
     </div>
 
     <div class="description">
-        <p>Set dirty attribute to false</p>
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_hide" class="method item">
+    <h3 class="name"><code>hide</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l29"><code>src&#x2F;js&#x2F;cursor_view.js:29</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_move" class="method item">
+    <h3 class="name"><code>move</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l43"><code>src&#x2F;js&#x2F;cursor_view.js:43</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_move" class="method item">
+    <h3 class="name"><code>move</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>x</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>y</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor.js.html#l77"><code>src&#x2F;js&#x2F;cursor.js:77</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">x</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_render" class="method item">
+    <h3 class="name"><code>render</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            <p>Inherited from
+            <a href="../classes/Ava.StaveView.html#method_render">
+                Ava.StaveView
+            </a>
+            
+            but overwritten in
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l74"><code>src&#x2F;js&#x2F;cursor_view.js:74</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_resize" class="method item">
+    <h3 class="name"><code>resize</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>w</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>h</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor.js.html#l87"><code>src&#x2F;js&#x2F;cursor.js:87</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">w</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>width</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">h</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>height</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_resize" class="method item">
+    <h3 class="name"><code>resize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l50"><code>src&#x2F;js&#x2F;cursor_view.js:50</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_resize_and_move" class="method item">
+    <h3 class="name"><code>resize_and_move</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l57"><code>src&#x2F;js&#x2F;cursor_view.js:57</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_show" class="method item">
+    <h3 class="name"><code>show</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor_view.js.html#l36"><code>src&#x2F;js&#x2F;cursor_view.js:36</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_show" class="method item">
+    <h3 class="name"><code>show</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_cursor.js.html#l104"><code>src&#x2F;js&#x2F;cursor.js:104</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
     </div>
 
     
@@ -951,59 +1351,7 @@
                 <h2 class="off-left">Attributes</h2>
 
                 
-                    <div id="attr_beat_value" class="attr item inherited">
-    <a name="config_beat_value"></a> 
-    <h3 class="name"><code>beat_value</code></h3>
-    <span class="type">Number</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag optional">optional</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_beat_value">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l92"><code>src&#x2F;js&#x2F;bar.js:92</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <p><strong>Default:</strong> 4</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_height" class="attr item inherited">
+                    <div id="attr_height" class="attr item">
     <a name="config_height"></a> 
     <h3 class="name"><code>height</code></h3>
     <span class="type">Number</span>
@@ -1027,12 +1375,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_height">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l66"><code>src&#x2F;js&#x2F;bar.js:66</code></a>
+        <a href="../files/src_js_cursor.js.html#l51"><code>src&#x2F;js&#x2F;cursor.js:51</code></a>
         
         </p>
 
@@ -1042,7 +1393,7 @@
     </div>
 
     <div class="description">
-        <p>Bar height</p>
+        <p>Cursor height</p>
     </div>
 
     
@@ -1055,163 +1406,9 @@
 </div>
 
                 
-                    <div id="attr_key_signature" class="attr item inherited">
-    <a name="config_key_signature"></a> 
-    <h3 class="name"><code>key_signature</code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag optional">optional</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_key_signature">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l109"><code>src&#x2F;js&#x2F;bar.js:109</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <p><strong>Default:</strong> C</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_notes" class="attr item inherited">
-    <a name="config_notes"></a> 
-    <h3 class="name"><code>notes</code></h3>
-    <span class="type">Object Ava.NoteList</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag required">required</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_notes">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l130"><code>src&#x2F;js&#x2F;bar.js:130</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>List of notes</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_num_beats" class="attr item inherited">
-    <a name="config_num_beats"></a> 
-    <h3 class="name"><code>num_beats</code></h3>
-    <span class="type">Number</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag optional">optional</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_num_beats">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l84"><code>src&#x2F;js&#x2F;bar.js:84</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <p><strong>Default:</strong> 4</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_show_clef" class="attr item inherited">
-    <a name="config_show_clef"></a> 
-    <h3 class="name"><code>show_clef</code></h3>
+                    <div id="attr_hide" class="attr item">
+    <a name="config_hide"></a> 
+    <h3 class="name"><code>hide</code></h3>
     <span class="type">Boolean</span>
 
     
@@ -1233,12 +1430,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_show_clef">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l75"><code>src&#x2F;js&#x2F;bar.js:75</code></a>
+        <a href="../files/src_js_cursor.js.html#l60"><code>src&#x2F;js&#x2F;cursor.js:60</code></a>
         
         </p>
 
@@ -1248,7 +1448,7 @@
     </div>
 
     <div class="description">
-        <p>Flag to represent showing of clef in bar</p>
+        <p>Cursor hide flag</p>
     </div>
 
     
@@ -1261,111 +1461,7 @@
 </div>
 
                 
-                    <div id="attr_show_key_signature" class="attr item inherited">
-    <a name="config_show_key_signature"></a> 
-    <h3 class="name"><code>show_key_signature</code></h3>
-    <span class="type">Boolean</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag optional">optional</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_show_key_signature">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l117"><code>src&#x2F;js&#x2F;bar.js:117</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Flag to represent showing of key signature in bar</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> false</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_show_time_signature" class="attr item inherited">
-    <a name="config_show_time_signature"></a> 
-    <h3 class="name"><code>show_time_signature</code></h3>
-    <span class="type">Boolean</span>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag optional">optional</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_show_time_signature">Ava.Bar</a>:
-            
-        
-        
-        <a href="../files/src_js_bar.js.html#l100"><code>src&#x2F;js&#x2F;bar.js:100</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Flag to represent showing of time signature in bar</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> false</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_width" class="attr item inherited">
+                    <div id="attr_width" class="attr item">
     <a name="config_width"></a> 
     <h3 class="name"><code>width</code></h3>
     <span class="type">Number</span>
@@ -1389,12 +1485,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_width">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l57"><code>src&#x2F;js&#x2F;bar.js:57</code></a>
+        <a href="../files/src_js_cursor.js.html#l42"><code>src&#x2F;js&#x2F;cursor.js:42</code></a>
         
         </p>
 
@@ -1404,7 +1503,7 @@
     </div>
 
     <div class="description">
-        <p>Bar width</p>
+        <p>Cursor width</p>
     </div>
 
     
@@ -1417,7 +1516,7 @@
 </div>
 
                 
-                    <div id="attr_x" class="attr item inherited">
+                    <div id="attr_x" class="attr item">
     <a name="config_x"></a> 
     <h3 class="name"><code>x</code></h3>
     <span class="type">Number</span>
@@ -1441,12 +1540,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_x">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l39"><code>src&#x2F;js&#x2F;bar.js:39</code></a>
+        <a href="../files/src_js_cursor.js.html#l24"><code>src&#x2F;js&#x2F;cursor.js:24</code></a>
         
         </p>
 
@@ -1456,7 +1558,7 @@
     </div>
 
     <div class="description">
-        <p>Bar x</p>
+        <p>Cursor x</p>
     </div>
 
     
@@ -1469,7 +1571,7 @@
 </div>
 
                 
-                    <div id="attr_y" class="attr item inherited">
+                    <div id="attr_y" class="attr item">
     <a name="config_y"></a> 
     <h3 class="name"><code>y</code></h3>
     <span class="type">Number</span>
@@ -1493,12 +1595,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Ava.Bar.html#attr_y">Ava.Bar</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_js_bar.js.html#l48"><code>src&#x2F;js&#x2F;bar.js:48</code></a>
+        <a href="../files/src_js_cursor.js.html#l33"><code>src&#x2F;js&#x2F;cursor.js:33</code></a>
         
         </p>
 
@@ -1508,7 +1613,7 @@
     </div>
 
     <div class="description">
-        <p>Bar y</p>
+        <p>Cursor y</p>
     </div>
 
     

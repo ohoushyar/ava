@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/js/stave.js - AVA</title>
+    <title>src/js/cursor_view.js - AVA</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,138 +104,112 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/js/stave.js</h1>
+                        <h1 class="file-heading">File: src/js/cursor_view.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Stave model
+ * Cursor View
  * @example
- *      stave = Ava.Stave({
- *          x: 100,
- *          y: 100,
- *          width: 350,
- *          clef: &#x27;bass&#x27;,
- *          time_signature: &#x27;6/8&#x27;,
- *          key_signature: &#x27;F&#x27;,
+ *      view = Ava.CursorView({
+ *          // mod is required attribute to init a Cursor model
+ *          model: Ava.Cursor(mod),
  *      });
- * @class Ava.Stave
+ *
+ * @class Ava.CursorView
  * @constructor
  * @param {Object} spec
+ * @uses Ava.StaveView
+ * @extends Backbone.View
  **/
-Ava.Stave = function (spec) {
+Ava.CursorView = function(spec) {
+
     var that = {};
 
-    (function(spec) {
-        var Model = Backbone.Model.extend({
-            defaults: function() {
-                return {
-                    /**
-                     * @attribute x
-                     * @type {Number}
-                     * @default 0
-                     * @optional
-                     **/
-                    x: 0,
+    ( function(spec) {
 
-                    /**
-                     * @attribute y
-                     * @type {Number}
-                     * @default 0
-                     * @optional
-                     **/
-                    y: 0,
-
-                    /**
-                     * @attribute width
-                     * @type {Number}
-                     * @default 250
-                     * @optional
-                     **/
-                    width: 250,
-
-                    /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute clef
-                     * @type {String}
-                     * @optional
-                     **/
-                    clef: undefined,
-
-                    /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute time_signature
-                     * @type {String}
-                     * @optional
-                     **/
-                    time_signature: undefined,
-
-                    /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute key_signature
-                     * @type {String}
-                     * @optional
-                     **/
-                    key_signature: undefined,
-                };
-            },
+        var View = Backbone.View.extend({
 
             initialize: function() {
+                this.model.on(&#x27;change&#x27;, this._rerender, this);
+            },
 
-                if ( typeof this.get(&#x27;clef&#x27;) === &#x27;string&#x27;
-                    &amp;&amp; !_.include(Ava.valid_clefs, this.get(&#x27;clef&#x27;)) ) {
-                    throw {
-                        name: &#x27;initError&#x27;,
-                        message: &#x27;Invalid clef&#x27;,
-                    };
+
+            // TODO
+            /**
+             * @method hide
+             **/
+            hide: function() {
+                this.model.hide();
+            },
+
+            /**
+             * @method show
+             **/
+            show: function() {
+                this.model.show();
+            },
+
+            /**
+             * @method move
+             **/
+            move: function(x, y) {
+                this.model.move(x, y);
+            },
+
+            /**
+             * @method resize
+             **/
+            resize: function(w, h) {
+                this.model.resize(w, h);
+            },
+
+            /**
+             * @method resize_and_move
+             **/
+            resize_and_move: function(w, h, x, y) {
+                this.model.resize(w, h);
+                this.model.move(x, y);
+            },
+
+            /**
+             * @method: _rerender
+             * @private
+             **/
+            _rerender: function() {
+                this.rect.hide();
+                this.render();
+            },
+
+            /**
+             * @method render
+             **/
+            render: function() {
+
+                var x      = this.model.get(&#x27;x&#x27;);
+                var y      = this.model.get(&#x27;y&#x27;);
+                var width  = this.model.get(&#x27;width&#x27;);
+                var height = this.model.get(&#x27;height&#x27;);
+
+                var ctx   = Ava.Context.vexflow_ctx();
+                this.rect = ctx.paper.rect(x, y, width, height);
+                this.rect.attr({fill:&quot;#000&quot;, opacity: 0.2});
+
+                var hide   = this.model.get(&#x27;hide&#x27;);
+                if (hide) {
+                    this.rect.hide();
+                } else {
+                    this.rect.show();
                 }
 
-                if ( typeof this.get(&#x27;key_signature&#x27;) === &#x27;string&#x27;
-                    &amp;&amp; !_.include(Ava.valid_key_signatures, this.get(&#x27;key_signature&#x27;)) ) {
-                    throw {
-                        name: &#x27;initError&#x27;,
-                        message: &#x27;Invalid key_signature&#x27;,
-                    };
-                }
-
+                return this;
             },
 
         });
 
-        that = new Model(spec);
+        that = new View(spec);
+
     })(spec);
-
-    /**
-     * Change the x and y value of stave to given value
-     * @method move_to
-     * @param {Number} x
-     * @param {Number} y
-     * @chainable
-     **/
-    that.move_to = function(x, y) {
-        if ( typeof x !== &#x27;number&#x27; || typeof y !== &#x27;number&#x27; ) {
-            throw {
-                name: &#x27;invalidParam&#x27;,
-                message: &#x27;x and y have to be number&#x27;,
-            };
-        }
-
-        that.set(&#x27;x&#x27;, x);
-        that.set(&#x27;y&#x27;, y);
-
-        return that;
-    };
-
-    /**
-     * Get the value of current positions on context and set the stave
-     * values.
-     * @method move_to_current_pos
-     * @chainable
-     **/
-    that.move_to_current_pos = function() {
-        that.move_to(Ava.Context.current_x(), Ava.Context.current_y());
-        return that;
-    };
 
     return that;
 };

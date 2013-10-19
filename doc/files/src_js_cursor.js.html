@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/js/stave.js - AVA</title>
+    <title>src/js/cursor.js - AVA</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,33 +104,35 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/js/stave.js</h1>
+                        <h1 class="file-heading">File: src/js/cursor.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-/**
- * Stave model
+/*
+ * Cursor is a kind of rectangle which would show the place of element which would place on the bar.
+ *
  * @example
- *      stave = Ava.Stave({
- *          x: 100,
- *          y: 100,
- *          width: 350,
- *          clef: &#x27;bass&#x27;,
- *          time_signature: &#x27;6/8&#x27;,
- *          key_signature: &#x27;F&#x27;,
+ *      cursor = Ava.Cursor({
+ *          x:       10,
+ *          y:       10,
+ *          width:   10,
+ *          height:  20
  *      });
- * @class Ava.Stave
+ *
+ * @class Ava.Cursor
  * @constructor
- * @param {Object} spec
- **/
-Ava.Stave = function (spec) {
+ * @param {Object} spec An object to init a cursor
+ * @extend Backbone.Model
+ */
+Ava.Cursor = function (spec) {
     var that = {};
 
     (function(spec) {
-        var Model = Backbone.Model.extend({
+        var CursorModel = Backbone.Model.extend({
             defaults: function() {
                 return {
                     /**
+                     * Cursor x
                      * @attribute x
                      * @type {Number}
                      * @default 0
@@ -139,6 +141,7 @@ Ava.Stave = function (spec) {
                     x: 0,
 
                     /**
+                     * Cursor y
                      * @attribute y
                      * @type {Number}
                      * @default 0
@@ -147,94 +150,72 @@ Ava.Stave = function (spec) {
                     y: 0,
 
                     /**
+                     * Cursor width
                      * @attribute width
                      * @type {Number}
-                     * @default 250
+                     * @default (defined in Ava.Constant)
                      * @optional
                      **/
-                    width: 250,
+                    width: Ava.Constant.CURSOR_DEFAULT_WIDTH,
 
                     /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute clef
-                     * @type {String}
+                     * Cursor height
+                     * @attribute height
+                     * @type {Number}
+                     * @default (defined in Ava.Constant)
                      * @optional
                      **/
-                    clef: undefined,
+                    height: Ava.Constant.CURSOR_DEFAULT_HEIGHT,
 
                     /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute time_signature
-                     * @type {String}
+                     * Cursor hide flag
+                     * @attribute hide
+                     * @type {Boolean}
+                     * @default false
                      * @optional
                      **/
-                    time_signature: undefined,
-
-                    /**
-                     * Set of this attribute will cause the view to show it
-                     * @attribute key_signature
-                     * @type {String}
-                     * @optional
-                     **/
-                    key_signature: undefined,
+                    hide: false,
                 };
-            },
-
-            initialize: function() {
-
-                if ( typeof this.get(&#x27;clef&#x27;) === &#x27;string&#x27;
-                    &amp;&amp; !_.include(Ava.valid_clefs, this.get(&#x27;clef&#x27;)) ) {
-                    throw {
-                        name: &#x27;initError&#x27;,
-                        message: &#x27;Invalid clef&#x27;,
-                    };
-                }
-
-                if ( typeof this.get(&#x27;key_signature&#x27;) === &#x27;string&#x27;
-                    &amp;&amp; !_.include(Ava.valid_key_signatures, this.get(&#x27;key_signature&#x27;)) ) {
-                    throw {
-                        name: &#x27;initError&#x27;,
-                        message: &#x27;Invalid key_signature&#x27;,
-                    };
-                }
-
             },
 
         });
 
-        that = new Model(spec);
+        that = new CursorModel(spec);
+
     })(spec);
 
     /**
-     * Change the x and y value of stave to given value
-     * @method move_to
+     * @method move
      * @param {Number} x
      * @param {Number} y
-     * @chainable
      **/
-    that.move_to = function(x, y) {
-        if ( typeof x !== &#x27;number&#x27; || typeof y !== &#x27;number&#x27; ) {
-            throw {
-                name: &#x27;invalidParam&#x27;,
-                message: &#x27;x and y have to be number&#x27;,
-            };
-        }
-
+    that.move = function(x, y) {
         that.set(&#x27;x&#x27;, x);
         that.set(&#x27;y&#x27;, y);
-
-        return that;
     };
 
     /**
-     * Get the value of current positions on context and set the stave
-     * values.
-     * @method move_to_current_pos
-     * @chainable
+     * @method resize
+     * @param {Number} w width
+     * @param {Number} h height
      **/
-    that.move_to_current_pos = function() {
-        that.move_to(Ava.Context.current_x(), Ava.Context.current_y());
-        return that;
+    that.resize = function(w, h) {
+        that.set(&#x27;width&#x27;, w);
+        that.set(&#x27;height&#x27;, h);
+    };
+
+    /**
+     * @method hide
+     **/
+    that.hide = function() {
+        that.set(&#x27;hide&#x27;, true);
+    };
+
+    /**
+     * @method show
+     **/
+    that.show = function() {
+        that.set(&#x27;hide&#x27;, false);
     };
 
     return that;

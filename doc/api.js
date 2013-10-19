@@ -6,6 +6,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Ava.BarList",
         "Ava.BarView",
         "Ava.Context",
+        "Ava.CursorView",
         "Ava.Music",
         "Ava.MusicView",
         "Ava.Stave",
