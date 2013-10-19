@@ -1,9 +1,10 @@
 .ava-canvas, .ut-canvas {
-    height: 155px;
-    width: auto;
-    background-color: #FFFFEE;
-    border: 5px solid #CCCCCC;
-    padding: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    height:            155px;
+    width:             auto;
+    background-color:  #FFFFEE;
+    border:            5px solid #CCCCCC;
+    padding:           10px;
+    margin-left:       10px;
+    margin-bottom:     10px;
+/*    overflow:          auto; */
 }
