@@ -13,43 +13,127 @@
     <![endif]-->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="src/third_party/jquery-1.5.js"></script>
+    <script src="src/third_party/jquery-1.10.2.min.js"></script>
     <script src="src/third_party/underscore.js"></script>
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="src/css/bootstrap/js/bootstrap.min.js"></script> -->
-
+    <script src="src/css/bootstrap/js/bootstrap.js"></script>
   </head>
   <body>
 
-    <div class="ava toolbar toolbar-mainbar">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-lg" id="toolbar-button-clef">Clefs</button>
-            <button type="button" class="btn btn-primary btn-lg" id="toolbar-button-time">Times</button>
-            <button type="button" class="btn btn-primary btn-lg" id="toolbar-button-key">Keys</button>
-            <button type="button" class="btn btn-primary btn-lg" id="toolbar-button-note">Note</button>
+      <div id='container'>
+
+        <nav class="navbar navbar-default" role="navigation">
+            <a class="navbar-brand" href="#">AVA</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-undo"></span>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-redo"></span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-64">64th</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-32">32th</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-16">16th</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-8">8th</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-4">q</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-2">h</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-1">w</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-dot">.</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-ddot">..</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-time-tie">Tie(+)</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-rest-toggle">
+                    <span id="nav-btn-rest-toggle-img">R</span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-dsharp">X</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-sharp">#</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-natural">natrual</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-flat">b</button>
+                <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-dflat">bb</button>
+            </div>
+        </nav>
+
+        <div class="left-nav pull-left" id="left-nav-container">
+            <div class="panel-group" id="accordion">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#clefs">
+                                Clefs
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="clefs" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Different clefs will show off here.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#key-signatures">
+                                Key Signatures
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="key-signatures" class="panel-collapse collapse">
+                        <div class="panel-body">
+                             Key signatures will show off here.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#time-signatures">
+                                Time Signatures
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="time-signatures" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Time signatures will show off here.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#barlines">
+                                Barlines
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="barlines" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Barlines will show off here.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <div class="ava toolbar toolbar-subbar">
-        <div class="btn-group" id="toolbar-btngrp-clef">
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-clef-treble">Treble</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-clef-bass">Bass</button>
+
+        <div class="pull-left main-container">
+            <p>this is a test</p>
         </div>
-        <div class="btn-group" id="toolbar-btngrp-time">
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-time-44">4/4</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-time-68">6/8</button>
-        </div>
-        <div class="btn-group" id="toolbar-btngrp-key">
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-key-f">F</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-key-a">A</button>
-        </div>
-        <div class="btn-group" id="toolbar-btngrp-note">
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-note-w">W</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-note-h">H</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-note-q">Q</button>
-            <button type="button" class="btn btn-default btn-sm" id="toolbar-button-note-b">B</button>
-        </div>
-    </div>
+
+      </div>
 
   </body>
 </html>
