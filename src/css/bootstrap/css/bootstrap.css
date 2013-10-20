@@ -3330,7 +3330,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   position: relative;
   z-index: 1000;
   min-height: 50px;
-  margin-bottom: 1px;
+  margin-bottom: 4px;
   border: 1px solid transparent;
 }
 .navbar:before,
