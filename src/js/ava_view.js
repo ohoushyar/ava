@@ -75,10 +75,10 @@ Ava.View = function(spec) {
     tmpl    += '        </div>';
     tmpl    += '        <div class="btn-group">';
     tmpl    += '            <button type="button" class="btn btn-default navbar-btn">';
-    tmpl    += '                <span class="glyphicon glyphicon-undo"></span>';
+    tmpl    += '                undo';
     tmpl    += '            </button>';
     tmpl    += '            <button type="button" class="btn btn-default navbar-btn">';
-    tmpl    += '                <span class="glyphicon glyphicon-redo"></span>';
+    tmpl    += '                redo';
     tmpl    += '            </button>';
     tmpl    += '        </div>';
 
@@ -127,13 +127,11 @@ Ava.View = function(spec) {
 
     tmpl    += '       </div>';
     tmpl    += '   </div>';
-    tmpl    += '   <div class="pull-left main-container">';
+    tmpl    += '   <div class="pull-left ava-main-container">';
     tmpl    += '       <div id="<%= canvas_id %>" class="<%= canvas_class_name %>" ></div>';
     tmpl    += '       <div id="ava_error"></div>';
     tmpl    += '       <div id="ava_verbose"></div>';
     tmpl    += '   </div>';
-
-
 
     /**
      * The id of div the application is going to render in.
@@ -146,6 +144,7 @@ Ava.View = function(spec) {
     var div_id = spec.div_id || 'ava_container';
 
     ( function(spec) {
+
 
         var $out_div = $("#"+div_id);
         if ( $out_div.length == 0 ) {
@@ -237,8 +236,21 @@ Ava.View = function(spec) {
                         id:     'bass',
                         label:   'Bass',
                     },
+                    {
+                        id:     'tenor',
+                        label:   'Tenor',
+                    },
+                    {
+                        id:     'alto',
+                        label:   'Alto',
+                    },
+                    {
+                        id:     'percussion',
+                        label:   'Percussion',
+                    },
                 ],
             },
+
             {
                 title:        'Key Signatures',
                 href:         '#key-signatures',
@@ -246,14 +258,66 @@ Ava.View = function(spec) {
                 btn_pref_id:  'left-nav-btn-ksign-',
                 body:         'Key signatures will show off here.',
                 btns: [
-                    {
-                        id: '',
-                        label:  'Treble',
-                    },
-                    {
-                        id: 'bass',
-                        label: 'Bass',
-                    },
+                    { id: "C"   , label: "C"   },
+                    { id: "Am"  , label: "Am"  },
+                    { id: "F"   , label: "F"   },
+                    { id: "Dm"  , label: "Dm"  },
+                    { id: "Bb"  , label: "Bb"  },
+                    { id: "Gm"  , label: "Gm"  },
+                    { id: "Eb"  , label: "Eb"  },
+                    { id: "Cm"  , label: "Cm"  },
+                    { id: "Ab"  , label: "Ab"  },
+                    { id: "Fm"  , label: "Fm"  },
+                    { id: "Db"  , label: "Db"  },
+                    { id: "Bbm" , label: "Bbm" },
+                    { id: "Gb"  , label: "Gb"  },
+                    { id: "Ebm" , label: "Ebm" },
+                    { id: "Cb"  , label: "Cb"  },
+                    { id: "Abm" , label: "Abm" },
+                    { id: "G"   , label: "G"   },
+                    { id: "Em"  , label: "Em"  },
+                    { id: "D"   , label: "D"   },
+                    { id: "Bm"  , label: "Bm"  },
+                    { id: "A"   , label: "A"   },
+                    { id: "F#m" , label: "F#m" },
+                    { id: "E"   , label: "E"   },
+                    { id: "C#m" , label: "C#m" },
+                    { id: "B"   , label: "B"   },
+                    { id: "G#m" , label: "G#m" },
+                    { id: "F#"  , label: "F#"  },
+                    { id: "D#m" , label: "D#m" },
+                    { id: "C#"  , label: "C#"  },
+                    { id: 'A#m' , label: "A#m" },
+                ],
+            },
+
+            {
+                title:        'Time Signatures',
+                href:         '#time-signatures',
+                id:           'time-signatures',
+                btn_pref_id:  'left-nav-btn-tsign-',
+                btns: [
+                    { id: "2/2"  , label: "2/2"  },
+                    { id: "2/4"  , label: "2/4"  },
+                    { id: "3/4"  , label: "3/4"  },
+                    { id: "4/4"  , label: "4/4"  },
+                    { id: "5/4"  , label: "5/4"  },
+                    { id: "6/4"  , label: "6/4"  },
+                    { id: "3/8"  , label: "3/8"  },
+                    { id: "6/8"  , label: "6/8"  },
+                    { id: "12/8" , label: "12/8" },
+                    { id: "C"    , label: "C"    },
+                    { id: "C|"   , label: "C|"   },
+                ],
+            },
+
+            {
+                title:        'Barlines',
+                href:         '#barlines',
+                id:           'barlines',
+                btn_pref_id:  'left-nav-btn-barline-',
+                btns: [
+                    { id: 'test', label: 'Test' },
                 ],
             },
         ];
@@ -295,6 +359,13 @@ Ava.View = function(spec) {
             el: $out_div,
             model: spec.model
         });
+
+        // // Read from template file
+        // $.get( '../src/template/ava.tmpl', function(result) {
+        //         alert(result);
+        //         that.tmpl = result;
+        //     });
+
     } )(spec);
 
     return that;
