@@ -1,3 +1,15 @@
+#left-nav-container {
+    height: 200px;
+    width: 250px;
+    margin-left: 1px;
+    overflow: auto;
+}
+
+.ava-main-container {
+    margin-left: 4px;
+}
+
+/* doesn't really work now */
 .glyphicon-redo:before {
     content: "\e435";
 }
@@ -5,17 +17,8 @@
     content: "\e436";
 }
 
-#left-nav-container {
-    height: 200px;
-    width: 250px;
-    margin-left: 1px;
-    overflow: auto;
-}
 /* #nav-btn-rest-toggle-img { */
 /*     width: 14px; */
 /*     height: 14px; */
 /*     background-image: url("img/26px-Crotchet_rest_alt_plain-svg.svg.png"); */
 /* } */
-.main-container {
-    margin-left: 5px;
-}
