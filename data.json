@@ -1,0 +1,1467 @@
+{
+    "project": {
+        "name": "AVA",
+        "description": "Web based sheetmusic WYSIWYG editor",
+        "version": "0.01",
+        "url": "http://ava.com/"
+    },
+    "files": {
+        "src/js/ava.js": {
+            "name": "src/js/ava.js",
+            "modules": {
+                "Ava": 1
+            },
+            "classes": {
+                "Ava": 1,
+                "Ava.Context": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/ava_view.js": {
+            "name": "src/js/ava_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.View": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/bar.js": {
+            "name": "src/js/bar.js",
+            "modules": {},
+            "classes": {
+                "Ava.Bar": 1,
+                "Ava.BarList": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/bar_view.js": {
+            "name": "src/js/bar_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.BarView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/cursor.js": {
+            "name": "src/js/cursor.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/cursor_view.js": {
+            "name": "src/js/cursor_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.CursorView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/music.js": {
+            "name": "src/js/music.js",
+            "modules": {},
+            "classes": {
+                "Ava.Music": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/music_view.js": {
+            "name": "src/js/music_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.MusicView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/stave.js": {
+            "name": "src/js/stave.js",
+            "modules": {},
+            "classes": {
+                "Ava.Stave": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/js/stave_view.js": {
+            "name": "src/js/stave_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.StaveView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Ava": {
+            "name": "Ava",
+            "submodules": {},
+            "classes": {
+                "Ava": 1,
+                "Ava.Context": 1,
+                "Ava.View": 1,
+                "Ava.Bar": 1,
+                "Ava.BarList": 1,
+                "Ava.BarView": 1,
+                "Ava.CursorView": 1,
+                "Ava.Music": 1,
+                "Ava.MusicView": 1,
+                "Ava.Stave": 1,
+                "Ava.StaveView": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/js/stave_view.js",
+            "line": 1,
+            "is_constructor": 1
+        }
+    },
+    "classes": {
+        "Ava": {
+            "name": "Ava",
+            "shortname": "Ava",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/ava.js",
+            "line": 1
+        },
+        "Ava.Context": {
+            "name": "Ava.Context",
+            "shortname": "Ava.Context",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Ava.StaveView"
+            ],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/ava.js",
+            "line": 122,
+            "is_constructor": 1
+        },
+        "Ava.View": {
+            "name": "Ava.View",
+            "shortname": "Ava.View",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/ava_view.js",
+            "line": 1,
+            "description": "Ava View class\n\nTo run the app:\n\n  var app_view = Ava.View({\n      div_id: \"music_wysiwyg\", // The id of the div\n  });\n  app_view.render();",
+            "extends": "from Backbone.View",
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Ava.Bar": {
+            "name": "Ava.Bar",
+            "shortname": "Ava.Bar",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Ava.BarList"
+            ],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/bar.js",
+            "line": 1,
+            "description": "Bar (or measure) is a segment of time defined by a given number of\nbeats, each of which are assigned a particular note value\n(https://en.wikipedia.org/wiki/Bar_%28music%29)",
+            "example": [
+                "\n     bar = Ava.Bar({\n         clef:                 'treble',\n         show_clef:            true,\n         key_signature:        'G',\n         num_beats:            3,\n         beat_value:           4,\n         show_time_signature:  true,\n         show_key_signature:   true,\n         notes: [\n             { keys: [\"d/4\"], duration: \"q\"  },\n             { keys: [\"b/4\"], duration: \"qr\" },\n             { keys: [\"c/4\"], duration: \"q\"  },\n             { keys: [\"d/4\"], duration: \"q\"  },\n         ],\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "An object to init a Bar",
+                    "type": "Object"
+                }
+            ],
+            "uses": [
+                "Ava.TickableList"
+            ],
+            "extends": "Backbone.Model"
+        },
+        "Ava.BarList": {
+            "name": "Ava.BarList",
+            "shortname": "Ava.BarList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/bar.js",
+            "line": 250,
+            "description": "Represents a collection of Bars",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Array of Ava.Bar object",
+                    "type": "Array"
+                }
+            ],
+            "uses": [
+                "Ava.Bar"
+            ],
+            "extends": "Backbone.Collection"
+        },
+        "Ava.BarView": {
+            "name": "Ava.BarView",
+            "shortname": "Ava.BarView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/bar_view.js",
+            "line": 1,
+            "description": "Bar View",
+            "example": [
+                "\n     view = Ava.BarView({\n         // mod is required attribute to init a Bar model\n         model: Ava.Bar(mod),\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "uses": [
+                "Ava.StaveView"
+            ],
+            "extends": "Backbone.View"
+        },
+        "Ava.CursorView": {
+            "name": "Ava.CursorView",
+            "shortname": "Ava.CursorView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/cursor_view.js",
+            "line": 1,
+            "description": "Cursor View",
+            "example": [
+                "\n     view = Ava.CursorView({\n         // mod is required attribute to init a Cursor model\n         model: Ava.Cursor(mod),\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "uses": [
+                "Ava.StaveView"
+            ],
+            "extends": "Backbone.View"
+        },
+        "Ava.Music": {
+            "name": "Ava.Music",
+            "shortname": "Ava.Music",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/music.js",
+            "line": 1,
+            "description": "Represents Music model",
+            "extends": "Backbone.Model",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Object includes all properties value",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Returns Music model object",
+                "type": "Object"
+            }
+        },
+        "Ava.MusicView": {
+            "name": "Ava.MusicView",
+            "shortname": "Ava.MusicView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/music_view.js",
+            "line": 1,
+            "description": "Music View",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "extends": "Backbone.View"
+        },
+        "Ava.Stave": {
+            "name": "Ava.Stave",
+            "shortname": "Ava.Stave",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Ava.StaveView"
+            ],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/stave.js",
+            "line": 1,
+            "description": "Stave model",
+            "example": [
+                "\n     stave = Ava.Stave({\n         x: 100,\n         y: 100,\n         width: 350,\n         clef: 'bass',\n         time_signature: '6/8',\n         key_signature: 'F',\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Ava.StaveView": {
+            "name": "Ava.StaveView",
+            "shortname": "Ava.StaveView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Ava.BarView",
+                "Ava.CursorView"
+            ],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/stave_view.js",
+            "line": 1,
+            "description": "Stave View",
+            "example": [
+                "\n     view = Ava.StaveView({\n         // mod, required attribute to init stave model\n         model: Ava.Stave(mod),\n     });"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "uses": [
+                "Ava.Context",
+                "Ava.Stave"
+            ],
+            "extends": "Backbone.View"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/js/ava.js",
+            "line": 11,
+            "itemtype": "property",
+            "name": "Constant.CANVAS",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 19,
+            "itemtype": "property",
+            "name": "Constant.RAPHAEL",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 27,
+            "itemtype": "property",
+            "name": "Constant.BAR_DEFAULT_WIDTH",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 35,
+            "itemtype": "property",
+            "name": "Constant.BAR_WIDTH_CORRECTION",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 43,
+            "itemtype": "property",
+            "name": "Constant.BAR_DEFAULT_HEIGHT",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 51,
+            "itemtype": "property",
+            "name": "Constant.CURSOR_DEFAULT_WIDTH",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 59,
+            "itemtype": "property",
+            "name": "Constant.CURSOR_DEFAULT_HEIGHT",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 67,
+            "description": "App default width",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_WIDTH",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 76,
+            "description": "App default canvas class name",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_CANVAS_CLASS",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 85,
+            "description": "App default canvas id",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_CANVAS_ID",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 95,
+            "itemtype": "property",
+            "name": "valid_duration",
+            "type": "{Array} string",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 103,
+            "itemtype": "property",
+            "name": "valid_clefs",
+            "type": "{Array} string",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 111,
+            "itemtype": "property",
+            "name": "valid_key_signatures",
+            "type": "{Array} string",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 132,
+            "description": "Accessor to get/set current div id. The context is different for each\ndiv_id.",
+            "itemtype": "method",
+            "name": "current_div_id",
+            "params": [
+                {
+                    "name": "div_id",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 157,
+            "itemtype": "method",
+            "name": "current_duration",
+            "params": [
+                {
+                    "name": "duration",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String|Number"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 180,
+            "description": "A global accessor to get/set ctx.",
+            "itemtype": "method",
+            "name": "vexflow_ctx",
+            "static": 1,
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "Vex.Flow.Renderer",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Vex.Flow.Renderer",
+                "type": "Object"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 216,
+            "itemtype": "method",
+            "name": "current_x",
+            "static": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 234,
+            "itemtype": "method",
+            "name": "current_y",
+            "static": 1,
+            "params": [
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 252,
+            "itemtype": "method",
+            "name": "reset_currents",
+            "static": 1,
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava_view.js",
+            "line": 97,
+            "description": "The id of div the application is going to render in.",
+            "itemtype": "attribute",
+            "name": "div_id",
+            "type": "{String}",
+            "default": "ava_container",
+            "required": 1,
+            "class": "Ava.View",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 39,
+            "description": "Bar x",
+            "itemtype": "attribute",
+            "name": "x",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 48,
+            "description": "Bar y",
+            "itemtype": "attribute",
+            "name": "y",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 57,
+            "description": "Bar width",
+            "itemtype": "attribute",
+            "name": "width",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 66,
+            "description": "Bar height",
+            "itemtype": "attribute",
+            "name": "height",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 75,
+            "description": "Flag to represent showing of clef in bar",
+            "itemtype": "attribute",
+            "name": "show_clef",
+            "type": "{Boolean}",
+            "default": "false",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 84,
+            "itemtype": "attribute",
+            "name": "num_beats",
+            "type": "{Number}",
+            "default": "4",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 92,
+            "itemtype": "attribute",
+            "name": "beat_value",
+            "type": "{Number}",
+            "default": "4",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 100,
+            "description": "Flag to represent showing of time signature in bar",
+            "itemtype": "attribute",
+            "name": "show_time_signature",
+            "type": "{Boolean}",
+            "default": "false",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 109,
+            "itemtype": "attribute",
+            "name": "key_signature",
+            "type": "{String}",
+            "default": "C",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 117,
+            "description": "Flag to represent showing of key signature in bar",
+            "itemtype": "attribute",
+            "name": "show_key_signature",
+            "type": "{Boolean}",
+            "default": "false",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 130,
+            "description": "List of notes",
+            "itemtype": "attribute",
+            "name": "notes",
+            "type": "{Object} Ava.NoteList",
+            "required": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 154,
+            "itemtype": "method",
+            "name": "add_note",
+            "params": [
+                {
+                    "name": "Ava.Tickable",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 170,
+            "itemtype": "method",
+            "name": "set_x",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 178,
+            "itemtype": "method",
+            "name": "set_width",
+            "params": [
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 186,
+            "itemtype": "method",
+            "name": "set_y",
+            "params": [
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 194,
+            "description": "Set dirty attribute to true",
+            "itemtype": "method",
+            "name": "set_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 202,
+            "description": "Set dirty attribute to false",
+            "itemtype": "method",
+            "name": "unset_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 210,
+            "itemtype": "method",
+            "name": "is_dirty",
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 218,
+            "itemtype": "method",
+            "name": "get_stave",
+            "return": {
+                "description": "Ava.Stave",
+                "type": "Object"
+            },
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar_view.js",
+            "line": 30,
+            "itemtype": "method",
+            "name": "add_note",
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Ava.Tickable",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.BarView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar_view.js",
+            "line": 38,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.BarView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar_view.js",
+            "line": 124,
+            "itemtype": "method",
+            "name": "_fill_with_removable_rest",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.BarView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 24,
+            "description": "Cursor x",
+            "itemtype": "attribute",
+            "name": "x",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 33,
+            "description": "Cursor y",
+            "itemtype": "attribute",
+            "name": "y",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 42,
+            "description": "Cursor width",
+            "itemtype": "attribute",
+            "name": "width",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 51,
+            "description": "Cursor height",
+            "itemtype": "attribute",
+            "name": "height",
+            "type": "{Number}",
+            "default": "(defined in Ava.Constant)",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 60,
+            "description": "Cursor hide flag",
+            "itemtype": "attribute",
+            "name": "hide",
+            "type": "{Boolean}",
+            "default": "false",
+            "optional": 1,
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 77,
+            "itemtype": "method",
+            "name": "move",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 87,
+            "itemtype": "method",
+            "name": "resize",
+            "params": [
+                {
+                    "name": "w",
+                    "description": "width",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "height",
+                    "type": "Number"
+                }
+            ],
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 97,
+            "itemtype": "method",
+            "name": "hide",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor.js",
+            "line": 104,
+            "itemtype": "method",
+            "name": "show",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 29,
+            "itemtype": "method",
+            "name": "hide",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 36,
+            "itemtype": "method",
+            "name": "show",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 43,
+            "itemtype": "method",
+            "name": "move",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 50,
+            "itemtype": "method",
+            "name": "resize",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "resize_and_move",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 65,
+            "itemtype": "method",
+            "name": ": _rerender",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/cursor_view.js",
+            "line": 74,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.CursorView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 19,
+            "description": "Music title",
+            "itemtype": "attribute",
+            "name": "title",
+            "type": "{String}",
+            "default": "untitle",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 28,
+            "description": "Music sub-title",
+            "itemtype": "attribute",
+            "name": "subtitle",
+            "type": "{String}",
+            "default": "no-subtitle",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 37,
+            "description": "Music composer",
+            "itemtype": "attribute",
+            "name": "composer",
+            "type": "{String}",
+            "default": "unknown",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 46,
+            "description": "Song clef",
+            "itemtype": "attribute",
+            "name": "clef",
+            "type": "{String}",
+            "default": "treble",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 55,
+            "description": "Song Key Signature (https://en.wikipedia.org/wiki/Key_signature)\n\nValid key signature:\n\n\"C\", \"Am\", \"F\", \"Dm\", \"Bb\", \"Gm\", \"Eb\", \"Cm\",\n\"Ab\", \"Fm\", \"Db\", \"Bbm\", \"Gb\", \"Ebm\", \"Cb\",\n\"Abm\", \"G\", \"Em\", \"D\", \"Bm\", \"A\", \"F#m\", \"E\",\n\"C#m\", \"B\", \"G    #m\", \"F#\", \"D#m\", \"C#\", \"A#m\"",
+            "itemtype": "attribute",
+            "name": "key_signature",
+            "type": "{String}",
+            "default": "C",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 72,
+            "description": "Song Time Signature (https://en.wikipedia.org/wiki/Time_signature)",
+            "itemtype": "attribute",
+            "name": "time_signature",
+            "type": "{String}",
+            "default": "4/4",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 81,
+            "itemtype": "attribute",
+            "name": "num_beat",
+            "type": "{Number}",
+            "default": "4",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 89,
+            "itemtype": "attribute",
+            "name": "beat_value",
+            "type": "{Number}",
+            "default": "4",
+            "optional": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 100,
+            "description": "List of bars",
+            "itemtype": "attribute",
+            "name": "bars",
+            "type": "{Object} Ava.BarList",
+            "required": 1,
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 117,
+            "itemtype": "method",
+            "name": "add_bar",
+            "params": [
+                {
+                    "name": "Ava.Bar",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 134,
+            "description": "Set dirty attribute to true",
+            "itemtype": "method",
+            "name": "set_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 142,
+            "description": "Set dirty attribute to false",
+            "itemtype": "method",
+            "name": "unset_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music.js",
+            "line": 150,
+            "itemtype": "method",
+            "name": "is_dirty",
+            "class": "Ava.Music",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 19,
+            "itemtype": "method",
+            "name": "add_bar",
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Ava.Bar",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 45,
+            "itemtype": "method",
+            "name": "_render_bar",
+            "params": [
+                {
+                    "name": "Ava.Bar",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 70,
+            "description": "Return BarView object of passed x and y\nTODO: It could accept y when we have wrap enable",
+            "itemtype": "method",
+            "name": "get_bar_view_of",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Ava.BarView",
+                "type": "Object"
+            },
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 23,
+            "itemtype": "attribute",
+            "name": "x",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 31,
+            "itemtype": "attribute",
+            "name": "y",
+            "type": "{Number}",
+            "default": "0",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 39,
+            "itemtype": "attribute",
+            "name": "width",
+            "type": "{Number}",
+            "default": "250",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 47,
+            "description": "Set of this attribute will cause the view to show it",
+            "itemtype": "attribute",
+            "name": "clef",
+            "type": "{String}",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 55,
+            "description": "Set of this attribute will cause the view to show it",
+            "itemtype": "attribute",
+            "name": "time_signature",
+            "type": "{String}",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 63,
+            "description": "Set of this attribute will cause the view to show it",
+            "itemtype": "attribute",
+            "name": "key_signature",
+            "type": "{String}",
+            "optional": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 98,
+            "description": "Change the x and y value of stave to given value",
+            "itemtype": "method",
+            "name": "move_to",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave.js",
+            "line": 119,
+            "description": "Get the value of current positions on context and set the stave\nvalues.",
+            "itemtype": "method",
+            "name": "move_to_current_pos",
+            "chainable": 1,
+            "class": "Ava.Stave",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 22,
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 58,
+            "description": "Init _y_map_line (y to line number map)",
+            "itemtype": "method",
+            "name": "_init_y_map_line",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 81,
+            "description": "Find the hot spot for passed y\nWhat is hot spot? Hot spot is the exact y for a line which calculate\nbased on passed y.",
+            "itemtype": "method",
+            "name": "get_y_hot_spot",
+            "params": [
+                {
+                    "name": "y",
+                    "description": ""
+                }
+            ],
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/stave_view.js",
+            "line": 110,
+            "description": "Return line number relative to y.",
+            "itemtype": "method",
+            "name": "get_line_of",
+            "params": [
+                {
+                    "name": "y",
+                    "description": ""
+                }
+            ],
+            "class": "Ava.StaveView",
+            "module": "Ava"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: extend with extends",
+            "line": " src/js/bar.js:1"
+        }
+    ]
+}
