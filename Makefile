@@ -5,7 +5,7 @@ doc:
 .doc:
 	git clone .git .doc
 	cd .doc && git remote set-url origin $(shell git remote -v | grep -m1 origin | cut -f2 | cut -d\  -f1)
-	cd .doc && git checkout -t origin/gh-pages
+	cd .doc && git fetch && git checkout -t origin/gh-pages
 
 update_doc: doc .doc
 	cd .doc && git fetch && git reset --hard HEAD@{upstream}
