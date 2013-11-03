@@ -286,9 +286,6 @@
                     "type": "Object"
                 }
             ],
-            "uses": [
-                "Ava.StaveView"
-            ],
             "extends": "Backbone.View"
         },
         "Ava.Music": {
@@ -376,8 +373,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [
-                "Ava.BarView",
-                "Ava.CursorView"
+                "Ava.BarView"
             ],
             "module": "Ava",
             "namespace": "",
@@ -660,7 +656,7 @@
         },
         {
             "file": "src/js/ava_view.js",
-            "line": 97,
+            "line": 140,
             "description": "The id of div the application is going to render in.",
             "itemtype": "attribute",
             "name": "div_id",
@@ -1047,7 +1043,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 29,
+            "line": 28,
             "itemtype": "method",
             "name": "hide",
             "class": "Ava.CursorView",
@@ -1055,7 +1051,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 36,
+            "line": 35,
             "itemtype": "method",
             "name": "show",
             "class": "Ava.CursorView",
@@ -1063,7 +1059,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 43,
+            "line": 42,
             "itemtype": "method",
             "name": "move",
             "class": "Ava.CursorView",
@@ -1071,7 +1067,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 50,
+            "line": 49,
             "itemtype": "method",
             "name": "resize",
             "class": "Ava.CursorView",
@@ -1079,7 +1075,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 57,
+            "line": 56,
             "itemtype": "method",
             "name": "resize_and_move",
             "class": "Ava.CursorView",
@@ -1087,7 +1083,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 65,
+            "line": 64,
             "itemtype": "method",
             "name": ": _rerender",
             "access": "private",
@@ -1097,7 +1093,7 @@
         },
         {
             "file": "src/js/cursor_view.js",
-            "line": 74,
+            "line": 73,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.CursorView",

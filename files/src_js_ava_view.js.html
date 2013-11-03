@@ -174,35 +174,78 @@ Ava.View = function(spec) {
     };
 
     // TODO: Load from a file
-    var tmpl = &quot;&lt;div id=ava_toolbar&gt;&quot;;
+    var tmpl = &quot;&quot;;
 
     tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;AVA&lt;/a&gt;&#x27;;
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-
-    // primary buttons
-    tmpl    += &#x27;&lt;% _.each( btns, function(btn_obj) { btn = _.keys(btn_obj); %&gt;              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-lg&quot; id=&quot;toolbar-button-clef&quot;&gt;&lt;%= btn[0] %&gt;&lt;/button&gt; &lt;% }); %&gt;&#x27;;
-
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;                &lt;span class=&quot;glyphicon glyphicon-edit&quot;&gt;&lt;/span&gt;&#x27;;
+    tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;                undo&#x27;;
+    tmpl    += &#x27;            &lt;/button&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;                redo&#x27;;
+    tmpl    += &#x27;            &lt;/button&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+
+    // times buttons
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% _.each( time_btns, function(btn) { %&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-acd-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-rest-toggle&quot;&gt;&#x27;;
+    tmpl    += &#x27;                &lt;span id=&quot;nav-btn-rest-toggle-img&quot;&gt;R&lt;/span&gt;&#x27;;
+    tmpl    += &#x27;            &lt;/button&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+
+    // Accidentals
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% _.each( accidental_btns, function(btn) { %&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-acd-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+
     tmpl    += &#x27;    &lt;/nav&gt;&#x27;;
 
-    tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
-    // A div for each primary button
-    tmpl    += &#x27;&lt;% _.each( btns, function(btn_obj) { %&gt;&#x27;;
-    tmpl    += &#x27;&lt;%      var primary_btn = _.first(_.keys(btn_obj)).toLowerCase(); %&gt;&#x27;;
-    tmpl    += &#x27;&lt;%      var id = &quot;toolbar-btngrp-&quot; + primary_btn; %&gt;&#x27;;
-    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot; id=&quot;&lt;%= id %&gt;&quot;&gt;&#x27;;
-    tmpl    += &#x27;&lt;%      _.each(_.first(_.values( btn_obj )), function(subbtn) { %&gt;&#x27;;
-    tmpl    += &#x27;&lt;%          var id = &quot;toolbar-button-&quot; + primary_btn + &quot;-&quot; + subbtn.toLowerCase(); %&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-sm&quot; id=&quot;&lt;%= id %&gt;&quot;&gt;&lt;%= subbtn %&gt;&lt;/button&gt;&#x27;;
-    tmpl    += &#x27;&lt;%          }); %&gt;&#x27;;
-    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
-    tmpl    += &#x27;&lt;%      }); %&gt;&#x27;;
-    tmpl    += &#x27;    &lt;/nav&gt;&#x27;;
+    tmpl    += &#x27;    &lt;div class=&quot;left-nav pull-left&quot; id=&quot;left-nav-container&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;panel-group&quot; id=&quot;accordion&quot;&gt;&#x27;;
 
-    tmpl    += &quot;&lt;/div&gt;&quot;;
-    tmpl    += &quot;&lt;div id=&lt;%= canvas_id %&gt; class=&lt;%= canvas_class_name %&gt; &gt;&lt;/div&gt;&quot;;
-    tmpl    += &quot;&lt;div id=ava_error&gt;&lt;/div&gt;&quot;;
-    tmpl    += &quot;&lt;div id=ava_verbose&gt;&lt;/div&gt;&quot;;
+    tmpl    += &#x27;        &lt;% _.each( left_nav, function(lnav_obj) { %&gt;&#x27;;
+    tmpl    += &#x27;            &lt;div class=&quot;panel panel-default&quot;&gt;&#x27;;
+    tmpl    += &#x27;                &lt;div class=&quot;panel-heading&quot;&gt;&#x27;;
+    tmpl    += &#x27;                    &lt;h4 class=&quot;panel-title&quot;&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;a class=&quot;accordion-toggle&quot; data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;&lt;%= lnav_obj.href %&gt;&quot;&gt;&#x27;;
+    tmpl    += &#x27;                            &lt;%= lnav_obj.title %&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;/a&gt;&#x27;;
+    tmpl    += &#x27;                    &lt;/h4&gt;&#x27;;
+    tmpl    += &#x27;                &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;                &lt;div id=&quot;&lt;%= lnav_obj.id %&gt;&quot; class=&quot;panel-collapse collapse&quot;&gt;&#x27;;
+    tmpl    += &#x27;                    &lt;div class=&quot;panel-body&quot;&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;% _.each( lnav_obj.btns, function(btn) { %&gt;&#x27;;
+    tmpl    += &#x27;                            &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-sm&quot; id=&quot;&lt;%= this.btn_pref_id + btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;% }, lnav_obj ); %&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;                    &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;                &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;            &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
+
+
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;    &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;    &lt;div class=&quot;pull-left ava-main-container&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div id=&quot;&lt;%= canvas_id %&gt;&quot; class=&quot;&lt;%= canvas_class_name %&gt;&quot; &gt;&lt;/div&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div id=&quot;ava_error&quot;&gt;&lt;/div&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div id=&quot;ava_verbose&quot;&gt;&lt;/div&gt;&#x27;;
+    tmpl    += &#x27;    &lt;/div&gt;&#x27;;
 
     /**
      * The id of div the application is going to render in.
@@ -216,6 +259,7 @@ Ava.View = function(spec) {
 
     ( function(spec) {
 
+
         var $out_div = $(&quot;#&quot;+div_id);
         if ( $out_div.length == 0 ) {
             throw {
@@ -224,12 +268,173 @@ Ava.View = function(spec) {
             };
         }
 
-        var btns = [
-            {&#x27;Clefs&#x27;:  [&#x27;Treble&#x27;, &#x27;Bass&#x27;, &#x27;Soprano&#x27;, &#x27;Alto&#x27;, &#x27;Tenor&#x27;, &#x27;Percussion&#x27;]},
-            {&#x27;Times&#x27;:  [&#x27;2/2&#x27;, &#x27;2/4&#x27;, &#x27;3/4&#x27;, &#x27;4/4&#x27;, &#x27;5/4&#x27;, &#x27;6/4&#x27;, &#x27;3/8&#x27;, &#x27;6/8&#x27;, &#x27;9/8&#x27;, &#x27;12/8&#x27;, &#x27;C&#x27;, &#x27;C|&#x27;]},
-            {&#x27;Keys&#x27;:   [&#x27;GM/Em&#x27;, &#x27;DM/Bm&#x27;, &#x27;AM/F#m&#x27;, &#x27;EM/C#m&#x27;, &#x27;BM/G#m&#x27;, &#x27;F#M/D#m&#x27;, &#x27;C#M/A#m&#x27;, &#x27;CbM/Abm&#x27;, &#x27;GbM/Ebm&#x27;, &#x27;DbM/Bbm&#x27;, &#x27;AbM/Fm&#x27;, &#x27;EbM/Cm&#x27;, &#x27;BbM/Gm&#x27;, &#x27;FM/Dm&#x27;, &#x27;CM/Am&#x27;]},
-            {&#x27;Note&#x27;:   [&#x27;W&#x27;, &#x27;H&#x27;, &#x27;Q&#x27;, &#x27;B&#x27;]}
-            ];
+        var time_btns = [
+            {
+                id:     &#x27;64&#x27;,
+                label:  &#x27;64th&#x27;,
+            },
+            {
+                id:     &#x27;32&#x27;,
+                label:  &#x27;32th&#x27;,
+            },
+            {
+                id:     &#x27;16&#x27;,
+                label:  &#x27;16th&#x27;,
+            },
+            {
+                id:     &#x27;8&#x27;,
+                label:  &#x27;8th&#x27;,
+            },
+            {
+                id:     &#x27;4&#x27;,
+                label:  &#x27;q&#x27;,
+            },
+            {
+                id:     &#x27;2&#x27;,
+                label:  &#x27;h&#x27;,
+            },
+            {
+                id:     &#x27;1&#x27;,
+                label:  &#x27;w&#x27;,
+            },
+            {
+                id:     &#x27;dot&#x27;,
+                label:  &#x27;.&#x27;,
+            },
+            {
+                id:     &#x27;ddot&#x27;,
+                label:  &#x27;..&#x27;,
+            },
+            {
+                id:     &#x27;tie&#x27;,
+                label:  &#x27;Tie(+)&#x27;,
+            },
+        ];
+
+        var accidental_btns = [
+            {
+                id:     &#x27;dsharp&#x27;,
+                label:  &#x27;X&#x27;,
+            },
+            {
+                id:     &#x27;sharp&#x27;,
+                label:  &#x27;#&#x27;,
+            },
+            {
+                id:     &#x27;natural&#x27;,
+                label:  &#x27;natural&#x27;,
+            },
+            {
+                id:     &#x27;flat&#x27;,
+                label:  &#x27;b&#x27;,
+            },
+            {
+                id:     &#x27;dflat&#x27;,
+                label:  &#x27;bb&#x27;,
+            },
+        ];
+
+        var left_nav = [
+            {
+                title:        &#x27;Clefs&#x27;,
+                href:         &#x27;#clefs&#x27;,
+                id:           &#x27;clefs&#x27;,
+                btn_pref_id:  &#x27;left-nav-btn-clefs-&#x27;,
+                body:         &#x27;Different clefs will show off here.&#x27;,
+                btns: [
+                    {
+                        id:     &#x27;treble&#x27;,
+                        label:  &#x27;Treble&#x27;,
+                    },
+                    {
+                        id:     &#x27;bass&#x27;,
+                        label:   &#x27;Bass&#x27;,
+                    },
+                    {
+                        id:     &#x27;tenor&#x27;,
+                        label:   &#x27;Tenor&#x27;,
+                    },
+                    {
+                        id:     &#x27;alto&#x27;,
+                        label:   &#x27;Alto&#x27;,
+                    },
+                    {
+                        id:     &#x27;percussion&#x27;,
+                        label:   &#x27;Percussion&#x27;,
+                    },
+                ],
+            },
+
+            {
+                title:        &#x27;Key Signatures&#x27;,
+                href:         &#x27;#key-signatures&#x27;,
+                id:           &#x27;key-signatures&#x27;,
+                btn_pref_id:  &#x27;left-nav-btn-ksign-&#x27;,
+                body:         &#x27;Key signatures will show off here.&#x27;,
+                btns: [
+                    { id: &quot;C&quot;   , label: &quot;C&quot;   },
+                    { id: &quot;Am&quot;  , label: &quot;Am&quot;  },
+                    { id: &quot;F&quot;   , label: &quot;F&quot;   },
+                    { id: &quot;Dm&quot;  , label: &quot;Dm&quot;  },
+                    { id: &quot;Bb&quot;  , label: &quot;Bb&quot;  },
+                    { id: &quot;Gm&quot;  , label: &quot;Gm&quot;  },
+                    { id: &quot;Eb&quot;  , label: &quot;Eb&quot;  },
+                    { id: &quot;Cm&quot;  , label: &quot;Cm&quot;  },
+                    { id: &quot;Ab&quot;  , label: &quot;Ab&quot;  },
+                    { id: &quot;Fm&quot;  , label: &quot;Fm&quot;  },
+                    { id: &quot;Db&quot;  , label: &quot;Db&quot;  },
+                    { id: &quot;Bbm&quot; , label: &quot;Bbm&quot; },
+                    { id: &quot;Gb&quot;  , label: &quot;Gb&quot;  },
+                    { id: &quot;Ebm&quot; , label: &quot;Ebm&quot; },
+                    { id: &quot;Cb&quot;  , label: &quot;Cb&quot;  },
+                    { id: &quot;Abm&quot; , label: &quot;Abm&quot; },
+                    { id: &quot;G&quot;   , label: &quot;G&quot;   },
+                    { id: &quot;Em&quot;  , label: &quot;Em&quot;  },
+                    { id: &quot;D&quot;   , label: &quot;D&quot;   },
+                    { id: &quot;Bm&quot;  , label: &quot;Bm&quot;  },
+                    { id: &quot;A&quot;   , label: &quot;A&quot;   },
+                    { id: &quot;F#m&quot; , label: &quot;F#m&quot; },
+                    { id: &quot;E&quot;   , label: &quot;E&quot;   },
+                    { id: &quot;C#m&quot; , label: &quot;C#m&quot; },
+                    { id: &quot;B&quot;   , label: &quot;B&quot;   },
+                    { id: &quot;G#m&quot; , label: &quot;G#m&quot; },
+                    { id: &quot;F#&quot;  , label: &quot;F#&quot;  },
+                    { id: &quot;D#m&quot; , label: &quot;D#m&quot; },
+                    { id: &quot;C#&quot;  , label: &quot;C#&quot;  },
+                    { id: &#x27;A#m&#x27; , label: &quot;A#m&quot; },
+                ],
+            },
+
+            {
+                title:        &#x27;Time Signatures&#x27;,
+                href:         &#x27;#time-signatures&#x27;,
+                id:           &#x27;time-signatures&#x27;,
+                btn_pref_id:  &#x27;left-nav-btn-tsign-&#x27;,
+                btns: [
+                    { id: &quot;2/2&quot;  , label: &quot;2/2&quot;  },
+                    { id: &quot;2/4&quot;  , label: &quot;2/4&quot;  },
+                    { id: &quot;3/4&quot;  , label: &quot;3/4&quot;  },
+                    { id: &quot;4/4&quot;  , label: &quot;4/4&quot;  },
+                    { id: &quot;5/4&quot;  , label: &quot;5/4&quot;  },
+                    { id: &quot;6/4&quot;  , label: &quot;6/4&quot;  },
+                    { id: &quot;3/8&quot;  , label: &quot;3/8&quot;  },
+                    { id: &quot;6/8&quot;  , label: &quot;6/8&quot;  },
+                    { id: &quot;12/8&quot; , label: &quot;12/8&quot; },
+                    { id: &quot;C&quot;    , label: &quot;C&quot;    },
+                    { id: &quot;C|&quot;   , label: &quot;C|&quot;   },
+                ],
+            },
+
+            {
+                title:        &#x27;Barlines&#x27;,
+                href:         &#x27;#barlines&#x27;,
+                id:           &#x27;barlines&#x27;,
+                btn_pref_id:  &#x27;left-nav-btn-barline-&#x27;,
+                btns: [
+                    { id: &#x27;test&#x27;, label: &#x27;Test&#x27; },
+                ],
+            },
+        ];
 
         var View = Backbone.View.extend({
 
@@ -240,9 +445,11 @@ Ava.View = function(spec) {
 
                 // Set the correct offset as SVG is not before draw
                 this.$el.html( this.template({
-                    btns: btns,
-                    canvas_id: canvas_id,
-                    canvas_class_name: Ava.Constant.DEFAULT_CANVAS_CLASS
+                    time_btns:          time_btns,
+                    accidental_btns:    accidental_btns,
+                    left_nav:           left_nav,
+                    canvas_id:          canvas_id,
+                    canvas_class_name:  Ava.Constant.DEFAULT_CANVAS_CLASS
                 }) );
 
                 // Set context div_id
@@ -266,6 +473,13 @@ Ava.View = function(spec) {
             el: $out_div,
             model: spec.model
         });
+
+        // // Read from template file
+        // $.get( &#x27;../src/template/ava.tmpl&#x27;, function(result) {
+        //         alert(result);
+        //         that.tmpl = result;
+        //     });
+
     } )(spec);
 
     return that;
