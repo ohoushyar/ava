@@ -2,6 +2,8 @@
  * Ava Leftnav View class
  *
  * @class Ava.LeftnavView
+ * @constructor
+ * @param {Object} spec
  * @extends from Backbone.View
  **/
 Ava.LeftnavView = function(spec) {
