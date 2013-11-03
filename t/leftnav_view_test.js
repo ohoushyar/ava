@@ -31,8 +31,7 @@ var leftnav_view_test = function () {
                 view.render();
                 return view.$el.length;
             })(), test_title);
-        var $leftnav_container = $('#left-nav-container');
-        ok( $leftnav_container.length, 'found nav element' );
+        ok( $('#left-nav-container').length, 'found left nav container' );
     });
 
 };
