@@ -89,6 +89,9 @@ var ava_test_helper = (function() {
         cursor_test();
         cursor_view_test();
 
+        toolbar_view_test();
+        leftnav_view_test();
+
         ava_view_test();
     };
 
