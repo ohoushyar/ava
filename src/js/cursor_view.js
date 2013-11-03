@@ -9,7 +9,6 @@
  * @class Ava.CursorView
  * @constructor
  * @param {Object} spec
- * @uses Ava.StaveView
  * @extends Backbone.View
  **/
 Ava.CursorView = function(spec) {

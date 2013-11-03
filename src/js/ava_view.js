@@ -84,7 +84,9 @@ Ava.View = function(spec) {
 
     // times buttons
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '<% _.each( time_btns, function(btn) { %>              <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button> <% }); %>';
+    tmpl    += '        <% _.each( time_btns, function(btn) { %>';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button>';
+    tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
 
     tmpl    += '        <div class="btn-group">';
@@ -95,7 +97,9 @@ Ava.View = function(spec) {
 
     // Accidentals
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '<% _.each( accidental_btns, function(btn) { %>              <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button> <% }); %>';
+    tmpl    += '        <% _.each( accidental_btns, function(btn) { %>';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button>';
+    tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
 
     tmpl    += '    </nav>';
@@ -103,7 +107,7 @@ Ava.View = function(spec) {
     tmpl    += '    <div class="left-nav pull-left" id="left-nav-container">';
     tmpl    += '        <div class="panel-group" id="accordion">';
 
-    tmpl    += '<% _.each( left_nav, function(lnav_obj) { %>';
+    tmpl    += '        <% _.each( left_nav, function(lnav_obj) { %>';
     tmpl    += '            <div class="panel panel-default">';
     tmpl    += '                <div class="panel-heading">';
     tmpl    += '                    <h4 class="panel-title">';
@@ -115,23 +119,23 @@ Ava.View = function(spec) {
     tmpl    += '                <div id="<%= lnav_obj.id %>" class="panel-collapse collapse">';
     tmpl    += '                    <div class="panel-body">';
     tmpl    += '                        <div class="btn-group">';
-    tmpl    += '<%      _.each( lnav_obj.btns, function(btn) { %>';
+    tmpl    += '                        <% _.each( lnav_obj.btns, function(btn) { %>';
     tmpl    += '                            <button type="button" class="btn btn-default btn-sm" id="<%= this.btn_pref_id + btn.id %>"><%= btn.label %></button>';
-    tmpl    += '<%      }, lnav_obj ); %>';
+    tmpl    += '                        <% }, lnav_obj ); %>';
     tmpl    += '                        </div>';
     tmpl    += '                    </div>';
     tmpl    += '                </div>';
     tmpl    += '            </div>';
-    tmpl    += '<% }); %>';
+    tmpl    += '        <% }); %>';
 
 
-    tmpl    += '       </div>';
-    tmpl    += '   </div>';
-    tmpl    += '   <div class="pull-left ava-main-container">';
-    tmpl    += '       <div id="<%= canvas_id %>" class="<%= canvas_class_name %>" ></div>';
-    tmpl    += '       <div id="ava_error"></div>';
-    tmpl    += '       <div id="ava_verbose"></div>';
-    tmpl    += '   </div>';
+    tmpl    += '        </div>';
+    tmpl    += '    </div>';
+    tmpl    += '    <div class="pull-left ava-main-container">';
+    tmpl    += '        <div id="<%= canvas_id %>" class="<%= canvas_class_name %>" ></div>';
+    tmpl    += '        <div id="ava_error"></div>';
+    tmpl    += '        <div id="ava_verbose"></div>';
+    tmpl    += '    </div>';
 
     /**
      * The id of div the application is going to render in.
