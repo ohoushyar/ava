@@ -62,6 +62,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/js/leftnav_view.js": {
+            "name": "src/js/leftnav_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.LeftnavView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/js/music.js": {
             "name": "src/js/music.js",
             "modules": {},
@@ -97,6 +106,15 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "src/js/toolbar_view.js": {
+            "name": "src/js/toolbar_view.js",
+            "modules": {},
+            "classes": {
+                "Ava.ToolbarView": 1
+            },
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {
@@ -111,15 +129,17 @@
                 "Ava.BarList": 1,
                 "Ava.BarView": 1,
                 "Ava.CursorView": 1,
+                "Ava.LeftnavView": 1,
                 "Ava.Music": 1,
                 "Ava.MusicView": 1,
                 "Ava.Stave": 1,
-                "Ava.StaveView": 1
+                "Ava.StaveView": 1,
+                "Ava.ToolbarView": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src/js/stave_view.js",
+            "file": "src/js/toolbar_view.js",
             "line": 1,
             "is_constructor": 1
         }
@@ -288,6 +308,29 @@
             ],
             "extends": "Backbone.View"
         },
+        "Ava.LeftnavView": {
+            "name": "Ava.LeftnavView",
+            "shortname": "Ava.LeftnavView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/leftnav_view.js",
+            "line": 1,
+            "description": "Ava Leftnav View class",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "extends": "from Backbone.View"
+        },
         "Ava.Music": {
             "name": "Ava.Music",
             "shortname": "Ava.Music",
@@ -394,6 +437,32 @@
             "uses": [
                 "Ava.Context",
                 "Ava.Stave"
+            ],
+            "extends": "Backbone.View"
+        },
+        "Ava.ToolbarView": {
+            "name": "Ava.ToolbarView",
+            "shortname": "Ava.ToolbarView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/toolbar_view.js",
+            "line": 1,
+            "description": "Bar View",
+            "example": [
+                "\n     view = Ava.ToolbarView({});"
+            ],
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "",
+                    "type": "Object"
+                }
             ],
             "extends": "Backbone.View"
         }
@@ -656,7 +725,7 @@
         },
         {
             "file": "src/js/ava_view.js",
-            "line": 140,
+            "line": 75,
             "description": "The id of div the application is going to render in.",
             "itemtype": "attribute",
             "name": "div_id",
@@ -1100,6 +1169,20 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/leftnav_view.js",
+            "line": 148,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.LeftnavView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/leftnav_view.js",
+            "line": 165,
+            "class": "Ava.LeftnavView",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/music.js",
             "line": 19,
             "description": "Music title",
@@ -1452,12 +1535,24 @@
             ],
             "class": "Ava.StaveView",
             "module": "Ava"
+        },
+        {
+            "file": "src/js/toolbar_view.js",
+            "line": 126,
+            "itemtype": "method",
+            "name": "render",
+            "class": "Ava.ToolbarView",
+            "module": "Ava"
         }
     ],
     "warnings": [
         {
             "message": "replacing incorrect tag: extend with extends",
             "line": " src/js/bar.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/js/leftnav_view.js:165"
         }
     ]
 }

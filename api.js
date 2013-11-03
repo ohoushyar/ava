@@ -7,10 +7,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "Ava.BarView",
         "Ava.Context",
         "Ava.CursorView",
+        "Ava.LeftnavView",
         "Ava.Music",
         "Ava.MusicView",
         "Ava.Stave",
         "Ava.StaveView",
+        "Ava.ToolbarView",
         "Ava.View"
     ],
     "modules": [
