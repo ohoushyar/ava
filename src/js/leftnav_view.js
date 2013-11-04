@@ -24,9 +24,9 @@ Ava.LeftnavView = function(spec) {
     tmpl    += '                </div>';
     tmpl    += '                <div id="<%= lnav_obj.id %>" class="panel-collapse collapse">';
     tmpl    += '                    <div class="panel-body">';
-    tmpl    += '                        <div class="btn-group">';
+    tmpl    += '                        <div class="btn-group" data-toggle="buttons">';
     tmpl    += '                        <% _.each( lnav_obj.btns, function(btn) { %>';
-    tmpl    += '                            <button type="button" class="btn btn-default btn-sm" id="<%= this.btn_pref_id + btn.id %>"><%= btn.label %></button>';
+    tmpl    += '                            <label class="btn btn-default btn-sm"><input type="radio" name="<%= this.btn_name %>" id="<%= this.btn_pref_id + btn.id %>"><%= btn.label %></label>';
     tmpl    += '                        <% }, lnav_obj ); %>';
     tmpl    += '                        </div>';
     tmpl    += '                    </div>';
@@ -43,6 +43,7 @@ Ava.LeftnavView = function(spec) {
             title:        'Clefs',
             href:         '#clefs',
             id:           'clefs',
+            btn_name:     'left-nav-btn-clefs',
             btn_pref_id:  'left-nav-btn-clefs-',
             body:         'Different clefs will show off here.',
             btns: [
@@ -73,6 +74,7 @@ Ava.LeftnavView = function(spec) {
             title:        'Key Signatures',
             href:         '#key-signatures',
             id:           'key-signatures',
+            btn_name:     'left-nav-btn-ksign',
             btn_pref_id:  'left-nav-btn-ksign-',
             body:         'Key signatures will show off here.',
             btns: [
@@ -113,17 +115,18 @@ Ava.LeftnavView = function(spec) {
             title:        'Time Signatures',
             href:         '#time-signatures',
             id:           'time-signatures',
+            btn_name:     'left-nav-btn-tsign',
             btn_pref_id:  'left-nav-btn-tsign-',
             btns: [
-                { id: "2/2"  , label: "2/2"  },
-                { id: "2/4"  , label: "2/4"  },
-                { id: "3/4"  , label: "3/4"  },
-                { id: "4/4"  , label: "4/4"  },
-                { id: "5/4"  , label: "5/4"  },
-                { id: "6/4"  , label: "6/4"  },
-                { id: "3/8"  , label: "3/8"  },
-                { id: "6/8"  , label: "6/8"  },
-                { id: "12/8" , label: "12/8" },
+                { id: "2-2"  , label: "2/2"  },
+                { id: "2-4"  , label: "2/4"  },
+                { id: "3-4"  , label: "3/4"  },
+                { id: "4-4"  , label: "4/4"  },
+                { id: "5-4"  , label: "5/4"  },
+                { id: "6-4"  , label: "6/4"  },
+                { id: "3-8"  , label: "3/8"  },
+                { id: "6-8"  , label: "6/8"  },
+                { id: "12-8" , label: "12/8" },
                 { id: "C"    , label: "C"    },
                 { id: "C|"   , label: "C|"   },
             ],
@@ -133,12 +136,28 @@ Ava.LeftnavView = function(spec) {
             title:        'Barlines',
             href:         '#barlines',
             id:           'barlines',
+            btn_name:     'left-nav-btn-barline',
             btn_pref_id:  'left-nav-btn-barline-',
             btns: [
                 { id: 'test', label: 'Test' },
             ],
         },
     ];
+
+    var toggle_leftnav_currents = function() {
+        // set current clef
+        var clef = _.findWhere( left_nav, {title: 'Clefs'} );
+        Ava.Utils.toggle_button(clef.btn_pref_id + Ava.Context.cc());
+
+        // set current key signature
+        var key_sig = _.findWhere( left_nav, {title: 'Key Signatures'} );
+        Ava.Utils.toggle_button(key_sig.btn_pref_id + Ava.Context.ck());
+
+        // set current time signature
+        var time_sig = _.findWhere( left_nav, {title: 'Time Signatures'} );
+        Ava.Utils.toggle_button(time_sig.btn_pref_id + Ava.Context.ct().replace(/\//, '-'));
+
+    };
 
     ( function(spec) {
         var View = Backbone.View.extend({
@@ -152,6 +171,9 @@ Ava.LeftnavView = function(spec) {
                 this.$el.append( this.template({
                     left_nav: left_nav,
                 }) );
+
+                toggle_leftnav_currents();
+
                 return this;
             },
         });
@@ -161,6 +183,3 @@ Ava.LeftnavView = function(spec) {
 
     return that;
 };
-
-/**
- **/
