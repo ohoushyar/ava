@@ -117,6 +117,24 @@ Ava = ( function() {
          * @final
          **/
         DEFAULT_CLEF: 'treble',
+
+        /**
+         * App default key signature
+         * @property Constant.DEFAULT_KEY_SIG
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_KEY_SIG: 'Am',
+
+        /**
+         * App default time signature
+         * @property Constant.DEFAULT_TIME_SIG
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_TIME_SIG: '4/4',
     };
 
     /**
@@ -125,7 +143,7 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_duration = ['w', 'h', 'q', 8, 16, 32, 64];
+    that.valid_duration = [1, 2, 4, 8, 16, 32, 64];
 
     /**
      * @property valid_clefs
@@ -133,7 +151,13 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_clefs = ["treble", "bass", "alto", "tenor", "percussion"];
+    that.valid_clefs = [
+        "treble"     ,
+        "bass"       ,
+        "alto"       ,
+        "tenor"      ,
+        "percussion" ,
+    ];
 
     /**
      * @property valid_key_signatures
@@ -141,7 +165,58 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_key_signatures = ["C", "Am", "F", "Dm", "Bb", "Gm", "Eb", "Cm", "Ab", "Fm", "Db", "Bbm", "Gb", "Ebm", "Cb", "Abm", "G", "Em", "D", "Bm", "A", "F#m", "E", "C#m", "B", "G#m", "F#", "D#m", "C#", "A#m"];
+    that.valid_key_signatures = [
+        "C"   ,
+        "Am"  ,
+        "F"   ,
+        "Dm"  ,
+        "Bb"  ,
+        "Gm"  ,
+        "Eb"  ,
+        "Cm"  ,
+        "Ab"  ,
+        "Fm"  ,
+        "Db"  ,
+        "Bbm" ,
+        "Gb"  ,
+        "Ebm" ,
+        "Cb"  ,
+        "Abm" ,
+        "G"   ,
+        "Em"  ,
+        "D"   ,
+        "Bm"  ,
+        "A"   ,
+        "F#m" ,
+        "E"   ,
+        "C#m" ,
+        "B"   ,
+        "G#m" ,
+        "F#"  ,
+        "D#m" ,
+        "C#"  ,
+        "A#m" ,
+    ];
+
+    /**
+     * @property valid_time_signatures
+     * @type {Array} string
+     * @static
+     * @final
+     **/
+    that.valid_time_signatures = [
+        "2/2"  ,
+        "2/4"  ,
+        "3/4"  ,
+        "4/4"  ,
+        "5/4"  ,
+        "6/4"  ,
+        "3/8"  ,
+        "6/8"  ,
+        "12/8" ,
+        "C"    ,
+        "C|"   ,
+    ];
 
     return that;
 }() );
@@ -154,8 +229,10 @@ Ava.Context = ( function () {
     var that = {};
 
     var curr_duration = Ava.Constant.DEFAULT_DURATION;
+    var curr_clef     = Ava.Constant.DEFAULT_CLEF;
+    var curr_key_sig  = Ava.Constant.DEFAULT_KEY_SIG;
+    var curr_time_sig = Ava.Constant.DEFAULT_TIME_SIG;
     var curr_div_id;
-    var curr_clef = Ava.Constant.DEFAULT_CLEF;
 
     /**
      * Accessor to get/set current div id. The context is different for each
@@ -189,11 +266,11 @@ Ava.Context = ( function () {
      **/
     that.current_duration = function(duration) {
 
-        if (typeof duration !== 'undefined') {
-            if ($.inArray(!isNaN(duration) ? parseInt(duration) : duration, Ava.valid_duration) == -1) {
+        if ( !_.isUndefined(duration) ) {
+            if ( _.indexOf( Ava.valid_duration, duration ) == -1 ) {
                 throw {
                     name: 'typeError',
-                    message: "Invalid duration. Duration needs to be char"
+                    message: "Invalid duration [" + duration + "]",
                 }
             }
 
@@ -204,7 +281,7 @@ Ava.Context = ( function () {
     };
     /**
      * An alias to current_duration
-     * @mehod cd
+     * @method cd
      **/
     that.cd = that.current_duration;
 
@@ -229,9 +306,59 @@ Ava.Context = ( function () {
     };
     /**
      * An alias to current_clef
-     * @mehod cc
+     * @method cc
      **/
     that.cc = that.current_clef;
+
+    /**
+     * @method current_key_sig
+     * @param {String} key signature
+     * @return {String}
+     **/
+    that.current_key_sig = function(key_sig) {
+        if ( !_.isUndefined(key_sig) ) {
+            if ( _.indexOf( Ava.valid_key_signatures, key_sig ) == -1 ) {
+                throw {
+                    name: 'InvalidParam',
+                    message: 'Key signature is invalid [' + key_sig + ']',
+                };
+            }
+
+            curr_key_sig = key_sig;
+        }
+
+        return curr_key_sig;
+    };
+    /**
+     * An alias to current_key_sig
+     * @method ck
+     **/
+    that.ck = that.current_key_sig;
+
+    /**
+     * @method current_time_sig
+     * @param {String} time signature
+     * @return {String}
+     **/
+    that.current_time_sig = function(time_sig) {
+        if ( !_.isUndefined(time_sig) ) {
+            if ( _.indexOf( Ava.valid_time_signatures, time_sig ) == -1 ) {
+                throw {
+                    name: 'InvalidParam',
+                    message: 'Time signature is invalid [' + time_sig + ']',
+                };
+            }
+
+            curr_time_sig = time_sig;
+        }
+
+        return curr_time_sig;
+    };
+    /**
+     * An alias to current_time_sig
+     * @method ct
+     **/
+    that.ct = that.current_time_sig;
 
     /**
      * A global accessor to get/set ctx.
