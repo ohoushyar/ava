@@ -20,7 +20,9 @@
     <script src="src/css/bootstrap/js/bootstrap.js"></script>
     <script>
         $( document ).ready(function() {
-           // $('.btn-group').button();
+           var $btn = $('#nav-btn-time-32');
+           if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+           $btn.button('toggle');
         });
     </script>
   </head>
