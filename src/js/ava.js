@@ -71,7 +71,16 @@ Ava = ( function() {
          * @static
          * @final
          **/
-        DEFAULT_WIDTH: 1024,
+        DEFAULT_WIDTH: 729,
+
+        /**
+         * App default height
+         * @property Constant.DEFAULT_HEIGHT
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        DEFAULT_HEIGHT: 165,
 
         /**
          * App default canvas class name
