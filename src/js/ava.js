@@ -107,7 +107,7 @@ Ava = ( function() {
          * @static
          * @final
          **/
-        DEFAULT_DURATION: 'w',
+        DEFAULT_DURATION: '4',
 
         /**
          * App default clef

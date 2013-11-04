@@ -33,7 +33,7 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '    <% _.each(["durs", "dots"], function(grp) { %>';
     tmpl    += '        <div class="btn-group" data-toggle="buttons">';
     tmpl    += '        <% _.each( dur_btns[grp], function(btn) { %>';
-    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></label>';
+    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-dur-<%= btn.id %>"><%= btn.label %></label>';
     tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
     tmpl    += '    <% }); %>';
@@ -107,6 +107,7 @@ Ava.ToolbarView = function(spec) {
             },
         ],
 
+        // TODO: Need to figure out what is this about
         // ties: [
         //     {
         //         name:   'toolbar-btn-tie',
@@ -115,8 +116,6 @@ Ava.ToolbarView = function(spec) {
         //     },
         // ],
     };
-
-
 
     var accidental_btns = [
         {
@@ -146,6 +145,10 @@ Ava.ToolbarView = function(spec) {
         },
     ];
 
+    var toggle_toolbar_currents = function() {
+        Ava.Utils.toggle_button('nav-btn-dur-' + Ava.Context.cd());
+    };
+
     ( function(spec) {
 
         var View = Backbone.View.extend({
@@ -160,6 +163,9 @@ Ava.ToolbarView = function(spec) {
                     dur_btns:         dur_btns,
                     accidental_btns:  accidental_btns,
                 }) );
+
+                // Toggle toolbar keys based on defaults values
+                toggle_toolbar_currents();
 
                 return this;
             },
