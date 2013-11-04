@@ -24,7 +24,7 @@
  * @constructor
  * @param {Object} spec An object to init a Bar
  * @uses Ava.TickableList
- * @extend Backbone.Model
+ * @extends Backbone.Model
  **/
 Ava.Bar = function (spec) {
 
@@ -35,6 +35,15 @@ Ava.Bar = function (spec) {
         var BarModel = Backbone.Model.extend({
             defaults: function() {
                 return {
+
+                    /**
+                     * Bar clef
+                     * @attribute clef
+                     * @type {String}
+                     * @default Ava.Constant.DEFAULT_CLEF
+                     * @optional
+                     **/
+                    clef: Ava.Constant.DEFAULT_CLEF,
 
                     /**
                      * Bar x

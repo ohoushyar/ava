@@ -1,12 +1,15 @@
 /**
  * Utilities for common functionalities.
+ * @class Ava.Utils
+ * @constructor
  **/
 Ava.Utils = ( function() {
     var that = {};
 
     /**
      * Toggle bootstrap group button via javascript
-     * @method
+     * @method toggle_button
+     * @params {String} btn_id button id
      * @static
      * @final
      **/
