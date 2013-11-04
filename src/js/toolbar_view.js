@@ -29,10 +29,10 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '            </button>';
     tmpl    += '        </div>';
 
-    // times buttons
-    tmpl    += '    <% _.each(["times", "dots"], function(grp) { %>';
+    // durations buttons
+    tmpl    += '    <% _.each(["durs", "dots"], function(grp) { %>';
     tmpl    += '        <div class="btn-group" data-toggle="buttons">';
-    tmpl    += '        <% _.each( time_btns[grp], function(btn) { %>';
+    tmpl    += '        <% _.each( dur_btns[grp], function(btn) { %>';
     tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></label>';
     tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
@@ -54,40 +54,41 @@ Ava.ToolbarView = function(spec) {
 
     tmpl    += '    </nav>';
 
-    var time_btns = {
-        times: [
+    var dur_btns = {
+        // duration
+        durs: [
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '64',
                 label:  '64th',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '32',
                 label:  '32th',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '16',
                 label:  '16th',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '8',
                 label:  '8th',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '4',
                 label:  '4th/q',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '2',
                 label:  '2nd/h',
             },
             {
-                name:   'toolbar-btn-time',
+                name:   'toolbar-btn-dur',
                 id:     '1',
                 label:  '1/w',
             },
@@ -156,7 +157,7 @@ Ava.ToolbarView = function(spec) {
              **/
             render: function() {
                 this.$el.append( this.template({
-                    time_btns:        time_btns,
+                    dur_btns:         dur_btns,
                     accidental_btns:  accidental_btns,
                 }) );
 
