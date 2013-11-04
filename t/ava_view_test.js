@@ -49,6 +49,7 @@ var ava_view_test = function () {
         var test_title = 'Successfully ran render';
 
         var env = ava_test_helper.get_unittest_div_and_title();
+        env.$div.width(1024);
         env.$title.html(module_name + ' - ' + sub_module_name + ' - ' + test_title);
         var view = Ava.View({
             div_id: env.div_id,
