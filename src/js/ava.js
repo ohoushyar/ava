@@ -98,7 +98,25 @@ Ava = ( function() {
          * @static
          * @final
          **/
-        DEFAULT_CANVAS_ID: 'ava-canvas'
+        DEFAULT_CANVAS_ID: 'ava-canvas',
+
+        /**
+         * App default duration
+         * @property Constant.DEFAULT_DURATION
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_DURATION: 'w',
+
+        /**
+         * App default clef
+         * @property Constant.DEFAULT_CLEF
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_CLEF: 'treble',
     };
 
     /**
@@ -135,8 +153,9 @@ Ava = ( function() {
 Ava.Context = ( function () {
     var that = {};
 
-    var curr_duration = 'w';
+    var curr_duration = Ava.Constant.DEFAULT_DURATION;
     var curr_div_id;
+    var curr_clef = Ava.Constant.DEFAULT_CLEF;
 
     /**
      * Accessor to get/set current div id. The context is different for each
