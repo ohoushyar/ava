@@ -65,6 +65,8 @@
             
                 <li><a href="../classes/Ava.ToolbarView.html">Ava.ToolbarView</a></li>
             
+                <li><a href="../classes/Ava.Utils.html">Ava.Utils</a></li>
+            
                 <li><a href="../classes/Ava.View.html">Ava.View</a></li>
             
             </ul>
@@ -138,9 +140,9 @@ Ava.LeftnavView = function(spec) {
     tmpl    += &#x27;                &lt;/div&gt;&#x27;;
     tmpl    += &#x27;                &lt;div id=&quot;&lt;%= lnav_obj.id %&gt;&quot; class=&quot;panel-collapse collapse&quot;&gt;&#x27;;
     tmpl    += &#x27;                    &lt;div class=&quot;panel-body&quot;&gt;&#x27;;
-    tmpl    += &#x27;                        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;                        &lt;div class=&quot;btn-group&quot; data-toggle=&quot;buttons&quot;&gt;&#x27;;
     tmpl    += &#x27;                        &lt;% _.each( lnav_obj.btns, function(btn) { %&gt;&#x27;;
-    tmpl    += &#x27;                            &lt;button type=&quot;button&quot; class=&quot;btn btn-default btn-sm&quot; id=&quot;&lt;%= this.btn_pref_id + btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;                            &lt;label class=&quot;btn btn-default btn-sm&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;&lt;%= this.btn_name %&gt;&quot; id=&quot;&lt;%= this.btn_pref_id + btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/label&gt;&#x27;;
     tmpl    += &#x27;                        &lt;% }, lnav_obj ); %&gt;&#x27;;
     tmpl    += &#x27;                        &lt;/div&gt;&#x27;;
     tmpl    += &#x27;                    &lt;/div&gt;&#x27;;
@@ -157,6 +159,7 @@ Ava.LeftnavView = function(spec) {
             title:        &#x27;Clefs&#x27;,
             href:         &#x27;#clefs&#x27;,
             id:           &#x27;clefs&#x27;,
+            btn_name:     &#x27;left-nav-btn-clefs&#x27;,
             btn_pref_id:  &#x27;left-nav-btn-clefs-&#x27;,
             body:         &#x27;Different clefs will show off here.&#x27;,
             btns: [
@@ -187,6 +190,7 @@ Ava.LeftnavView = function(spec) {
             title:        &#x27;Key Signatures&#x27;,
             href:         &#x27;#key-signatures&#x27;,
             id:           &#x27;key-signatures&#x27;,
+            btn_name:     &#x27;left-nav-btn-ksign&#x27;,
             btn_pref_id:  &#x27;left-nav-btn-ksign-&#x27;,
             body:         &#x27;Key signatures will show off here.&#x27;,
             btns: [
@@ -227,17 +231,18 @@ Ava.LeftnavView = function(spec) {
             title:        &#x27;Time Signatures&#x27;,
             href:         &#x27;#time-signatures&#x27;,
             id:           &#x27;time-signatures&#x27;,
+            btn_name:     &#x27;left-nav-btn-tsign&#x27;,
             btn_pref_id:  &#x27;left-nav-btn-tsign-&#x27;,
             btns: [
-                { id: &quot;2/2&quot;  , label: &quot;2/2&quot;  },
-                { id: &quot;2/4&quot;  , label: &quot;2/4&quot;  },
-                { id: &quot;3/4&quot;  , label: &quot;3/4&quot;  },
-                { id: &quot;4/4&quot;  , label: &quot;4/4&quot;  },
-                { id: &quot;5/4&quot;  , label: &quot;5/4&quot;  },
-                { id: &quot;6/4&quot;  , label: &quot;6/4&quot;  },
-                { id: &quot;3/8&quot;  , label: &quot;3/8&quot;  },
-                { id: &quot;6/8&quot;  , label: &quot;6/8&quot;  },
-                { id: &quot;12/8&quot; , label: &quot;12/8&quot; },
+                { id: &quot;2-2&quot;  , label: &quot;2/2&quot;  },
+                { id: &quot;2-4&quot;  , label: &quot;2/4&quot;  },
+                { id: &quot;3-4&quot;  , label: &quot;3/4&quot;  },
+                { id: &quot;4-4&quot;  , label: &quot;4/4&quot;  },
+                { id: &quot;5-4&quot;  , label: &quot;5/4&quot;  },
+                { id: &quot;6-4&quot;  , label: &quot;6/4&quot;  },
+                { id: &quot;3-8&quot;  , label: &quot;3/8&quot;  },
+                { id: &quot;6-8&quot;  , label: &quot;6/8&quot;  },
+                { id: &quot;12-8&quot; , label: &quot;12/8&quot; },
                 { id: &quot;C&quot;    , label: &quot;C&quot;    },
                 { id: &quot;C|&quot;   , label: &quot;C|&quot;   },
             ],
@@ -247,12 +252,28 @@ Ava.LeftnavView = function(spec) {
             title:        &#x27;Barlines&#x27;,
             href:         &#x27;#barlines&#x27;,
             id:           &#x27;barlines&#x27;,
+            btn_name:     &#x27;left-nav-btn-barline&#x27;,
             btn_pref_id:  &#x27;left-nav-btn-barline-&#x27;,
             btns: [
                 { id: &#x27;test&#x27;, label: &#x27;Test&#x27; },
             ],
         },
     ];
+
+    var toggle_leftnav_currents = function() {
+        // set current clef
+        var clef = _.findWhere( left_nav, {title: &#x27;Clefs&#x27;} );
+        Ava.Utils.toggle_button(clef.btn_pref_id + Ava.Context.cc());
+
+        // set current key signature
+        var key_sig = _.findWhere( left_nav, {title: &#x27;Key Signatures&#x27;} );
+        Ava.Utils.toggle_button(key_sig.btn_pref_id + Ava.Context.ck());
+
+        // set current time signature
+        var time_sig = _.findWhere( left_nav, {title: &#x27;Time Signatures&#x27;} );
+        Ava.Utils.toggle_button(time_sig.btn_pref_id + Ava.Context.ct().replace(/\//, &#x27;-&#x27;));
+
+    };
 
     ( function(spec) {
         var View = Backbone.View.extend({
@@ -266,6 +287,9 @@ Ava.LeftnavView = function(spec) {
                 this.$el.append( this.template({
                     left_nav: left_nav,
                 }) );
+
+                toggle_leftnav_currents();
+
                 return this;
             },
         });
@@ -275,9 +299,6 @@ Ava.LeftnavView = function(spec) {
 
     return that;
 };
-
-/**
- **/
 
     </pre>
 </div>

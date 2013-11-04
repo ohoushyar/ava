@@ -65,6 +65,8 @@
             
                 <li><a href="../classes/Ava.ToolbarView.html">Ava.ToolbarView</a></li>
             
+                <li><a href="../classes/Ava.Utils.html">Ava.Utils</a></li>
+            
                 <li><a href="../classes/Ava.View.html">Ava.View</a></li>
             
             </ul>
@@ -130,7 +132,7 @@ Ava.ToolbarView = function(spec) {
     tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
     tmpl    += &#x27;        &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;AVA&lt;/a&gt;&#x27;;
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; data-toggle=&quot;button&quot;&gt;&#x27;;
     tmpl    += &#x27;                &lt;span class=&quot;glyphicon glyphicon-edit&quot;&gt;&lt;/span&gt;&#x27;;
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
@@ -143,93 +145,125 @@ Ava.ToolbarView = function(spec) {
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
 
-    // times buttons
-    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-    tmpl    += &#x27;        &lt;% _.each( time_btns, function(btn) { %&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-acd-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    // durations buttons
+    tmpl    += &#x27;    &lt;% _.each([&quot;durs&quot;, &quot;dots&quot;], function(grp) { %&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot; data-toggle=&quot;buttons&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;% _.each( dur_btns[grp], function(btn) { %&gt;&#x27;;
+    tmpl    += &#x27;            &lt;label class=&quot;btn btn-default navbar-btn&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;&lt;%= btn.name %&gt;&quot; id=&quot;nav-btn-dur-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/label&gt;&#x27;;
     tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+    tmpl    += &#x27;    &lt;% }); %&gt;&#x27;;
 
+    // Rest
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-rest-toggle&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-rest-toggle&quot; data-toggle=&quot;button&quot;&gt;&#x27;;
     tmpl    += &#x27;                &lt;span id=&quot;nav-btn-rest-toggle-img&quot;&gt;R&lt;/span&gt;&#x27;;
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
 
     // Accidentals
-    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot; data-toggle=&quot;buttons&quot;&gt;&#x27;;
     tmpl    += &#x27;        &lt;% _.each( accidental_btns, function(btn) { %&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;nav-btn-acd-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/button&gt;&#x27;;
+    tmpl    += &#x27;            &lt;label class=&quot;btn btn-default navbar-btn&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;&lt;%= btn.name %&gt;&quot; id=&quot;nav-btn-acd-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/label&gt;&#x27;;
     tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
 
     tmpl    += &#x27;    &lt;/nav&gt;&#x27;;
 
-    var time_btns = [
-        {
-            id:     &#x27;64&#x27;,
-            label:  &#x27;64th&#x27;,
-        },
-        {
-            id:     &#x27;32&#x27;,
-            label:  &#x27;32th&#x27;,
-        },
-        {
-            id:     &#x27;16&#x27;,
-            label:  &#x27;16th&#x27;,
-        },
-        {
-            id:     &#x27;8&#x27;,
-            label:  &#x27;8th&#x27;,
-        },
-        {
-            id:     &#x27;4&#x27;,
-            label:  &#x27;4th/q&#x27;,
-        },
-        {
-            id:     &#x27;2&#x27;,
-            label:  &#x27;2nd/h&#x27;,
-        },
-        {
-            id:     &#x27;1&#x27;,
-            label:  &#x27;1/w&#x27;,
-        },
-        {
-            id:     &#x27;dot&#x27;,
-            label:  &#x27;.&#x27;,
-        },
-        {
-            id:     &#x27;ddot&#x27;,
-            label:  &#x27;..&#x27;,
-        },
-        {
-            id:     &#x27;tie&#x27;,
-            label:  &#x27;Tie(+)&#x27;,
-        },
-    ];
+    var dur_btns = {
+        // duration
+        durs: [
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;64&#x27;,
+                label:  &#x27;64th&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;32&#x27;,
+                label:  &#x27;32th&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;16&#x27;,
+                label:  &#x27;16th&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;8&#x27;,
+                label:  &#x27;8th&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;4&#x27;,
+                label:  &#x27;4th/q&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;2&#x27;,
+                label:  &#x27;2nd/h&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dur&#x27;,
+                id:     &#x27;1&#x27;,
+                label:  &#x27;1/w&#x27;,
+            },
+        ],
+
+        dots: [
+            {
+                name:   &#x27;toolbar-btn-dots&#x27;,
+                id:     &#x27;dot&#x27;,
+                label:  &#x27;.&#x27;,
+            },
+            {
+                name:   &#x27;toolbar-btn-dots&#x27;,
+                id:     &#x27;ddot&#x27;,
+                label:  &#x27;..&#x27;,
+            },
+        ],
+
+        // TODO: Need to figure out what is this about
+        // ties: [
+        //     {
+        //         name:   &#x27;toolbar-btn-tie&#x27;,
+        //         id:     &#x27;tie&#x27;,
+        //         label:  &#x27;Tie(+)&#x27;,
+        //     },
+        // ],
+    };
 
     var accidental_btns = [
         {
+            name:   &#x27;toolbar-btn-acd&#x27;,
             id:     &#x27;dsharp&#x27;,
             label:  &#x27;X&#x27;,
         },
         {
+            name:   &#x27;toolbar-btn-acd&#x27;,
             id:     &#x27;sharp&#x27;,
             label:  &#x27;#&#x27;,
         },
         {
+            name:   &#x27;toolbar-btn-acd&#x27;,
             id:     &#x27;natural&#x27;,
             label:  &#x27;natural&#x27;,
         },
         {
+            name:   &#x27;toolbar-btn-acd&#x27;,
             id:     &#x27;flat&#x27;,
             label:  &#x27;b&#x27;,
         },
         {
+            name:   &#x27;toolbar-btn-acd&#x27;,
             id:     &#x27;dflat&#x27;,
             label:  &#x27;bb&#x27;,
         },
     ];
+
+    var toggle_toolbar_currents = function() {
+        Ava.Utils.toggle_button(&#x27;nav-btn-dur-&#x27; + Ava.Context.cd());
+    };
 
     ( function(spec) {
 
@@ -242,9 +276,12 @@ Ava.ToolbarView = function(spec) {
              **/
             render: function() {
                 this.$el.append( this.template({
-                    time_btns:          time_btns,
-                    accidental_btns:    accidental_btns,
+                    dur_btns:         dur_btns,
+                    accidental_btns:  accidental_btns,
                 }) );
+
+                // Toggle toolbar keys based on defaults values
+                toggle_toolbar_currents();
 
                 return this;
             },

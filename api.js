@@ -13,6 +13,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Ava.Stave",
         "Ava.StaveView",
         "Ava.ToolbarView",
+        "Ava.Utils",
         "Ava.View"
     ],
     "modules": [

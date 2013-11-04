@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/js/cursor_view.js - AVA</title>
+    <title>src/js/utils.js - AVA</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -110,114 +110,44 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/js/cursor_view.js</h1>
+                        <h1 class="file-heading">File: src/js/utils.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Cursor View
- * @example
- *      view = Ava.CursorView({
- *          // mod is required attribute to init a Cursor model
- *          model: Ava.Cursor(mod),
- *      });
- *
- * @class Ava.CursorView
+ * Utilities for common functionalities.
+ * @class Ava.Utils
  * @constructor
- * @param {Object} spec
- * @extends Backbone.View
  **/
-Ava.CursorView = function(spec) {
-
+Ava.Utils = ( function() {
     var that = {};
 
-    ( function(spec) {
+    /**
+     * Toggle bootstrap group button via javascript
+     * @method toggle_button
+     * @params {String} btn_id button id
+     * @static
+     * @final
+     **/
+    that.toggle_button = function(btn_id) {
+        var $btn = $(&#x27;#&#x27;+btn_id);
 
-        var View = Backbone.View.extend({
+        if (!$btn.length) {
+            throw {
+                name: &#x27;invalidElement&#x27;,
+                message: &#x27;Invalid element found by id [&#x27; + btn_id + &#x27;]&#x27;,
+            };
+        }
 
-            initialize: function() {
-                this.model.on(&#x27;change&#x27;, this._rerender, this);
-            },
+        if (!$btn.hasClass(&#x27;btn&#x27;)) {
+            $btn = $btn.closest(&#x27;.btn&#x27;);
+        }
 
-
-            // TODO
-            /**
-             * @method hide
-             **/
-            hide: function() {
-                this.model.hide();
-            },
-
-            /**
-             * @method show
-             **/
-            show: function() {
-                this.model.show();
-            },
-
-            /**
-             * @method move
-             **/
-            move: function(x, y) {
-                this.model.move(x, y);
-            },
-
-            /**
-             * @method resize
-             **/
-            resize: function(w, h) {
-                this.model.resize(w, h);
-            },
-
-            /**
-             * @method resize_and_move
-             **/
-            resize_and_move: function(w, h, x, y) {
-                this.model.resize(w, h);
-                this.model.move(x, y);
-            },
-
-            /**
-             * @method: _rerender
-             * @private
-             **/
-            _rerender: function() {
-                this.rect.hide();
-                this.render();
-            },
-
-            /**
-             * @method render
-             **/
-            render: function() {
-
-                var x      = this.model.get(&#x27;x&#x27;);
-                var y      = this.model.get(&#x27;y&#x27;);
-                var width  = this.model.get(&#x27;width&#x27;);
-                var height = this.model.get(&#x27;height&#x27;);
-
-                var ctx   = Ava.Context.vexflow_ctx();
-                this.rect = ctx.paper.rect(x, y, width, height);
-                this.rect.attr({fill:&quot;#000&quot;, opacity: 0.2});
-
-                var hide   = this.model.get(&#x27;hide&#x27;);
-                if (hide) {
-                    this.rect.hide();
-                } else {
-                    this.rect.show();
-                }
-
-                return this;
-            },
-
-        });
-
-        that = new View(spec);
-
-    })(spec);
+        $btn.button(&#x27;toggle&#x27;);
+    };
 
     return that;
-};
+})();
 
     </pre>
 </div>

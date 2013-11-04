@@ -65,6 +65,8 @@
             
                 <li><a href="../classes/Ava.ToolbarView.html">Ava.ToolbarView</a></li>
             
+                <li><a href="../classes/Ava.Utils.html">Ava.Utils</a></li>
+            
                 <li><a href="../classes/Ava.View.html">Ava.View</a></li>
             
             </ul>
@@ -185,7 +187,16 @@ Ava = ( function() {
          * @static
          * @final
          **/
-        DEFAULT_WIDTH: 1024,
+        DEFAULT_WIDTH: 729,
+
+        /**
+         * App default height
+         * @property Constant.DEFAULT_HEIGHT
+         * @type {Number}
+         * @static
+         * @final
+         **/
+        DEFAULT_HEIGHT: 165,
 
         /**
          * App default canvas class name
@@ -203,7 +214,43 @@ Ava = ( function() {
          * @static
          * @final
          **/
-        DEFAULT_CANVAS_ID: &#x27;ava-canvas&#x27;
+        DEFAULT_CANVAS_ID: &#x27;ava-canvas&#x27;,
+
+        /**
+         * App default duration
+         * @property Constant.DEFAULT_DURATION
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_DURATION: &#x27;4&#x27;,
+
+        /**
+         * App default clef
+         * @property Constant.DEFAULT_CLEF
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_CLEF: &#x27;treble&#x27;,
+
+        /**
+         * App default key signature
+         * @property Constant.DEFAULT_KEY_SIG
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_KEY_SIG: &#x27;Am&#x27;,
+
+        /**
+         * App default time signature
+         * @property Constant.DEFAULT_TIME_SIG
+         * @type {String}
+         * @static
+         * @final
+         **/
+        DEFAULT_TIME_SIG: &#x27;4/4&#x27;,
     };
 
     /**
@@ -212,7 +259,7 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_duration = [&#x27;w&#x27;, &#x27;h&#x27;, &#x27;q&#x27;, 8, 16, 32, 64];
+    that.valid_duration = [1, 2, 4, 8, 16, 32, 64];
 
     /**
      * @property valid_clefs
@@ -220,7 +267,13 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_clefs = [&quot;treble&quot;, &quot;bass&quot;, &quot;alto&quot;, &quot;tenor&quot;, &quot;percussion&quot;];
+    that.valid_clefs = [
+        &quot;treble&quot;     ,
+        &quot;bass&quot;       ,
+        &quot;alto&quot;       ,
+        &quot;tenor&quot;      ,
+        &quot;percussion&quot; ,
+    ];
 
     /**
      * @property valid_key_signatures
@@ -228,7 +281,58 @@ Ava = ( function() {
      * @static
      * @final
      **/
-    that.valid_key_signatures = [&quot;C&quot;, &quot;Am&quot;, &quot;F&quot;, &quot;Dm&quot;, &quot;Bb&quot;, &quot;Gm&quot;, &quot;Eb&quot;, &quot;Cm&quot;, &quot;Ab&quot;, &quot;Fm&quot;, &quot;Db&quot;, &quot;Bbm&quot;, &quot;Gb&quot;, &quot;Ebm&quot;, &quot;Cb&quot;, &quot;Abm&quot;, &quot;G&quot;, &quot;Em&quot;, &quot;D&quot;, &quot;Bm&quot;, &quot;A&quot;, &quot;F#m&quot;, &quot;E&quot;, &quot;C#m&quot;, &quot;B&quot;, &quot;G#m&quot;, &quot;F#&quot;, &quot;D#m&quot;, &quot;C#&quot;, &quot;A#m&quot;];
+    that.valid_key_signatures = [
+        &quot;C&quot;   ,
+        &quot;Am&quot;  ,
+        &quot;F&quot;   ,
+        &quot;Dm&quot;  ,
+        &quot;Bb&quot;  ,
+        &quot;Gm&quot;  ,
+        &quot;Eb&quot;  ,
+        &quot;Cm&quot;  ,
+        &quot;Ab&quot;  ,
+        &quot;Fm&quot;  ,
+        &quot;Db&quot;  ,
+        &quot;Bbm&quot; ,
+        &quot;Gb&quot;  ,
+        &quot;Ebm&quot; ,
+        &quot;Cb&quot;  ,
+        &quot;Abm&quot; ,
+        &quot;G&quot;   ,
+        &quot;Em&quot;  ,
+        &quot;D&quot;   ,
+        &quot;Bm&quot;  ,
+        &quot;A&quot;   ,
+        &quot;F#m&quot; ,
+        &quot;E&quot;   ,
+        &quot;C#m&quot; ,
+        &quot;B&quot;   ,
+        &quot;G#m&quot; ,
+        &quot;F#&quot;  ,
+        &quot;D#m&quot; ,
+        &quot;C#&quot;  ,
+        &quot;A#m&quot; ,
+    ];
+
+    /**
+     * @property valid_time_signatures
+     * @type {Array} string
+     * @static
+     * @final
+     **/
+    that.valid_time_signatures = [
+        &quot;2/2&quot;  ,
+        &quot;2/4&quot;  ,
+        &quot;3/4&quot;  ,
+        &quot;4/4&quot;  ,
+        &quot;5/4&quot;  ,
+        &quot;6/4&quot;  ,
+        &quot;3/8&quot;  ,
+        &quot;6/8&quot;  ,
+        &quot;12/8&quot; ,
+        &quot;C&quot;    ,
+        &quot;C|&quot;   ,
+    ];
 
     return that;
 }() );
@@ -240,7 +344,10 @@ Ava = ( function() {
 Ava.Context = ( function () {
     var that = {};
 
-    var curr_duration = &#x27;w&#x27;;
+    var curr_duration = Ava.Constant.DEFAULT_DURATION;
+    var curr_clef     = Ava.Constant.DEFAULT_CLEF;
+    var curr_key_sig  = Ava.Constant.DEFAULT_KEY_SIG;
+    var curr_time_sig = Ava.Constant.DEFAULT_TIME_SIG;
     var curr_div_id;
 
     /**
@@ -275,11 +382,11 @@ Ava.Context = ( function () {
      **/
     that.current_duration = function(duration) {
 
-        if (typeof duration !== &#x27;undefined&#x27;) {
-            if ($.inArray(!isNaN(duration) ? parseInt(duration) : duration, Ava.valid_duration) == -1) {
+        if ( !_.isUndefined(duration) ) {
+            if ( _.indexOf( Ava.valid_duration, duration ) == -1 ) {
                 throw {
                     name: &#x27;typeError&#x27;,
-                    message: &quot;Invalid duration. Duration needs to be char&quot;
+                    message: &quot;Invalid duration [&quot; + duration + &quot;]&quot;,
                 }
             }
 
@@ -288,8 +395,86 @@ Ava.Context = ( function () {
 
         return curr_duration;
     };
+    /**
+     * An alias to current_duration
+     * @method cd
+     **/
+    that.cd = that.current_duration;
 
+    /**
+     * @method current_clef
+     * @param {String} clef
+     * @return {String}
+     **/
+    that.current_clef = function(clef) {
+        if ( !_.isUndefined(clef) ) {
+            if ( _.indexOf( Ava.valid_clefs, clef ) == -1 ) {
+                throw {
+                    name: &#x27;InvalidParam&#x27;,
+                    message: &#x27;Clef is invalid [&#x27; + clef + &#x27;]&#x27;,
+                };
+            }
 
+            curr_clef = clef;
+        }
+
+        return curr_clef;
+    };
+    /**
+     * An alias to current_clef
+     * @method cc
+     **/
+    that.cc = that.current_clef;
+
+    /**
+     * @method current_key_sig
+     * @param {String} key signature
+     * @return {String}
+     **/
+    that.current_key_sig = function(key_sig) {
+        if ( !_.isUndefined(key_sig) ) {
+            if ( _.indexOf( Ava.valid_key_signatures, key_sig ) == -1 ) {
+                throw {
+                    name: &#x27;InvalidParam&#x27;,
+                    message: &#x27;Key signature is invalid [&#x27; + key_sig + &#x27;]&#x27;,
+                };
+            }
+
+            curr_key_sig = key_sig;
+        }
+
+        return curr_key_sig;
+    };
+    /**
+     * An alias to current_key_sig
+     * @method ck
+     **/
+    that.ck = that.current_key_sig;
+
+    /**
+     * @method current_time_sig
+     * @param {String} time signature
+     * @return {String}
+     **/
+    that.current_time_sig = function(time_sig) {
+        if ( !_.isUndefined(time_sig) ) {
+            if ( _.indexOf( Ava.valid_time_signatures, time_sig ) == -1 ) {
+                throw {
+                    name: &#x27;InvalidParam&#x27;,
+                    message: &#x27;Time signature is invalid [&#x27; + time_sig + &#x27;]&#x27;,
+                };
+            }
+
+            curr_time_sig = time_sig;
+        }
+
+        return curr_time_sig;
+    };
+    /**
+     * An alias to current_time_sig
+     * @method ct
+     **/
+    that.ct = that.current_time_sig;
 
     /**
      * A global accessor to get/set ctx.

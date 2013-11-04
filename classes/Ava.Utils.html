@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/js/cursor_view.js - AVA</title>
+    <title>Ava.Utils - AVA</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -110,116 +110,239 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/js/cursor_view.js</h1>
+                        <h1>Ava.Utils Class</h1>
+<div class="box meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * Cursor View
- * @example
- *      view = Ava.CursorView({
- *          // mod is required attribute to init a Cursor model
- *          model: Ava.Cursor(mod),
- *      });
- *
- * @class Ava.CursorView
- * @constructor
- * @param {Object} spec
- * @extends Backbone.View
- **/
-Ava.CursorView = function(spec) {
+    
 
-    var that = {};
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_js_utils.js.html#l1"><code>src&#x2F;js&#x2F;utils.js:1</code></a>
+        </div>
+    
 
-    ( function(spec) {
+    
+        
+            Module: <a href="../modules/Ava.html">Ava</a>
+        
+    
 
-        var View = Backbone.View.extend({
-
-            initialize: function() {
-                this.model.on(&#x27;change&#x27;, this._rerender, this);
-            },
+    
+</div>
 
 
-            // TODO
-            /**
-             * @method hide
-             **/
-            hide: function() {
-                this.model.hide();
-            },
 
-            /**
-             * @method show
-             **/
-            show: function() {
-                this.model.show();
-            },
+<div class="box intro">
+    <p>Utilities for common functionalities.</p>
+</div>
 
-            /**
-             * @method move
-             **/
-            move: function(x, y) {
-                this.model.move(x, y);
-            },
 
-            /**
-             * @method resize
-             **/
-            resize: function(w, h) {
-                this.model.resize(w, h);
-            },
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Ava.Utils" class="method item">
+    <h3 class="name"><code>Ava.Utils</code></h3>
 
-            /**
-             * @method resize_and_move
-             **/
-            resize_and_move: function(w, h, x, y) {
-                this.model.resize(w, h);
-                this.model.move(x, y);
-            },
+    
+        <span class="paren">()</span>
+    
 
-            /**
-             * @method: _rerender
-             * @private
-             **/
-            _rerender: function() {
-                this.rect.hide();
-                this.render();
-            },
+    
 
-            /**
-             * @method render
-             **/
-            render: function() {
+    
 
-                var x      = this.model.get(&#x27;x&#x27;);
-                var y      = this.model.get(&#x27;y&#x27;);
-                var width  = this.model.get(&#x27;width&#x27;);
-                var height = this.model.get(&#x27;height&#x27;);
+    
 
-                var ctx   = Ava.Context.vexflow_ctx();
-                this.rect = ctx.paper.rect(x, y, width, height);
-                this.rect.attr({fill:&quot;#000&quot;, opacity: 0.2});
+    
 
-                var hide   = this.model.get(&#x27;hide&#x27;);
-                if (hide) {
-                    this.rect.hide();
-                } else {
-                    this.rect.show();
-                }
+    
 
-                return this;
-            },
+    
 
-        });
+    
 
-        that = new View(spec);
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_utils.js.html#l1"><code>src&#x2F;js&#x2F;utils.js:1</code></a>
+        
+        </p>
 
-    })(spec);
 
-    return that;
-};
+        
 
-    </pre>
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_toggle_button">toggle_button</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_toggle_button" class="method item">
+    <h3 class="name"><code>toggle_button</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>btn_id</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag final">final</span>
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_js_utils.js.html#l9"><code>src&#x2F;js&#x2F;utils.js:9</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Toggle bootstrap group button via javascript</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">btn_id</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>button id</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

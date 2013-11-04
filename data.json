@@ -115,6 +115,15 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "src/js/utils.js": {
+            "name": "src/js/utils.js",
+            "modules": {},
+            "classes": {
+                "Ava.Utils": 1
+            },
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {
@@ -134,12 +143,13 @@
                 "Ava.MusicView": 1,
                 "Ava.Stave": 1,
                 "Ava.StaveView": 1,
-                "Ava.ToolbarView": 1
+                "Ava.ToolbarView": 1,
+                "Ava.Utils": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src/js/toolbar_view.js",
+            "file": "src/js/utils.js",
             "line": 1,
             "is_constructor": 1
         }
@@ -171,7 +181,7 @@
             "module": "Ava",
             "namespace": "",
             "file": "src/js/ava.js",
-            "line": 122,
+            "line": 224,
             "is_constructor": 1
         },
         "Ava.View": {
@@ -238,7 +248,7 @@
             "module": "Ava",
             "namespace": "",
             "file": "src/js/bar.js",
-            "line": 250,
+            "line": 259,
             "description": "Represents a collection of Bars",
             "is_constructor": 1,
             "params": [
@@ -465,6 +475,21 @@
                 }
             ],
             "extends": "Backbone.View"
+        },
+        "Ava.Utils": {
+            "name": "Ava.Utils",
+            "shortname": "Ava.Utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/utils.js",
+            "line": 1,
+            "description": "Utilities for common functionalities.",
+            "is_constructor": 1
         }
     },
     "classitems": [
@@ -560,6 +585,18 @@
         {
             "file": "src/js/ava.js",
             "line": 76,
+            "description": "App default height",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_HEIGHT",
+            "type": "{Number}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 85,
             "description": "App default canvas class name",
             "itemtype": "property",
             "name": "Constant.DEFAULT_CANVAS_CLASS",
@@ -571,7 +608,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 85,
+            "line": 94,
             "description": "App default canvas id",
             "itemtype": "property",
             "name": "Constant.DEFAULT_CANVAS_ID",
@@ -583,7 +620,55 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 95,
+            "line": 103,
+            "description": "App default duration",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_DURATION",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 112,
+            "description": "App default clef",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_CLEF",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 121,
+            "description": "App default key signature",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_KEY_SIG",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 130,
+            "description": "App default time signature",
+            "itemtype": "property",
+            "name": "Constant.DEFAULT_TIME_SIG",
+            "type": "{String}",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 140,
             "itemtype": "property",
             "name": "valid_duration",
             "type": "{Array} string",
@@ -594,7 +679,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 103,
+            "line": 148,
             "itemtype": "property",
             "name": "valid_clefs",
             "type": "{Array} string",
@@ -605,7 +690,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 111,
+            "line": 162,
             "itemtype": "property",
             "name": "valid_key_signatures",
             "type": "{Array} string",
@@ -616,7 +701,18 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 132,
+            "line": 201,
+            "itemtype": "property",
+            "name": "valid_time_signatures",
+            "type": "{Array} string",
+            "static": 1,
+            "final": 1,
+            "class": "Ava",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 237,
             "description": "Accessor to get/set current div id. The context is different for each\ndiv_id.",
             "itemtype": "method",
             "name": "current_div_id",
@@ -636,7 +732,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 157,
+            "line": 262,
             "itemtype": "method",
             "name": "current_duration",
             "params": [
@@ -655,7 +751,100 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 180,
+            "line": 282,
+            "description": "An alias to current_duration",
+            "itemtype": "method",
+            "name": "cd",
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 288,
+            "itemtype": "method",
+            "name": "current_clef",
+            "params": [
+                {
+                    "name": "clef",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 307,
+            "description": "An alias to current_clef",
+            "itemtype": "method",
+            "name": "cc",
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 313,
+            "itemtype": "method",
+            "name": "current_key_sig",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "signature",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 332,
+            "description": "An alias to current_key_sig",
+            "itemtype": "method",
+            "name": "ck",
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 338,
+            "itemtype": "method",
+            "name": "current_time_sig",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "signature",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 357,
+            "description": "An alias to current_time_sig",
+            "itemtype": "method",
+            "name": "ct",
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 363,
             "description": "A global accessor to get/set ctx.",
             "itemtype": "method",
             "name": "vexflow_ctx",
@@ -676,7 +865,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 216,
+            "line": 399,
             "itemtype": "method",
             "name": "current_x",
             "static": 1,
@@ -696,7 +885,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 234,
+            "line": 417,
             "itemtype": "method",
             "name": "current_y",
             "static": 1,
@@ -716,7 +905,7 @@
         },
         {
             "file": "src/js/ava.js",
-            "line": 252,
+            "line": 435,
             "itemtype": "method",
             "name": "reset_currents",
             "static": 1,
@@ -738,6 +927,18 @@
         {
             "file": "src/js/bar.js",
             "line": 39,
+            "description": "Bar clef",
+            "itemtype": "attribute",
+            "name": "clef",
+            "type": "{String}",
+            "default": "Ava.Constant.DEFAULT_CLEF",
+            "optional": 1,
+            "class": "Ava.Bar",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar.js",
+            "line": 48,
             "description": "Bar x",
             "itemtype": "attribute",
             "name": "x",
@@ -749,7 +950,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 48,
+            "line": 57,
             "description": "Bar y",
             "itemtype": "attribute",
             "name": "y",
@@ -761,7 +962,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 57,
+            "line": 66,
             "description": "Bar width",
             "itemtype": "attribute",
             "name": "width",
@@ -773,7 +974,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 66,
+            "line": 75,
             "description": "Bar height",
             "itemtype": "attribute",
             "name": "height",
@@ -785,7 +986,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 75,
+            "line": 84,
             "description": "Flag to represent showing of clef in bar",
             "itemtype": "attribute",
             "name": "show_clef",
@@ -797,7 +998,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 84,
+            "line": 93,
             "itemtype": "attribute",
             "name": "num_beats",
             "type": "{Number}",
@@ -808,7 +1009,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 92,
+            "line": 101,
             "itemtype": "attribute",
             "name": "beat_value",
             "type": "{Number}",
@@ -819,7 +1020,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 100,
+            "line": 109,
             "description": "Flag to represent showing of time signature in bar",
             "itemtype": "attribute",
             "name": "show_time_signature",
@@ -831,7 +1032,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 109,
+            "line": 118,
             "itemtype": "attribute",
             "name": "key_signature",
             "type": "{String}",
@@ -842,7 +1043,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 117,
+            "line": 126,
             "description": "Flag to represent showing of key signature in bar",
             "itemtype": "attribute",
             "name": "show_key_signature",
@@ -854,7 +1055,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 130,
+            "line": 139,
             "description": "List of notes",
             "itemtype": "attribute",
             "name": "notes",
@@ -865,7 +1066,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 154,
+            "line": 163,
             "itemtype": "method",
             "name": "add_note",
             "params": [
@@ -880,7 +1081,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 170,
+            "line": 179,
             "itemtype": "method",
             "name": "set_x",
             "params": [
@@ -895,7 +1096,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 178,
+            "line": 187,
             "itemtype": "method",
             "name": "set_width",
             "params": [
@@ -910,7 +1111,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 186,
+            "line": 195,
             "itemtype": "method",
             "name": "set_y",
             "params": [
@@ -925,7 +1126,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 194,
+            "line": 203,
             "description": "Set dirty attribute to true",
             "itemtype": "method",
             "name": "set_dirty",
@@ -934,7 +1135,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 202,
+            "line": 211,
             "description": "Set dirty attribute to false",
             "itemtype": "method",
             "name": "unset_dirty",
@@ -943,7 +1144,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 210,
+            "line": 219,
             "itemtype": "method",
             "name": "is_dirty",
             "class": "Ava.Bar",
@@ -951,7 +1152,7 @@
         },
         {
             "file": "src/js/bar.js",
-            "line": 218,
+            "line": 227,
             "itemtype": "method",
             "name": "get_stave",
             "return": {
@@ -1170,15 +1371,9 @@
         },
         {
             "file": "src/js/leftnav_view.js",
-            "line": 148,
+            "line": 167,
             "itemtype": "method",
             "name": "render",
-            "class": "Ava.LeftnavView",
-            "module": "Ava"
-        },
-        {
-            "file": "src/js/leftnav_view.js",
-            "line": 165,
             "class": "Ava.LeftnavView",
             "module": "Ava"
         },
@@ -1538,21 +1733,35 @@
         },
         {
             "file": "src/js/toolbar_view.js",
-            "line": 126,
+            "line": 158,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.ToolbarView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/utils.js",
+            "line": 9,
+            "description": "Toggle bootstrap group button via javascript",
+            "itemtype": "method",
+            "name": "toggle_button",
+            "params": [
+                {
+                    "name": "btn_id",
+                    "description": "button id",
+                    "type": "String"
+                }
+            ],
+            "static": 1,
+            "final": 1,
+            "class": "Ava.Utils",
             "module": "Ava"
         }
     ],
     "warnings": [
         {
-            "message": "replacing incorrect tag: extend with extends",
-            "line": " src/js/bar.js:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " src/js/leftnav_view.js:165"
+            "message": "replacing incorrect tag: params with param",
+            "line": " src/js/utils.js:9"
         }
     ]
 }
