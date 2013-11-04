@@ -17,10 +17,10 @@ avaTest = function () {
             throws( function() {
                     Ava.Context.current_duration(2);
                 }, "Throws exception on invalid duration [2]");
-
             throws( function() {
                     Ava.Context.current_duration('a');
                 }, "Throws exception on invalid duration [a]");
+            equal( Ava.Context.cd(), Ava.Context.current_duration(), 'Alias "cd" set successfully to "current_duration"');
 
             // current_div_id
             throws(
@@ -35,6 +35,20 @@ avaTest = function () {
                 },
                 'Throws exception on invalid div'
             );
+
+            // current clef
+            throws(
+                function() {
+                    Ava.Context.current_clef('treeeble');
+                },
+                'Throws exception on invalid clef'
+            );
+            equal( Ava.Context.current_clef(), Ava.Constant.DEFAULT_CLEF, 'Got expected value of default clef' );
+            ok( Ava.Context.current_clef('bass'), 'Successfully set current value of clef' );
+            equal( Ava.Context.current_clef(), 'bass', 'Got expected value of current clef after set' );
+            equal( Ava.Context.cc(), Ava.Context.current_clef(), 'Alias "cc" set successfully to "current_clef"');
+
+            // current div_id
             ok( $('body').append('<div id="test"></div>'), 'added test div successfully');
             equal( Ava.Context.current_div_id('test'), 'test', 'Successfully get the value of div_id' );
             equal( Ava.Context.current_div_id(), 'test', 'Successfully get the value of div_id' );

@@ -202,8 +202,36 @@ Ava.Context = ( function () {
 
         return curr_duration;
     };
+    /**
+     * An alias to current_duration
+     * @mehod cd
+     **/
+    that.cd = that.current_duration;
 
+    /**
+     * @method current_clef
+     * @param {String} clef
+     * @return {String}
+     **/
+    that.current_clef = function(clef) {
+        if ( !_.isUndefined(clef) ) {
+            if ( _.indexOf( Ava.valid_clefs, clef ) == -1 ) {
+                throw {
+                    name: 'InvalidParam',
+                    message: 'Clef is invalid [' + clef + ']',
+                };
+            }
 
+            curr_clef = clef;
+        }
+
+        return curr_clef;
+    };
+    /**
+     * An alias to current_clef
+     * @mehod cc
+     **/
+    that.cc = that.current_clef;
 
     /**
      * A global accessor to get/set ctx.
