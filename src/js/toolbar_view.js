@@ -16,7 +16,7 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '    <nav class="navbar navbar-default" role="navigation">';
     tmpl    += '        <a class="navbar-brand" href="#">AVA</a>';
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" data-toggle="button">';
     tmpl    += '                <span class="glyphicon glyphicon-edit"></span>';
     tmpl    += '            </button>';
     tmpl    += '        </div>';
@@ -30,88 +30,116 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '        </div>';
 
     // times buttons
-    tmpl    += '        <div class="btn-group">';
-    tmpl    += '        <% _.each( time_btns, function(btn) { %>';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button>';
+    tmpl    += '    <% _.each(["times", "dots"], function(grp) { %>';
+    tmpl    += '        <div class="btn-group" data-toggle="buttons">';
+    tmpl    += '        <% _.each( time_btns[grp], function(btn) { %>';
+    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></label>';
     tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
+    tmpl    += '    <% }); %>';
 
+    // Rest
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-rest-toggle">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-rest-toggle" data-toggle="button">';
     tmpl    += '                <span id="nav-btn-rest-toggle-img">R</span>';
     tmpl    += '            </button>';
     tmpl    += '        </div>';
 
     // Accidentals
-    tmpl    += '        <div class="btn-group">';
+    tmpl    += '        <div class="btn-group" data-toggle="buttons">';
     tmpl    += '        <% _.each( accidental_btns, function(btn) { %>';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></button>';
+    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-acd-<%= btn.id %>"><%= btn.label %></label>';
     tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
 
     tmpl    += '    </nav>';
 
-    var time_btns = [
-        {
-            id:     '64',
-            label:  '64th',
-        },
-        {
-            id:     '32',
-            label:  '32th',
-        },
-        {
-            id:     '16',
-            label:  '16th',
-        },
-        {
-            id:     '8',
-            label:  '8th',
-        },
-        {
-            id:     '4',
-            label:  '4th/q',
-        },
-        {
-            id:     '2',
-            label:  '2nd/h',
-        },
-        {
-            id:     '1',
-            label:  '1/w',
-        },
-        {
-            id:     'dot',
-            label:  '.',
-        },
-        {
-            id:     'ddot',
-            label:  '..',
-        },
-        {
-            id:     'tie',
-            label:  'Tie(+)',
-        },
-    ];
+    var time_btns = {
+        times: [
+            {
+                name:   'toolbar-btn-time',
+                id:     '64',
+                label:  '64th',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '32',
+                label:  '32th',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '16',
+                label:  '16th',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '8',
+                label:  '8th',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '4',
+                label:  '4th/q',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '2',
+                label:  '2nd/h',
+            },
+            {
+                name:   'toolbar-btn-time',
+                id:     '1',
+                label:  '1/w',
+            },
+        ],
+
+        dots: [
+            {
+                name:   'toolbar-btn-dots',
+                id:     'dot',
+                label:  '.',
+            },
+            {
+                name:   'toolbar-btn-dots',
+                id:     'ddot',
+                label:  '..',
+            },
+        ],
+
+        // ties: [
+        //     {
+        //         name:   'toolbar-btn-tie',
+        //         id:     'tie',
+        //         label:  'Tie(+)',
+        //     },
+        // ],
+    };
+
+
 
     var accidental_btns = [
         {
+            name:   'toolbar-btn-acd',
             id:     'dsharp',
             label:  'X',
         },
         {
+            name:   'toolbar-btn-acd',
             id:     'sharp',
             label:  '#',
         },
         {
+            name:   'toolbar-btn-acd',
             id:     'natural',
             label:  'natural',
         },
         {
+            name:   'toolbar-btn-acd',
             id:     'flat',
             label:  'b',
         },
         {
+            name:   'toolbar-btn-acd',
             id:     'dflat',
             label:  'bb',
         },
@@ -128,8 +156,8 @@ Ava.ToolbarView = function(spec) {
              **/
             render: function() {
                 this.$el.append( this.template({
-                    time_btns:          time_btns,
-                    accidental_btns:    accidental_btns,
+                    time_btns:        time_btns,
+                    accidental_btns:  accidental_btns,
                 }) );
 
                 return this;
