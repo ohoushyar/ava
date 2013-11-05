@@ -33,7 +33,7 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '    <% _.each(["durs", "dots"], function(grp) { %>';
     tmpl    += '        <div class="btn-group" data-toggle="buttons">';
     tmpl    += '        <% _.each( dur_btns[grp], function(btn) { %>';
-    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="nav-btn-dur-<%= btn.id %>"><%= btn.label %></label>';
+    tmpl    += '            <label class="btn btn-default navbar-btn"><input type="radio" name="<%= btn.name %>" id="<%= btn.name %>-<%= btn.id %>"><%= btn.label %></label>';
     tmpl    += '        <% }); %>';
     tmpl    += '        </div>';
     tmpl    += '    <% }); %>';
@@ -146,7 +146,33 @@ Ava.ToolbarView = function(spec) {
     ];
 
     var toggle_toolbar_currents = function() {
-        Ava.Utils.toggle_button('nav-btn-dur-' + Ava.Context.cd());
+        Ava.Utils.toggle_button('toolbar-btn-dur-' + Ava.Context.cd());
+    };
+
+    var bind_click_to_durs = function() {
+        // Douglas Crockford - The Good Parts - p39
+        // Populating functions based on variables
+        var helper = function(btn_id, dot_id) {
+            return function(event) {
+                try {
+                    // Set current duration
+                    Ava.Context.cd(btn_id);
+                } catch (e) {
+                    console.log(e);
+                }
+                // reset dot buttons
+                Ava.Utils.get_btn_group( dot_id )
+                    .button('toggle');
+            };
+        };
+
+        // Need to get the first id so that later be able to reach to its parent
+        var dot = _.first( dur_btns.dots );
+        var dot_element_id = dot.name + '-' + dot.id;
+        _.each( dur_btns.durs, function(btn, dot) {
+            var btn_id = btn.name + '-' + btn.id;
+            Ava.Utils.bind_click_to_button( btn_id, helper(btn.id, dot_element_id) );
+        });
     };
 
     ( function(spec) {
@@ -166,6 +192,10 @@ Ava.ToolbarView = function(spec) {
 
                 // Toggle toolbar keys based on defaults values
                 toggle_toolbar_currents();
+
+                // Bind onclick event
+                bind_click_to_durs();
+
 
                 return this;
             },

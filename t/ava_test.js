@@ -13,7 +13,9 @@ avaTest = function () {
             equal( Ava.Context.current_duration(), Ava.Constant.DEFAULT_DURATION, 'Ava constructed successfully');
             // current_duration
             ok ( Ava.Context.current_duration(2), 'Successfully set the value of current duration');
-            equal( Ava.Context.current_duration(), 2, 'Got expected value of current duration');
+            equal( Ava.Context.current_duration(), 2, 'Got expected value of current duration used number');
+            ok ( Ava.Context.current_duration('4'), 'Successfully set the value of current duration used NaN');
+            equal( Ava.Context.current_duration(), 4, 'Got expected value of current duration');
             throws( function() {
                     Ava.Context.current_duration('q');
                 }, "Throws exception on invalid duration [2]");

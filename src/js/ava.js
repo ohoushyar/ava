@@ -267,7 +267,7 @@ Ava.Context = ( function () {
     that.current_duration = function(duration) {
 
         if ( !_.isUndefined(duration) ) {
-            if ( _.indexOf( Ava.valid_duration, duration ) == -1 ) {
+            if ( _.indexOf( Ava.valid_duration, !isNaN(duration) ? parseInt(duration) : duration ) == -1 ) {
                 throw {
                     name: 'typeError',
                     message: "Invalid duration [" + duration + "]",
