@@ -29,6 +29,12 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '            </button>';
     tmpl    += '        </div>';
 
+    tmpl    += '        <div class="btn-group">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" id="toolbar-btn-add-bar">';
+    tmpl    += '                + BAR';
+    tmpl    += '            </button>';
+    tmpl    += '        </div>';
+
     // durations buttons
     tmpl    += '    <% _.each(["durs", "dots"], function(grp) { %>';
     tmpl    += '        <div class="btn-group" data-toggle="buttons">';
@@ -175,6 +181,11 @@ Ava.ToolbarView = function(spec) {
         });
     };
 
+    var set_events = function() {
+        // Bind onclick event
+        bind_click_to_durs();
+    };
+
     ( function(spec) {
 
         var View = Backbone.View.extend({
@@ -193,9 +204,7 @@ Ava.ToolbarView = function(spec) {
                 // Toggle toolbar keys based on defaults values
                 toggle_toolbar_currents();
 
-                // Bind onclick event
-                bind_click_to_durs();
-
+                set_events();
 
                 return this;
             },
