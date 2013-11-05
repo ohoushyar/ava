@@ -16,15 +16,15 @@ Ava.ToolbarView = function(spec) {
     tmpl    += '    <nav class="navbar navbar-default" role="navigation">';
     tmpl    += '        <a class="navbar-brand" href="#">AVA</a>';
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" data-toggle="button">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" data-toggle="button" disabled="disabled">';
     tmpl    += '                <span class="glyphicon glyphicon-edit"></span>';
     tmpl    += '            </button>';
     tmpl    += '        </div>';
     tmpl    += '        <div class="btn-group">';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">';
     tmpl    += '                undo';
     tmpl    += '            </button>';
-    tmpl    += '            <button type="button" class="btn btn-default navbar-btn">';
+    tmpl    += '            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">';
     tmpl    += '                redo';
     tmpl    += '            </button>';
     tmpl    += '        </div>';
