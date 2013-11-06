@@ -13,15 +13,20 @@ Ava.MusicView = function(spec) {
 
             initialize: function() {
                 this.model.get('bars').on('add', this.render, this);
-                //this.model.on("change:dirty", this.render, this);
-            },
 
-            /**
-             * @method add_bar
-             * @param {Object} spec Ava.Bar
-             **/
-            add_bar: function(spec) {
-                this.model.add_bar( Ava.Bar(spec) );
+                this.listenTo( Ava.Dispatcher, 'toolbar:add_bar', function() {
+                    var bar = {
+                        clef:                 Ava.Context.cc(),
+                        show_clef:            false,
+                        key_signature:        Ava.Context.ck(),
+                        time_signature:       Ava.Context.ct(),
+                        show_time_signature:  false,
+                        notes:                [],
+                    };
+
+                    add_bar(bar);
+                } );
+                //this.model.on("change:dirty", this.render, this);
             },
 
             /**
@@ -68,6 +73,15 @@ Ava.MusicView = function(spec) {
     })(spec);
 
     /**
+     * @method add_bar
+     * @param {Object} spec Ava.Bar
+     **/
+    var add_bar = function(spec) {
+        that.model.add_bar( Ava.Bar(spec) );
+    };
+
+
+    /**
      * Return BarView object of passed x and y
      * TODO: It could accept y when we have wrap enable
      *
@@ -75,7 +89,7 @@ Ava.MusicView = function(spec) {
      * @param {Number} x
      * @return {Object} Ava.BarView
      **/
-    that.get_bar_view_of = function( x ) {
+    var get_bar_view_of = function( x ) {
         var bar_x, bar_w, i;
 
         if ( typeof x === 'undefined' ) {
@@ -98,6 +112,9 @@ Ava.MusicView = function(spec) {
             message: "No bar found for x: " + x,
         };
     };
+
+    that.add_bar = add_bar;
+    that.get_bar_view_of = get_bar_view_of;
 
     return that;
 };

@@ -84,7 +84,6 @@ Ava.View = function(spec) {
 
     ( function(spec) {
 
-
         var $out_div = $("#"+div_id);
         if ( $out_div.length == 0 ) {
             throw {
