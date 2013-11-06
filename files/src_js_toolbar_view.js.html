@@ -53,6 +53,8 @@
             
                 <li><a href="../classes/Ava.CursorView.html">Ava.CursorView</a></li>
             
+                <li><a href="../classes/Ava.Dispatcher.html">Ava.Dispatcher</a></li>
+            
                 <li><a href="../classes/Ava.LeftnavView.html">Ava.LeftnavView</a></li>
             
                 <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
@@ -132,16 +134,22 @@ Ava.ToolbarView = function(spec) {
     tmpl    += &#x27;    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt;&#x27;;
     tmpl    += &#x27;        &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;AVA&lt;/a&gt;&#x27;;
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; data-toggle=&quot;button&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; data-toggle=&quot;button&quot; disabled=&quot;disabled&quot;&gt;&#x27;;
     tmpl    += &#x27;                &lt;span class=&quot;glyphicon glyphicon-edit&quot;&gt;&lt;/span&gt;&#x27;;
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; disabled=&quot;disabled&quot;&gt;&#x27;;
     tmpl    += &#x27;                undo&#x27;;
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
-    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; disabled=&quot;disabled&quot;&gt;&#x27;;
     tmpl    += &#x27;                redo&#x27;;
+    tmpl    += &#x27;            &lt;/button&gt;&#x27;;
+    tmpl    += &#x27;        &lt;/div&gt;&#x27;;
+
+    tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot;&gt;&#x27;;
+    tmpl    += &#x27;            &lt;button type=&quot;button&quot; class=&quot;btn btn-default navbar-btn&quot; id=&quot;toolbar-btn-add-bar&quot;&gt;&#x27;;
+    tmpl    += &#x27;                + BAR&#x27;;
     tmpl    += &#x27;            &lt;/button&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
 
@@ -149,7 +157,7 @@ Ava.ToolbarView = function(spec) {
     tmpl    += &#x27;    &lt;% _.each([&quot;durs&quot;, &quot;dots&quot;], function(grp) { %&gt;&#x27;;
     tmpl    += &#x27;        &lt;div class=&quot;btn-group&quot; data-toggle=&quot;buttons&quot;&gt;&#x27;;
     tmpl    += &#x27;        &lt;% _.each( dur_btns[grp], function(btn) { %&gt;&#x27;;
-    tmpl    += &#x27;            &lt;label class=&quot;btn btn-default navbar-btn&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;&lt;%= btn.name %&gt;&quot; id=&quot;nav-btn-dur-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/label&gt;&#x27;;
+    tmpl    += &#x27;            &lt;label class=&quot;btn btn-default navbar-btn&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;&lt;%= btn.name %&gt;&quot; id=&quot;&lt;%= btn.name %&gt;-&lt;%= btn.id %&gt;&quot;&gt;&lt;%= btn.label %&gt;&lt;/label&gt;&#x27;;
     tmpl    += &#x27;        &lt;% }); %&gt;&#x27;;
     tmpl    += &#x27;        &lt;/div&gt;&#x27;;
     tmpl    += &#x27;    &lt;% }); %&gt;&#x27;;
@@ -262,7 +270,41 @@ Ava.ToolbarView = function(spec) {
     ];
 
     var toggle_toolbar_currents = function() {
-        Ava.Utils.toggle_button(&#x27;nav-btn-dur-&#x27; + Ava.Context.cd());
+        Ava.Utils.toggle_button(&#x27;toolbar-btn-dur-&#x27; + Ava.Context.cd());
+    };
+
+    var bind_click_to_durs = function() {
+        // Douglas Crockford - The Good Parts - p39
+        // Populating functions based on variables
+        var helper = function(btn_id, dot_id) {
+            return function(event) {
+                try {
+                    // Set current duration
+                    Ava.Context.cd(btn_id);
+                } catch (e) {
+                    console.log(e);
+                }
+                // reset dot buttons
+                Ava.Utils.get_btn_group( dot_id )
+                    .button(&#x27;toggle&#x27;);
+            };
+        };
+
+        // Need to get the first id so that later be able to reach to its parent
+        var dot = _.first( dur_btns.dots );
+        var dot_element_id = dot.name + &#x27;-&#x27; + dot.id;
+        _.each( dur_btns.durs, function(btn, dot) {
+            var btn_id = btn.name + &#x27;-&#x27; + btn.id;
+            Ava.Utils.bind_click_to_button( btn_id, helper(btn.id, dot_element_id) );
+        });
+    };
+
+    var set_events = function() {
+        // Bind onclick event
+        bind_click_to_durs();
+
+        that.$el.find(&#x27;#toolbar-btn-add-bar&#x27;)
+            .click( function() { Ava.Dispatcher.trigger( &#x27;toolbar:add_bar&#x27; ); } );
     };
 
     ( function(spec) {
@@ -282,6 +324,8 @@ Ava.ToolbarView = function(spec) {
 
                 // Toggle toolbar keys based on defaults values
                 toggle_toolbar_currents();
+
+                set_events();
 
                 return this;
             },

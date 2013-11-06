@@ -18,6 +18,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/js/ava_dispatcher.js": {
+            "name": "src/js/ava_dispatcher.js",
+            "modules": {},
+            "classes": {
+                "Ava.Dispatcher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/js/ava_view.js": {
             "name": "src/js/ava_view.js",
             "modules": {},
@@ -133,6 +142,7 @@
             "classes": {
                 "Ava": 1,
                 "Ava.Context": 1,
+                "Ava.Dispatcher": 1,
                 "Ava.View": 1,
                 "Ava.Bar": 1,
                 "Ava.BarList": 1,
@@ -183,6 +193,20 @@
             "file": "src/js/ava.js",
             "line": 224,
             "is_constructor": 1
+        },
+        "Ava.Dispatcher": {
+            "name": "Ava.Dispatcher",
+            "shortname": "Ava.Dispatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ava",
+            "namespace": "",
+            "file": "src/js/ava_dispatcher.js",
+            "line": 1,
+            "description": "Ava Dispatcher Class"
         },
         "Ava.View": {
             "name": "Ava.View",
@@ -1525,22 +1549,7 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 19,
-            "itemtype": "method",
-            "name": "add_bar",
-            "params": [
-                {
-                    "name": "spec",
-                    "description": "Ava.Bar",
-                    "type": "Object"
-                }
-            ],
-            "class": "Ava.MusicView",
-            "module": "Ava"
-        },
-        {
-            "file": "src/js/music_view.js",
-            "line": 27,
+            "line": 32,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.MusicView",
@@ -1548,7 +1557,7 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 45,
+            "line": 50,
             "itemtype": "method",
             "name": "_render_bar",
             "params": [
@@ -1565,7 +1574,22 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 70,
+            "line": 75,
+            "itemtype": "method",
+            "name": "add_bar",
+            "params": [
+                {
+                    "name": "spec",
+                    "description": "Ava.Bar",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 84,
             "description": "Return BarView object of passed x and y\nTODO: It could accept y when we have wrap enable",
             "itemtype": "method",
             "name": "get_bar_view_of",
@@ -1733,7 +1757,7 @@
         },
         {
             "file": "src/js/toolbar_view.js",
-            "line": 158,
+            "line": 198,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.ToolbarView",
@@ -1742,6 +1766,71 @@
         {
             "file": "src/js/utils.js",
             "line": 9,
+            "itemtype": "method",
+            "name": "",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "btn_id",
+                    "description": "button id",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "JQuery"
+            },
+            "class": "Ava.Utils",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/utils.js",
+            "line": 28,
+            "description": "Workaround to find bootstrap button element",
+            "itemtype": "method",
+            "name": "get_btn_element",
+            "params": [
+                {
+                    "name": "btn_id",
+                    "description": "button id",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "JQuery"
+            },
+            "static": 1,
+            "final": 1,
+            "class": "Ava.Utils",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/utils.js",
+            "line": 46,
+            "description": "Get btn-group element of a button",
+            "itemtype": "method",
+            "name": "get_bth_group",
+            "params": [
+                {
+                    "name": "btn_id",
+                    "description": "button id",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "JQuery"
+            },
+            "static": 1,
+            "final": 1,
+            "class": "Ava.Utils",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/utils.js",
+            "line": 59,
             "description": "Toggle bootstrap group button via javascript",
             "itemtype": "method",
             "name": "toggle_button",
@@ -1756,12 +1845,25 @@
             "final": 1,
             "class": "Ava.Utils",
             "module": "Ava"
+        },
+        {
+            "file": "src/js/utils.js",
+            "line": 71,
+            "description": "Bind click event on bootstrap buttons",
+            "itemtype": "method",
+            "name": "bind_click_to_button",
+            "params": [
+                {
+                    "name": "btn_id",
+                    "description": "button id",
+                    "type": "String"
+                }
+            ],
+            "static": 1,
+            "final": 1,
+            "class": "Ava.Utils",
+            "module": "Ava"
         }
     ],
-    "warnings": [
-        {
-            "message": "replacing incorrect tag: params with param",
-            "line": " src/js/utils.js:9"
-        }
-    ]
+    "warnings": []
 }

@@ -53,6 +53,8 @@
             
                 <li><a href="../classes/Ava.CursorView.html">Ava.CursorView</a></li>
             
+                <li><a href="../classes/Ava.Dispatcher.html">Ava.Dispatcher</a></li>
+            
                 <li><a href="../classes/Ava.LeftnavView.html">Ava.LeftnavView</a></li>
             
                 <li><a href="../classes/Ava.Music.html">Ava.Music</a></li>
@@ -129,15 +131,20 @@ Ava.MusicView = function(spec) {
 
             initialize: function() {
                 this.model.get(&#x27;bars&#x27;).on(&#x27;add&#x27;, this.render, this);
-                //this.model.on(&quot;change:dirty&quot;, this.render, this);
-            },
 
-            /**
-             * @method add_bar
-             * @param {Object} spec Ava.Bar
-             **/
-            add_bar: function(spec) {
-                this.model.add_bar( Ava.Bar(spec) );
+                this.listenTo( Ava.Dispatcher, &#x27;toolbar:add_bar&#x27;, function() {
+                    var bar = {
+                        clef:                 Ava.Context.cc(),
+                        show_clef:            false,
+                        key_signature:        Ava.Context.ck(),
+                        time_signature:       Ava.Context.ct(),
+                        show_time_signature:  false,
+                        notes:                [],
+                    };
+
+                    add_bar(bar);
+                } );
+                //this.model.on(&quot;change:dirty&quot;, this.render, this);
             },
 
             /**
@@ -184,6 +191,15 @@ Ava.MusicView = function(spec) {
     })(spec);
 
     /**
+     * @method add_bar
+     * @param {Object} spec Ava.Bar
+     **/
+    var add_bar = function(spec) {
+        that.model.add_bar( Ava.Bar(spec) );
+    };
+
+
+    /**
      * Return BarView object of passed x and y
      * TODO: It could accept y when we have wrap enable
      *
@@ -191,7 +207,7 @@ Ava.MusicView = function(spec) {
      * @param {Number} x
      * @return {Object} Ava.BarView
      **/
-    that.get_bar_view_of = function( x ) {
+    var get_bar_view_of = function( x ) {
         var bar_x, bar_w, i;
 
         if ( typeof x === &#x27;undefined&#x27; ) {
@@ -214,6 +230,9 @@ Ava.MusicView = function(spec) {
             message: &quot;No bar found for x: &quot; + x,
         };
     };
+
+    that.add_bar = add_bar;
+    that.get_bar_view_of = get_bar_view_of;
 
     return that;
 };
