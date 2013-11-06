@@ -7,8 +7,9 @@ Ava.Utils = ( function() {
     var that = {};
 
     /**
+     * @method
      * @private
-     * @params {String} btn_id button id
+     * @param {String} btn_id button id
      * @return {jQuery}
      **/
     var get_jq_btn = function( btn_id ) {
@@ -27,7 +28,7 @@ Ava.Utils = ( function() {
     /**
      * Workaround to find bootstrap button element
      * @method get_btn_element
-     * @params {String} btn_id button id
+     * @param {String} btn_id button id
      * @return {jQuery}
      * @static
      * @final
@@ -45,7 +46,7 @@ Ava.Utils = ( function() {
     /**
      * Get btn-group element of a button
      * @method get_bth_group
-     * @params {String} btn_id button id
+     * @param {String} btn_id button id
      * @return {jQuery}
      * @static
      * @final
@@ -58,7 +59,7 @@ Ava.Utils = ( function() {
     /**
      * Toggle bootstrap group button via javascript
      * @method toggle_button
-     * @params {String} btn_id button id
+     * @param {String} btn_id button id
      * @static
      * @final
      **/
@@ -70,7 +71,7 @@ Ava.Utils = ( function() {
     /**
      * Bind click event on bootstrap buttons
      * @method bind_click_to_button
-     * @params {String} btn_id button id
+     * @param {String} btn_id button id
      * @static
      * @final
      **/
