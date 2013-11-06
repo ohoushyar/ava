@@ -122,6 +122,8 @@ Ava.View = function(spec) {
                 });
                 this.music_view.render();
 
+                $('#' + div_id + ' > div > #ava-canvas').width(Ava.Constant.DEFAULT_WIDTH);
+
                 // Add event
                 add_click_event( Ava.Context.current_div_id(), this );
 
