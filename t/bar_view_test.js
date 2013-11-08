@@ -93,6 +93,21 @@ var bar_view_test = function () {
                 })(), test_title);
         });
 
+        test_title = 'Successfully render the bar without notes';
+        ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
+
+            var empty_model = _.clone(model);
+            empty_model.notes = [ ];
+
+            var mod = Ava.Bar(empty_model);
+
+            var view = Ava.BarView({ model: mod });
+            ok( (function(){
+                    view.render();
+                    return view.$el;
+                })(), test_title);
+        });
+
         test_title = 'Successfully ran render the bar includes notes with beam';
         ava_test_helper.run_view_test( module_name, sub_module_name, test_title, function(env) {
 
