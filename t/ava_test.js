@@ -114,7 +114,7 @@ avaTest = function () {
 
             equal( notes.length, 440, 'Got the expected value for number of notes of clef [' + clef + ']' );
 
-            equal( Ava.Context.get_note_of_line( 2, clef ), note_line[clef], 'Got the expected value of [' + note_line[clef] + ']' );
+            equal( Ava.Context.get_note_by_line( 2, clef ), note_line[clef], 'Got the expected value of [' + note_line[clef] + ']' );
         } );
     });
 };

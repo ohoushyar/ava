@@ -444,6 +444,8 @@ Ava.Context = ( function () {
 
     var vexflow_all_notes = {};
     /**
+     * A helper function to get all notes properties for given clef.
+     *
      * @method get_vexflow_all_notes_properties
      * @return {Backbone.Collection}
      **/
@@ -465,15 +467,21 @@ Ava.Context = ( function () {
     };
 
     /**
-     * @method
+     * Get the line number and returns key/octave which is ready to pass to
+     * vexflow.
+     *
+     * @method get_note_by_line
+     * @param {Number} line
+     * @param {String} clef
      * @return {String} key/octave (F/6)
      **/
-    that.get_note_of_line = function(line, clef) {
+    that.get_note_by_line = function(line, clef) {
         if ( _.isUndefined(clef) || _.indexOf( Ava.valid_clefs, clef ) == -1 ) {
             clef = that.cc();
         }
+        console.debug( 'clef: ', clef );
 
-        if ( _.indexOf( _.range(-8, 18), line ) == -1 ) {
+        if ( !(line >= -8 && line <= 18) ) {
             throw {
                 name:     'outOfRange',
                 message:  'Line number is out of range [' + line + ']',
