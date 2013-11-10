@@ -169,6 +169,27 @@ Ava.BarView = function(spec) {
 
     };
 
+    /**
+     * @method add_note_by_y
+     * @param {Number} line_no
+     **/
+    var add_note_by_y = function( y ) {
+        console.debug( 'y: ' + y );
+
+        var line = that.stave.get_line_by_y( y );
+        console.debug( 'line: ' + line );
+
+        var note_key = Ava.Context.get_note_by_line( line );
+        console.debug( 'note_key: ' + note_key );
+
+        that.add_note({
+            keys: [ note_key ],
+            duration: Ava.Context.cd(),
+        });
+
+    };
+
+    that.add_note_by_y = add_note_by_y;
 
     return that;
 };

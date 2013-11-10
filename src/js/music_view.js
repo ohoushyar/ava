@@ -7,6 +7,65 @@
  **/
 Ava.MusicView = function(spec) {
     var that = {};
+    var cursor;
+
+    /**
+     * @method addbar_onclick_handler
+     * @private
+     **/
+    var addbar_onclick_handler = function() {
+        var bar = {
+            clef:                 Ava.Context.cc(),
+            show_clef:            false,
+            key_signature:        Ava.Context.ck(),
+            time_signature:       Ava.Context.ct(),
+            show_time_signature:  false,
+            notes:                [],
+        };
+
+        add_bar(bar);
+    }
+
+    /**
+     * @method music_onclick_handler
+     * @private
+     * @param {Object} event
+     * @param {Object} jQuery clicked object
+     **/
+    var music_onclick_handler = function(e, $clicked) {
+
+        var containerOffset = {top: 0, left: 0};
+        containerOffset.left = Math.floor($clicked.offset().left);
+        containerOffset.top = Math.floor($clicked.offset().top);
+        console.debug( $clicked.offset());
+
+        console.debug('e: ' + e.pageY + ', ' + e.pageX);
+        var bar_view, c_width, c_height, c_y;
+        var mouse_x = e.pageX - containerOffset.left;
+        var mouse_y = e.pageY - containerOffset.top;
+        console.debug('e - offset: ' + mouse_y + ', ' + mouse_x);
+
+        try {
+            // get bar over which the mouse move and pass it to get_hot_spot
+            bar_view = get_bar_view_of(mouse_x);
+        } catch (e) {
+            // do nothing
+        }
+
+        // move the cursor to hot spot over the stave
+        if (typeof bar_view === 'object') {
+            c_width = c_height = 10;
+            c_y = bar_view.stave.get_y_hot_spot(mouse_y) - (c_height/2);
+            console.debug( 'y hot spot: ' + mouse_y );
+        }
+        // calculate the hot spot and return the postion
+        var move = _.bind( cursor.resize_and_move, cursor );
+        // Call move in defer as it's pretty expensive to run and render
+        _.defer( move, c_width, c_height, mouse_x, c_y);
+
+        // add note
+        bar_view.add_note_by_y( mouse_y );
+    };
 
     (function(spec){
         var View = Backbone.View.extend({
@@ -15,19 +74,8 @@ Ava.MusicView = function(spec) {
                 this.model.get('bars').on('add', this.render, this);
                 //this.model.on("change:dirty", this.render, this);
 
-                this.listenTo( Ava.Dispatcher, 'toolbar_add_bar', function() {
-                    var bar = {
-                        clef:                 Ava.Context.cc(),
-                        show_clef:            false,
-                        key_signature:        Ava.Context.ck(),
-                        time_signature:       Ava.Context.ct(),
-                        show_time_signature:  false,
-                        notes:                [],
-                    };
-
-                    add_bar(bar);
-                } );
-                //this.model.on("change:dirty", this.render, this);
+                this.listenTo( Ava.Dispatcher , 'toolbar_addbar_onclick' , addbar_onclick_handler );
+                this.listenTo( Ava.Dispatcher , 'music_onclick'          , music_onclick_handler );
             },
 
             /**
@@ -45,6 +93,13 @@ Ava.MusicView = function(spec) {
 
                 // Run views of each bar
                 this.model.get('bars').forEach( this._render_bar, this);
+
+                cursor = Ava.CursorView({
+                        model: Ava.Cursor({})
+                    }).render();
+
+                add_click_to_canvas();
+
                 return this;
             },
 
@@ -72,6 +127,14 @@ Ava.MusicView = function(spec) {
         that = new View(spec);
         that.bars = [];
     })(spec);
+
+    /**
+     * @method add_click_to_canvas
+     **/
+    var add_click_to_canvas = function() {
+        that.$el.find('#ava-canvas svg')
+            .click( function(e) { Ava.Dispatcher.trigger( 'music_onclick', e, $(this) ) } );
+    };
 
     /**
      * @method add_bar

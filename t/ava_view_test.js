@@ -16,10 +16,10 @@ var ava_view_test = function () {
             key_signature:        'G',
             show_time_signature:  true,
             notes: [
-                { keys: ["d/4"], duration: "q" },
-                { keys: ["b/4"], duration: "qr" },
-                { keys: ["c/4"], duration: "q" },
-                { keys: ["d/4"], duration: "q" },
+                // { keys: ["g/4"], duration: "q" },
+                // { keys: ["b/4"], duration: "qr" },
+                // { keys: ["c/4"], duration: "q" },
+                // { keys: ["d/4"], duration: "q" },
             ],
         }],
     };
