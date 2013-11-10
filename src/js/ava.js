@@ -441,5 +441,50 @@ Ava.Context = ( function () {
         that[curr_div_id].curr_y = 0;
     };
 
+
+    var vexflow_all_notes = {};
+    /**
+     * @method get_vexflow_all_notes_properties
+     * @return {Backbone.Collection}
+     **/
+    that.get_vexflow_all_notes_properties = function(clef) {
+
+        if ( _.isUndefined(clef) || _.indexOf( Ava.valid_clefs, clef ) == -1 ) {
+            clef = that.cc();
+        }
+        if (_.isObject(vexflow_all_notes[clef])) return vexflow_all_notes[clef];
+
+        vexflow_all_notes[clef] = [];
+        _.each( _.range(1, 11), function( octave ) {
+            _.each( _.keys(Vex.Flow.keyProperties.note_values), function(key) {
+                vexflow_all_notes[clef].push( Vex.Flow.keyProperties(key + '/' + octave, clef) );
+            } );
+        } );
+
+        return vexflow_all_notes[clef];
+    };
+
+    /**
+     * @method
+     * @return {String} key/octave (F/6)
+     **/
+    that.get_note_of_line = function(line, clef) {
+        if ( _.isUndefined(clef) || _.indexOf( Ava.valid_clefs, clef ) == -1 ) {
+            clef = that.cc();
+        }
+
+        if ( _.indexOf( _.range(-8, 18), line ) == -1 ) {
+            throw {
+                name:     'outOfRange',
+                message:  'Line number is out of range [' + line + ']',
+            };
+        }
+
+        var all_notes = that.get_vexflow_all_notes_properties( clef );
+        var res = _.first( _.where(all_notes, {line: line,  accidental: null}) );
+        console.log(res);
+        return res.key + "/" + res.octave;
+    };
+
     return that;
 } )();

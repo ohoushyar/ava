@@ -99,4 +99,22 @@ avaTest = function () {
             // clean-up
             ok( $('#test').detach(), 'detached the test div successfully');
         });
+
+    test( 'Context - Note Line', function() {
+        var note_line = {
+            treble: 'G/4',
+            bass: 'B/2',
+            alto: 'A/3',
+            tenor: 'F/3',
+            percussion: 'G/4',
+        };
+        _.each( Ava.valid_clefs, function( clef ) {
+            var notes;
+            ok( notes = Ava.Context.get_vexflow_all_notes_properties( clef ), 'Ran get_vexflow_all_notes_properties for clef [' + clef + ']' );
+
+            equal( notes.length, 440, 'Got the expected value for number of notes of clef [' + clef + ']' );
+
+            equal( Ava.Context.get_note_of_line( 2, clef ), note_line[clef], 'Got the expected value of [' + note_line[clef] + ']' );
+        } );
+    });
 };
