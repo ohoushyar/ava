@@ -13,8 +13,9 @@ Ava.MusicView = function(spec) {
 
             initialize: function() {
                 this.model.get('bars').on('add', this.render, this);
+                //this.model.on("change:dirty", this.render, this);
 
-                this.listenTo( Ava.Dispatcher, 'toolbar:add_bar', function() {
+                this.listenTo( Ava.Dispatcher, 'toolbar_add_bar', function() {
                     var bar = {
                         clef:                 Ava.Context.cc(),
                         show_clef:            false,
