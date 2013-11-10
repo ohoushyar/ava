@@ -206,7 +206,10 @@
             "namespace": "",
             "file": "src/js/ava_dispatcher.js",
             "line": 1,
-            "description": "Ava Dispatcher Class"
+            "description": "Ava Dispatcher Class",
+            "example": [
+                "\n     // Set the event listener\n     this.listenTo( Ava.Dispatcher, 'toolbar:add_bar', function() { alert(\"Yeyyyy I'm listening\"); } );\n\n     // Somewhere else:\n     // Trigger the event\n     that.$el.find('#toolbar-btn-add-bar')\n         .click( function() { Ava.Dispatcher.trigger( 'toolbar:add_bar' ); } );"
+            ]
         },
         "Ava.View": {
             "name": "Ava.View",
@@ -937,8 +940,46 @@
             "module": "Ava"
         },
         {
+            "file": "src/js/ava.js",
+            "line": 446,
+            "description": "A helper function to get all notes properties for given clef.",
+            "itemtype": "method",
+            "name": "get_vexflow_all_notes_properties",
+            "return": {
+                "description": "",
+                "type": "Backbone.Collection"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/ava.js",
+            "line": 469,
+            "description": "Get the line number and returns key/octave which is ready to pass to\nvexflow.",
+            "itemtype": "method",
+            "name": "get_note_by_line",
+            "params": [
+                {
+                    "name": "line",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "clef",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "key/octave (F/6)",
+                "type": "String"
+            },
+            "class": "Ava.Context",
+            "module": "Ava"
+        },
+        {
             "file": "src/js/ava_view.js",
-            "line": 75,
+            "line": 27,
             "description": "The id of div the application is going to render in.",
             "itemtype": "attribute",
             "name": "div_id",
@@ -1216,6 +1257,21 @@
             "name": "_fill_with_removable_rest",
             "access": "private",
             "tagname": "",
+            "class": "Ava.BarView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/bar_view.js",
+            "line": 172,
+            "itemtype": "method",
+            "name": "add_note_by_y",
+            "params": [
+                {
+                    "name": "line_no",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
             "class": "Ava.BarView",
             "module": "Ava"
         },
@@ -1549,7 +1605,39 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 32,
+            "line": 12,
+            "itemtype": "method",
+            "name": "addbar_onclick_handler",
+            "access": "private",
+            "tagname": "",
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 29,
+            "itemtype": "method",
+            "name": "music_onclick_handler",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "jQuery",
+                    "description": "clicked object",
+                    "type": "Object"
+                }
+            ],
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 81,
             "itemtype": "method",
             "name": "render",
             "class": "Ava.MusicView",
@@ -1557,7 +1645,7 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 50,
+            "line": 106,
             "itemtype": "method",
             "name": "_render_bar",
             "params": [
@@ -1574,7 +1662,15 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 75,
+            "line": 131,
+            "itemtype": "method",
+            "name": "add_click_to_canvas",
+            "class": "Ava.MusicView",
+            "module": "Ava"
+        },
+        {
+            "file": "src/js/music_view.js",
+            "line": 139,
             "itemtype": "method",
             "name": "add_bar",
             "params": [
@@ -1589,7 +1685,7 @@
         },
         {
             "file": "src/js/music_view.js",
-            "line": 84,
+            "line": 148,
             "description": "Return BarView object of passed x and y\nTODO: It could accept y when we have wrap enable",
             "itemtype": "method",
             "name": "get_bar_view_of",
@@ -1727,7 +1823,7 @@
         },
         {
             "file": "src/js/stave_view.js",
-            "line": 81,
+            "line": 83,
             "description": "Find the hot spot for passed y\nWhat is hot spot? Hot spot is the exact y for a line which calculate\nbased on passed y.",
             "itemtype": "method",
             "name": "get_y_hot_spot",
@@ -1742,10 +1838,10 @@
         },
         {
             "file": "src/js/stave_view.js",
-            "line": 110,
+            "line": 117,
             "description": "Return line number relative to y.",
             "itemtype": "method",
-            "name": "get_line_of",
+            "name": "get_line_by_y",
             "params": [
                 {
                     "name": "y",

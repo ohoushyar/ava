@@ -353,7 +353,21 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_get_line_of">get_line_of</a>
+                                <a href="#method_get_line_by_y">get_line_by_y</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_get_note_by_line">get_note_by_line</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_get_vexflow_all_notes_properties">get_vexflow_all_notes_properties</a>
 
                                 
                                 
@@ -1196,8 +1210,8 @@ div_id.</p>
 </div>
 
                 
-                    <div id="method_get_line_of" class="method item">
-    <h3 class="name"><code>get_line_of</code></h3>
+                    <div id="method_get_line_by_y" class="method item">
+    <h3 class="name"><code>get_line_by_y</code></h3>
 
     
         <div class="args">
@@ -1238,7 +1252,7 @@ div_id.</p>
             
         
         
-        <a href="../files/src_js_stave_view.js.html#l110"><code>src&#x2F;js&#x2F;stave_view.js:110</code></a>
+        <a href="../files/src_js_stave_view.js.html#l117"><code>src&#x2F;js&#x2F;stave_view.js:117</code></a>
         
         </p>
 
@@ -1277,6 +1291,196 @@ div_id.</p>
         </div>
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_get_note_by_line" class="method item inherited">
+    <h3 class="name"><code>get_note_by_line</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>line</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>clef</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.Context.html#method_get_note_by_line">Ava.Context</a>:
+            
+        
+        
+        <a href="../files/src_js_ava.js.html#l469"><code>src&#x2F;js&#x2F;ava.js:469</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get the line number and returns key/octave which is ready to pass to
+vexflow.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">line</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">clef</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    key/octave (F/6)
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_get_vexflow_all_notes_properties" class="method item inherited">
+    <h3 class="name"><code>get_vexflow_all_notes_properties</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Backbone.Collection</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Ava.Context.html#method_get_vexflow_all_notes_properties">Ava.Context</a>:
+            
+        
+        
+        <a href="../files/src_js_ava.js.html#l446"><code>src&#x2F;js&#x2F;ava.js:446</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A helper function to get all notes properties for given clef.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Backbone.Collection</span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -1325,7 +1529,7 @@ div_id.</p>
             
         
         
-        <a href="../files/src_js_stave_view.js.html#l81"><code>src&#x2F;js&#x2F;stave_view.js:81</code></a>
+        <a href="../files/src_js_stave_view.js.html#l83"><code>src&#x2F;js&#x2F;stave_view.js:83</code></a>
         
         </p>
 

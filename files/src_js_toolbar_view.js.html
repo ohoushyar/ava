@@ -304,7 +304,7 @@ Ava.ToolbarView = function(spec) {
         bind_click_to_durs();
 
         that.$el.find(&#x27;#toolbar-btn-add-bar&#x27;)
-            .click( function() { Ava.Dispatcher.trigger( &#x27;toolbar:add_bar&#x27; ); } );
+            .click( function() { Ava.Dispatcher.trigger( &#x27;toolbar_addbar_onclick&#x27; ); } );
     };
 
     ( function(spec) {

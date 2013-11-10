@@ -118,6 +118,15 @@
     <pre class="code prettyprint linenums">
 /**
  * Ava Dispatcher Class
+ * @example
+ *      // Set the event listener
+ *      this.listenTo( Ava.Dispatcher, &#x27;toolbar:add_bar&#x27;, function() { alert(&quot;Yeyyyy I&#x27;m listening&quot;); } );
+ *
+ *      // Somewhere else:
+ *      // Trigger the event
+ *      that.$el.find(&#x27;#toolbar-btn-add-bar&#x27;)
+ *          .click( function() { Ava.Dispatcher.trigger( &#x27;toolbar:add_bar&#x27; ); } );
+ *
  * @class Ava.Dispatcher
  **/
 Ava.Dispatcher = (function() {
