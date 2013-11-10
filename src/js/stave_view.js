@@ -69,13 +69,15 @@ Ava.StaveView = function(spec) {
             };
         }
 
-        var y_of_line;
-        for (var line=-4; line<=8; line+=.5) {
-            y_of_line = that.vex_stave.getYForLine(line);
-            if ( y_of_line >= that.vex_stave.y) {
-                _y_map_line[y_of_line] = line;
-            }
-        }
+        // To get the y of note one needs to get the note key props and uses
+        // the line in that and passes it to stave getYForNote
+        var note_key_props =  Ava.Context.get_vexflow_all_notes_properties( Ava.Context.cc );
+        _.each( note_key_props, function( key_props ) {
+            _y_map_line[ that.vex_stave.getYForNote( key_props.line ) ] = key_props.line;
+        });
+
+        // console.debug( 'y_map_line: ' );
+        // console.debug( _y_map_line );
     };
 
     /**
@@ -88,20 +90,25 @@ Ava.StaveView = function(spec) {
      **/
     that.get_y_hot_spot = function( y ) {
 
-        var y0, sign, res, result;
+        var y0, sign, result;
         var fact = 5;
 
-        y0 = that.vex_stave.getYForLine(0);
+        y0 = that.vex_stave.getYForNote(9);
+        console.debug('line #0 y (y0): ' + y0);
+
         y = y - y0;
+        console.debug('y - y0: ' + y);
+
         sign = y >= 0 ? 1 : -1;
         y *= sign;
 
-        res = y - (y % fact);
+        var mod = (y % fact);
+        console.debug( 'mod: ' + mod );
         result;
-        if ( y < res + (fact/2) ) {
-            result = sign * res;
+        if ( mod < (fact/2) ) {
+            result = sign * ( y - mod );
         } else {
-            result = sign * (res + fact);
+            result = sign * ( y + (fact - mod) );
         }
 
         return result + y0;
@@ -110,11 +117,13 @@ Ava.StaveView = function(spec) {
     /**
      * Return line number relative to y.
      *
-     * @method get_line_of
+     * @method get_line_by_y
      * @param y
      **/
-    that.get_line_of = function( y ) {
+    that.get_line_by_y = function( y ) {
+        console.debug( 'y: ' + y );
         var y_hot = that.get_y_hot_spot(y);
+        console.debug( 'y_hot of y: ' + y_hot );
 
         if (!_.keys(_y_map_line).length) {
             _init_y_map_line();

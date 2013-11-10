@@ -98,7 +98,7 @@ var stave_view_test = function () {
         var y = view.vex_stave.y + 22;
         equal( view.get_y_hot_spot(y), 20, "Got expected value from get_y_hot_spot" );
         y += 0.5;
-        equal( view.get_y_hot_spot(y), 20, "Got expected value from get_y_hot_spot on hot boundry" );
+        equal( view.get_y_hot_spot(y), 25, "Got expected value from get_y_hot_spot on hot boundry" );
 
         // Move model down for 2px
         var model2 = _.clone(model);
@@ -114,8 +114,8 @@ var stave_view_test = function () {
 
         y = view.vex_stave.y + 45;
         equal( view.get_y_hot_spot(y), 47, "Got expected value from get_y_hot_spot" );
-        equal( view.get_line_of(y), 0.5, "Got the line correspond to y");
-        equal( view.get_line_of(68), 2.5, "Got the line correspond to y");
+        equal( view.get_line_by_y(y), 4.5, "Got the line correspond to y");
+        equal( view.get_line_by_y(68), 2.5, "Got the line correspond to y");
 
 
     });
